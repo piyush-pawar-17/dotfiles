@@ -9,7 +9,7 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 
 alias bat=batcat
-alias cat=batcat
+alias lg=lazygit
 
 alias t=tmux
 

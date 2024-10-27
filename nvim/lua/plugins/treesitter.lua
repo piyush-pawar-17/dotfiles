@@ -5,6 +5,7 @@ return {
 		opts = {
 			ensure_installed = {
 				"javascript",
+				"jsdoc",
 				"html",
 				"typescript",
 				"tsx",

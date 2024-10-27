@@ -22,6 +22,7 @@ return {
 				theme = "gruvbox-material",
 				section_separators = "",
 				component_separators = "",
+				disabled_filetypes = { "neo-tree", "alpha", "oil" },
 			},
 			sections = {
 				lualine_a = { "mode" },
