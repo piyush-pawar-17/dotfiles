@@ -30,7 +30,6 @@ return {
 
 	{ "eandrju/cellular-automaton.nvim" },
 	{ "mbbill/undotree" },
-	{ "christoomey/vim-tmux-navigator" },
 
 	{
 		"brenoprata10/nvim-highlight-colors",
