@@ -53,7 +53,7 @@ return {
 						["ic"] = "@conditional.inner",
 					},
 					selection_modes = {
-						["@function.outer"] = "V",
+						["@function.outer"] = "v",
 						["@conditional.outer"] = "v",
 					},
 					include_surrounding_whitespace = true,
