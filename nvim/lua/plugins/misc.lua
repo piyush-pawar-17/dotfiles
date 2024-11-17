@@ -2,25 +2,27 @@ return {
 	{ "tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
 	{ "tpope/vim-surround" },
 
-	{ -- Adds git related signs to the gutter, as well as utilities for managing changes
-		"lewis6991/gitsigns.nvim",
-		opts = {
-			signs = {
-				add = { text = "+" },
-				change = { text = "~" },
-				delete = { text = "_" },
-				topdelete = { text = "‾" },
-				changedelete = { text = "~" },
-			},
-		},
-	},
-
 	-- Highlight todo, notes, etc in comments
 	{
 		"folke/todo-comments.nvim",
 		event = "VimEnter",
 		dependencies = { "nvim-lua/plenary.nvim" },
-		opts = { signs = false },
+		opts = { signs = true },
+		config = function()
+			local todo_comments = require("todo-comments")
+
+			vim.keymap.set("n", "]t", function()
+				todo_comments.jump_next()
+			end, { desc = "Next todo comment" })
+
+			vim.keymap.set("n", "[t", function()
+				todo_comments.jump_prev()
+			end, { desc = "Previous todo comment" })
+
+			vim.keymap.set("n", "<leader>tl", ":TodoTelescope<CR>", { desc = "Toggle todo list" })
+
+			todo_comments.setup()
+		end,
 	},
 
 	{

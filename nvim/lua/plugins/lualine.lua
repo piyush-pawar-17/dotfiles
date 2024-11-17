@@ -17,6 +17,8 @@ return {
 			return string.format("%s", filetype)
 		end
 
+		local branch = { "branch", icon = { "" }, "|" }
+
 		require("lualine").setup({
 			options = {
 				theme = "catppuccin",
@@ -26,7 +28,7 @@ return {
 			},
 			sections = {
 				lualine_a = { "mode" },
-				lualine_b = { "branch", "diff" },
+				lualine_b = { branch, "diff" },
 				lualine_c = {
 					{
 						"filename",

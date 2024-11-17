@@ -17,7 +17,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
-vim.keymap.set("n", "<leader>h", "<cmd>nohlsearch<CR>", { desc = "Clear [H]ighlight" })
+vim.keymap.set("n", "<leader>hh", ":nohlsearch<CR>", { desc = "Clear [H]ighlight" })
 vim.keymap.set("n", "tw", ":Twilight<CR>", { noremap = false, silent = true })
 
 -- Diagnostic keymaps
