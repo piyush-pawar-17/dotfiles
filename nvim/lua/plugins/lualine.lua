@@ -34,11 +34,15 @@ return {
 						"filename",
 						file_status = true,
 						path = 1,
+						symbols = {
+							readonly = "",
+							modified = " ",
+						},
 					},
 				},
 				lualine_x = { "diagnostics" },
-				lualine_y = { get_filetype },
-				lualine_z = { "location" },
+				lualine_y = {},
+				lualine_z = { get_filetype },
 			},
 		})
 	end,

@@ -1,4 +1,4 @@
-alias vim="nvim"
+alias v="nvim"
 
 alias ls="eza -F --color=always --group-directories-first"
 alias ll="eza -l -F --color=always --group-directories-first"
