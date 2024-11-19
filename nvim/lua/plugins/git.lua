@@ -57,7 +57,7 @@ return {
 			local neogit = require("neogit")
 			neogit.setup({})
 
-			vim.keymap.set("n", "<leader>gg", neogit.open, { desc = "Open Neogit" })
+			vim.keymap.set("n", "<leader>gs", neogit.open, { desc = "Open Neogit" })
 			vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<CR>", { desc = "[G]it [b]ranches" })
 			vim.keymap.set("n", "<leader>gc", ":Neogit commit<CR>", { silent = true, noremap = true })
 			vim.keymap.set("n", "<leader>gp", ":Neogit pull<CR>", { silent = true, noremap = true })
