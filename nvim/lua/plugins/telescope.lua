@@ -16,7 +16,6 @@ return {
 			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
 		},
 		config = function()
-
 			local function document_symbols_for_selected(prompt_bufnr)
 				local action_state = require("telescope.actions.state")
 				local actions = require("telescope.actions")
@@ -193,24 +192,25 @@ return {
 			vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "[?] Search Recent Files" })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
-			vim.keymap.set("n", "<leader>/", function()
-				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-					winblend = 10,
-					previewer = false,
-				}))
-			end, { desc = "[/] Fuzzily search in current buffer" })
+			local colors = require("catppuccin.palettes").get_palette()
+			local TelescopeColor = {
+				TelescopeMatching = { fg = colors.flamingo },
+				TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
+				TelescopePromptPrefix = { bg = colors.surface0 },
+				TelescopePromptNormal = { bg = colors.surface0 },
+				TelescopeResultsNormal = { bg = colors.mantle },
+				TelescopePreviewNormal = { bg = colors.mantle },
+				TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
+				TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
+				TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
+				TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
+				TelescopeResultsTitle = { fg = colors.mantle },
+				TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
+			}
 
-			vim.keymap.set("n", "<leader>s/", function()
-				builtin.live_grep({
-					grep_open_files = true,
-					prompt_title = "Live Grep in Open Files",
-				})
-			end, { desc = "[S]earch [/] in Open Files" })
-
-			-- Shortcut for searching your Neovim configuration files
-			vim.keymap.set("n", "<leader>sn", function()
-				builtin.find_files({ cwd = vim.fn.stdpath("config") })
-			end, { desc = "[S]earch [N]eovim files" })
+			for hl, col in pairs(TelescopeColor) do
+				vim.api.nvim_set_hl(0, hl, col)
+			end
 		end,
 	},
 }
