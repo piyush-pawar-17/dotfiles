@@ -63,8 +63,18 @@ return {
 			vim.keymap.set("n", "<leader>gp", ":Neogit pull<CR>", { silent = true, noremap = true })
 			vim.keymap.set("n", "<leader>gP", ":Neogit push<CR>", { silent = true, noremap = true })
 
-			vim.keymap.set("n", "<leader>gd", ":DiffviewOpen<CR>", { desc = "Open Diffview" })
-			vim.keymap.set("n", "<leader>gc", ":DiffviewClose<CR>", { desc = "Close Diffview" })
+			vim.keymap.set(
+				"n",
+				"<leader>gd",
+				":DiffviewOpen<CR>",
+				{ silent = true, noremap = true, desc = "Open Diffview" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>gg",
+				":DiffviewClose<CR>",
+				{ silent = true, noremap = true, desc = "Close Diffview" }
+			)
 		end,
 	},
 }
