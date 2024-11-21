@@ -31,6 +31,7 @@ bindkey -v '^?' backward-delete-char
 bindkey '^w' autosuggest-execute
 bindkey '^e' autosuggest-accept
 bindkey '^u' autosuggest-toggle
+bindkey -s '^f' "tmux-sessionizer\n"
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -62,6 +63,7 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 
 # Exports
 export PATH="$PATH:/opt/nvim/"
+export PATH="$PATH:$HOME/.local/bin/"
 export VISUAL=nvim
 export EDITOR=nvim
 export MANPAGER="nvim +Man!"
