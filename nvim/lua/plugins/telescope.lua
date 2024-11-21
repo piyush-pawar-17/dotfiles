@@ -14,6 +14,7 @@ return {
 			},
 			{ "nvim-telescope/telescope-ui-select.nvim" },
 			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
+			"scottmckendry/telescope-resession.nvim",
 		},
 		config = function()
 			local function document_symbols_for_selected(prompt_bufnr)
@@ -159,6 +160,13 @@ return {
 					},
 					["ui-select"] = {
 						require("telescope.themes").get_dropdown(),
+					},
+					resession = {
+						prompt_title = "Find Sessions",
+						dir = "session",
+						path_substitutions = {
+							{ find = os.getenv("HOME"), replace = "~" },
+						},
 					},
 				},
 			})
