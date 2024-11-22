@@ -1,6 +1,9 @@
 return {
 	{ "tpope/vim-sleuth" }, -- Detect tabstop and shiftwidth automatically
 	{ "tpope/vim-surround" },
+	{ "folke/twilight.nvim", opts = {} },
+	{ "eandrju/cellular-automaton.nvim" },
+	{ "mbbill/undotree" },
 
 	-- Highlight todo, notes, etc in comments
 	{
@@ -24,14 +27,6 @@ return {
 			todo_comments.setup()
 		end,
 	},
-
-	{
-		"folke/twilight.nvim",
-		opts = {},
-	},
-
-	{ "eandrju/cellular-automaton.nvim" },
-	{ "mbbill/undotree" },
 
 	{
 		"brenoprata10/nvim-highlight-colors",
@@ -75,6 +70,25 @@ return {
 					end
 				end,
 				nested = true,
+			})
+		end,
+	},
+
+	{
+		"laytan/cloak.nvim",
+		config = function()
+			require("cloak").setup({
+				enabled = true,
+				cloak_character = "*",
+				highlight_group = "Comment",
+				patterns = {
+					{
+						file_pattern = {
+							".env*",
+						},
+						cloak_pattern = "=.+",
+					},
+				},
 			})
 		end,
 	},
