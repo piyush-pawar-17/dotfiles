@@ -78,40 +78,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 #### tmux-sessionizer
 
-- Save the script on `~/.local/bin/tmux-sessionizer`
-
-```sh
-#!/usr/bin/env bash
-
-if [[ $# -eq 1 ]]; then
-    selected=$1
-else
-    selected=$(find ~/code -mindepth 1 -maxdepth 1 -type d | fzf)
-fi
-
-if [[ -z $selected ]]; then
-    exit 0
-fi
-
-selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
-
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $selected_name -c $selected
-    exit 0
-fi
-
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
-    tmux new-session -ds $selected_name -c $selected
-
-fi
-
-if [[ -z $TMUX ]]; then
-    tmux attach -t $selected_name
-else
-    tmux switch-client -t $selected_name
-fi
-```
+- Copy the `tmux-sessionizer` script to `~/.local/bin/tmux-sessionizer`
 
 - Update permissions for the script
 
@@ -123,5 +90,5 @@ chmod +x ~/.local/bin/tmux-sessionizer
 
 ```sh
 sudo apt-get install -y stow
-stow --target ~/.config .
+stow .
 ```
