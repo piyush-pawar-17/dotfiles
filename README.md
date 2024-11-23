@@ -92,3 +92,15 @@ chmod +x ~/.local/bin/tmux-sessionizer
 sudo apt-get install -y stow
 stow .
 ```
+
+## For windows
+
+### Tiling manager
+
+- GlazeWM and Zebar
+
+```sh
+winget install GlazeWM
+```
+
+- Copy the Glaze and Zebar config into [config folder](https://github.com/glzr-io/glazewm?tab=readme-ov-file#config-documentation)

@@ -1,3 +1,4 @@
 --target=~/.config
 --ignore=.stowrc
 --ignore=tmux-sessionizer
+--ignore=windows
