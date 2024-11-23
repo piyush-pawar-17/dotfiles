@@ -105,6 +105,11 @@ return {
 						},
 					},
 				},
+				bashls = {},
+				clangd = {},
+				dockerls = {},
+				gopls = {},
+				sqls = {},
 			}
 
 			require("mason").setup()
