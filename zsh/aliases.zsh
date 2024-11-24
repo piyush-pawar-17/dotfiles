@@ -25,9 +25,9 @@ alias gcp="git cherry-pick"
 alias gd="git diff"
 alias gf="git fetch --prune"
 alias gl="git pull"
-alias glc="git pull origin $(git branch --show-current)"
+alias glc='git pull origin $(git branch --show-current)'
 alias glg='git log --graph --decorate --pretty="oneline"'
 alias gp="git push"
-alias gpc="git push origin $(git branch --show-current)"
+alias gpc='git push origin $(git branch --show-current)'
 alias gs="git status"
 alias gss="git status -s"
