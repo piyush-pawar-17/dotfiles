@@ -13,6 +13,11 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 
+function take {
+	mkdir -p $1
+	cd $1
+}
+
 # Git
 alias g="git"
 alias ga="git add"
