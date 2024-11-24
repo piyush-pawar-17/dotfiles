@@ -46,7 +46,7 @@ return {
 					},
 				},
 				messages = {
-					enabled = false,
+					enabled = true,
 				},
 				popupmenu = {
 					enabled = true,

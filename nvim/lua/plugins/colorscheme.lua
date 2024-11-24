@@ -6,7 +6,8 @@ return {
 		config = function()
 			require("catppuccin").setup({
 				flavour = "mocha",
-				no_italic = true
+				no_italic = true,
+				transparent_background = true,
 			})
 			vim.cmd.colorscheme("catppuccin")
 			-- Configure highlights
