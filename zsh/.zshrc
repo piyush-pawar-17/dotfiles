@@ -28,7 +28,6 @@ export KEYTIMEOUT=1
 
 bindkey '^R' history-incremental-search-backward
 bindkey -v '^?' backward-delete-char
-bindkey '^w' autosuggest-execute
 bindkey '^e' autosuggest-accept
 bindkey '^u' autosuggest-toggle
 bindkey -s '^f' "tmux-sessionizer\n"
