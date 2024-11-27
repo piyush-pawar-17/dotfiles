@@ -99,10 +99,27 @@ return {
 		opts = {},
 		keys = {
 			{
-				"s",
+				"sl",
 				mode = { "n", "x", "o" },
 				function()
-					require("flash").jump()
+					require("flash").jump({
+						search = { mode = "search", max_length = 0 },
+						label = { after = { 0, 0 } },
+						pattern = "^",
+					})
+				end,
+			},
+			{
+				"ss",
+				mode = { "n", "x", "o" },
+				function()
+					require("flash").jump({
+						search = {
+							mode = function(str)
+								return "\\<" .. str
+							end,
+						},
+					})
 				end,
 				desc = "Flash",
 			},
