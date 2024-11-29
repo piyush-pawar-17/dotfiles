@@ -12,3 +12,6 @@ vimcmd_symbol = '[←](bold yellow)'
 
 [git_branch]
 symbol = ' '
+
+[golang]
+symbol = ' '
