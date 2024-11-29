@@ -77,6 +77,14 @@ return {
 					{ name = "buffer" },
 					{ name = "path" },
 				},
+				window = {
+					completion = {
+						border = "single",
+					},
+					documentation = {
+						border = "single",
+					},
+				},
 			})
 
 			-- `/` cmdline setup.
