@@ -183,9 +183,9 @@ return {
 			local find_files = function()
 				local _, ret, _ = utils.get_os_command_output({ "git", "rev-parse", "--is-inside-work-tree" })
 				if ret == 0 then
-					builtin.git_files({ recurse_submodules = true })
+					builtin.git_files({ hidden = true, recurse_submodules = true })
 				else
-					builtin.find_files()
+					builtin.find_files({ hidden = true })
 				end
 			end
 
