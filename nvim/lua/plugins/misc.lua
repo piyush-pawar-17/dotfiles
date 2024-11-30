@@ -5,6 +5,23 @@ return {
 	{ "eandrju/cellular-automaton.nvim" },
 	{ "mbbill/undotree" },
 
+	{
+		"numToStr/Comment.nvim",
+		lazy = false,
+		config = function()
+			require("Comment").setup({
+				toggler = {
+					line = "<leader>/",
+					block = "<leader>?",
+				},
+				opleader = {
+					line = "<leader>/",
+					block = "<leader>?",
+				},
+			})
+		end,
+	},
+
 	-- Highlight todo, notes, etc in comments
 	{
 		"folke/todo-comments.nvim",
@@ -96,10 +113,16 @@ return {
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
-		opts = {},
+		opts = {
+			modes = {
+				char = {
+					enabled = false,
+				},
+			},
+		},
 		keys = {
 			{
-				"sl",
+				"<leader>sl",
 				mode = { "n", "x", "o" },
 				function()
 					require("flash").jump({
@@ -110,7 +133,7 @@ return {
 				end,
 			},
 			{
-				"ss",
+				"s",
 				mode = { "n", "x", "o" },
 				function()
 					require("flash").jump({
