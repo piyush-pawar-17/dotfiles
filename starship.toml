@@ -12,15 +12,21 @@ symbol = " "
 format = "[on](white) [$symbol$branch](bold fg:#f5c2e7) "
 
 [git_status]
-format = "($conflicted$staged[(\\($modified$deleted$renamed$typechanged$untracked$ahead_behind\\))](bold yellow)$stashed )"
-ahead = "⇡"
-diverged = "⇕⇡"
-behind = "⇣"
+format = """\
+	([(\\($ahead_behind\\) )](bold fg:#ffffff)\
+	$conflicted\
+	$staged\
+	[(\\($modified$deleted$renamed$typechanged$untracked\\))](bold yellow)\
+	$stashed )\
+"""
+ahead = "⇡${count}"
+diverged = "⇕⇡${count}"
+behind = "⇣${count}"
 staged = "([\\(+${count}\\)](bold green) )"
 modified = "~"
 untracked = "?"
 deleted = "x"
-conflicted = "([\\(+!{count}\\)](bold red) )"
+conflicted = "([\\(!${count}\\)](bold red) )"
 renamed = "»"
 stashed = "( [\\(📦 ${count}\\)](bold blue))"
 
