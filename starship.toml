@@ -16,8 +16,8 @@ format = """\
 	([(\\($ahead_behind\\) )](bold fg:#ffffff)\
 	$conflicted\
 	$staged\
-	[(\\($modified$deleted$renamed$typechanged$untracked\\))](bold yellow)\
-	$stashed )\
+	[(\\($modified$deleted$renamed$typechanged$untracked\\) )](bold yellow)\
+	$stashed)\
 """
 ahead = "⇡${count}"
 diverged = "⇕⇡${count}"
@@ -28,7 +28,7 @@ untracked = "?"
 deleted = "x"
 conflicted = "([\\(!${count}\\)](bold red) )"
 renamed = "»"
-stashed = "( [\\(📦 ${count}\\)](bold blue))"
+stashed = "([\\(📦${count}\\)](bold blue) )"
 
 [git_commit]
 commit_hash_length = 8

@@ -2,3 +2,4 @@
 --ignore=.stowrc
 --ignore=tmux-sessionizer
 --ignore=windows
+--ignore=mac
