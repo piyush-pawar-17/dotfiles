@@ -24,10 +24,9 @@ return {
 					--  To jump back, press <C-t>.
 					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 
-					map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
-
-					--  Useful when your language has ways of declaring types without an actual implementation.
-					map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+					map("gr", ":Glance references<CR>", "[G]oto [R]eferences")
+					map("gt", ":Glance type_definitions<CR>", "[G]oto [T]ype Definitions")
+					map("gi", ":Glance implementations<CR>", "[G]oto [I]mplementation")
 
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
@@ -136,6 +135,45 @@ return {
 			for type, icon in pairs(signs) do
 				local hl = "DiagnosticSign" .. type
 				vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+			end
+		end,
+	},
+	{
+		"dnlhc/glance.nvim",
+		config = function()
+			local glance = require("glance")
+			local actions = glance.actions
+
+			---@diagnostic disable-next-line: missing-fields
+			require("glance").setup({
+				border = {
+					enable = true, -- Show window borders. Only horizontal borders allowed
+					top_char = "―",
+					bottom_char = "―",
+				},
+				---@diagnostic disable-next-line: missing-fields
+				mappings = {
+					list = {
+						["<Tab>"] = actions.open_fold,
+						["<S-Tab>"] = actions.close_fold,
+					},
+				},
+			})
+
+			local colors = require("catppuccin.palettes").get_palette()
+			local GlanceColors = {
+				GlancePreviewNormal = { bg = colors.mantle },
+				GlanceWinBarTitle = { bg = colors.mantle },
+				GlanceWinBarFilename = { fg = colors.blue, bg = colors.mantle },
+				GlanceWinBarFilepath = { fg = colors.overlay0, bg = colors.mantle },
+				GlanceListNormal = { bg = colors.mantle },
+				GlanceBorderTop = { fg = colors.lavender },
+				GlancePreviewBorderBottom = { fg = colors.lavender },
+				GlanceListBorderBottom = { fg = colors.lavender },
+			}
+
+			for hl, col in pairs(GlanceColors) do
+				vim.api.nvim_set_hl(0, hl, col)
 			end
 		end,
 	},
