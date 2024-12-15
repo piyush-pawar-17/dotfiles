@@ -29,9 +29,9 @@ alias gco="git checkout"
 alias gcp="git cherry-pick"
 alias gd="git diff"
 alias gf="git fetch --prune"
+alias gg="git log --graph --abbrev-commit --date=relative --branches --all --pretty=format:'%C(bold red)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'"
 alias gl="git pull"
 alias glc='git pull origin $(git branch --show-current)'
-alias glg='git log --graph --decorate --pretty="oneline"'
 alias gp="git push"
 alias gpc='git push origin $(git branch --show-current)'
 alias gs="git status"
