@@ -36,8 +36,6 @@ vim.keymap.set("n", "<M-h>", ":vertical resize -5<CR>", { desc = "Resize Vertica
 vim.keymap.set("n", "<M-l>", ":vertical resize +5<CR>", { desc = "Resize Vertical Split Up", silent = true })
 
 -- Buffers
-vim.keymap.set("n", "<S-Tab>", ":bprev<CR>", { desc = "Previous buffer", noremap = false, silent = true })
-vim.keymap.set("n", "<Tab>", ":bnext<CR>", { desc = "Next Buffer", noremap = false, silent = true })
 vim.keymap.set("n", "<leader>l", ":b#<CR>", { desc = "[L]ast Buffer", noremap = false, silent = true })
 
 -- Undotree
