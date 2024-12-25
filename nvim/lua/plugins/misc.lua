@@ -4,11 +4,13 @@ return {
 	{ "folke/twilight.nvim", opts = {} },
 	{ "eandrju/cellular-automaton.nvim" },
 	{ "mbbill/undotree" },
+	{ "kevinhwang91/nvim-bqf", event = "VeryLazy", opts = {} },
 
 	{
 		"numToStr/Comment.nvim",
 		lazy = false,
 		config = function()
+			---@diagnostic disable-next-line: missing-fields
 			require("Comment").setup({
 				toggler = {
 					line = "<leader>/",

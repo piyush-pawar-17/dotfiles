@@ -5,12 +5,10 @@ general:
   startup_commands: ["shell-exec zebar"]
 
   # Commands to run just before the WM is shutdown.
-
   # Example: The below command kills Zebar.
   shutdown_commands: ["shell-exec taskkill /IM zebar.exe /F"]
 
   # Commands to run after the WM config is reloaded.
-
   config_reload_commands: []
 
   # Whether to automatically focus windows underneath the cursor.
@@ -19,9 +17,7 @@ general:
   # Whether to switch back and forth between the previously focused
   # workspace when focusing the current workspace.
   toggle_workspace_on_refocus: false
-
   cursor_jump:
-
     # Whether to automatically move the cursor on the specified trigger.
     enabled: true
 
@@ -29,9 +25,6 @@ general:
     # - 'monitor_focus': Jump when focus changes between monitors.
     # - 'window_focus': Jump when focus changes between windows.
     trigger: "monitor_focus"
-
-  # How windows should be hidden when switching workspaces.
-  # - 'cloak': Recommended. Hides windows with no animation and keeps them
 
   # visible in the taskbar.
   # - 'hide': Legacy method (v3.5 and earlier) that has a brief animation,
@@ -41,7 +34,6 @@ general:
 gaps:
   # Whether to scale the gaps with the DPI of the monitor.
   scale_with_dpi: true
-
 
   # Gap between adjacent windows.
   inner_gap: "8px"
@@ -57,7 +49,6 @@ window_effects:
   # Visual effects to apply to the focused window.
   focused_window:
     # Highlight the window with a colored border.
-
     # ** Exclusive to Windows 11 due to API limitations.
     border:
       enabled: true
@@ -68,7 +59,6 @@ window_effects:
     hide_title_bar:
       enabled: false
 
-
     # Change the corner style of the window's frame.
     # ** Exclusive to Windows 11 due to API limitations.
     corner_style:
@@ -76,10 +66,8 @@ window_effects:
       # Allowed values: 'square', 'rounded', 'small_rounded'.
       style: "small_rounded"
 
-
   # Visual effects to apply to non-focused windows.
   other_windows:
-
     border:
       enabled: true
       color: "#45475a"
@@ -105,16 +93,13 @@ window_behavior:
       # Whether to show floating windows as always on top.
       shown_on_top: false
 
-
     fullscreen:
       # Maximize the window if possible. If the window doesn't have a
       # maximize button, then it'll be fullscreen'ed normally instead.
       maximized: false
 
-
       # Whether to show fullscreen windows as always on top.
       shown_on_top: false
-
 
 workspaces:
   - name: "1" # Terminal
@@ -129,7 +114,6 @@ workspaces:
   - name: "8"
   - name: "9"
 
-
 window_rules:
   - commands: ["move --workspace 1", "focus --workspace 1"]
     match:
@@ -138,7 +122,6 @@ window_rules:
 
   - commands: ["move --workspace 2", "focus --workspace 2"]
     match:
-
       # Move chrome to workspace 2
       - window_process: { regex: "chrome" }
 
@@ -146,7 +129,6 @@ window_rules:
     match:
       # Move explorer to workspace 3
       - window_process: { regex: "explorer" }
-
 
   - commands: ["ignore"]
     match:
@@ -163,14 +145,12 @@ window_rules:
       - window_process: { equals: "PowerToys" }
         window_title: { regex: ".*? - Peek" }
       - window_process: { equals: "Lively" }
-
         window_class: { regex: "HwndWrapper" }
 
 binding_modes:
   # When enabled, the focused window can be resized via arrow keys or HJKL.
   - name: "resize"
     keybindings:
-
       - commands: ["resize --width -2%"]
         bindings: ["h", "left"]
       - commands: ["resize --width +2%"]
@@ -220,16 +200,13 @@ keybindings:
   - commands: ["resize --height +2%"]
     bindings: ["alt+o"]
   - commands: ["resize --height -2%"]
-
     bindings: ["alt+i"]
 
   # As an alternative to the resize keybindings above, resize mode enables
-
   # resizing via arrow keys or HJKL. The binding mode is defined above with
   # the name 'resize'.
   - commands: ["wm-enable-binding-mode --name resize"]
     bindings: ["alt+r"]
-
 
   # Disables all keybindings until alt+shift+p is pressed again.
   - commands: ["wm-enable-binding-mode --name pause"]
@@ -238,7 +215,6 @@ keybindings:
   # Change tiling direction. This determines where new tiling windows will
   # be inserted.
   - commands: ["toggle-tiling-direction"]
-
     bindings: ["alt+v"]
 
   # Change focus from tiling windows -> floating -> fullscreen.
@@ -253,7 +229,6 @@ keybindings:
   - commands: ["toggle-tiling"]
     bindings: ["alt+t"]
 
-
   # Change the focused window to be fullscreen.
   - commands: ["toggle-fullscreen"]
     bindings: ["alt+f"]
@@ -262,11 +237,9 @@ keybindings:
   - commands: ["toggle-minimized"]
     bindings: ["alt+m"]
 
-
   # Close focused window.
   - commands: ["close"]
     bindings: ["alt+shift+q"]
-
 
   # Kill GlazeWM process safely.
   - commands: ["wm-exit"]
@@ -288,15 +261,12 @@ keybindings:
   - commands: ["shell-exec chrome"]
     bindings: ["alt+c"]
 
-
   # Launch Explorer
   - commands: ["shell-exec explorer"]
     bindings: ["alt+e"]
 
-
   # Focus the next/previous workspace defined in `workspaces` config.
   - commands: ["focus --next-workspace"]
-
     bindings: ["alt+s"]
   - commands: ["focus --prev-workspace"]
     bindings: ["alt+a"]
@@ -311,13 +281,11 @@ keybindings:
   - commands: ["focus --workspace 2"]
     bindings: ["alt+2"]
   - commands: ["focus --workspace 3"]
-
     bindings: ["alt+3"]
   - commands: ["focus --workspace 4"]
     bindings: ["alt+4"]
   - commands: ["focus --workspace 5"]
     bindings: ["alt+5"]
-
   - commands: ["focus --workspace 6"]
     bindings: ["alt+6"]
   - commands: ["focus --workspace 7"]
@@ -332,7 +300,6 @@ keybindings:
   - commands: ["move-workspace --direction left"]
     bindings: ["alt+shift+a"]
   - commands: ["move-workspace --direction right"]
-
     bindings: ["alt+shift+f"]
   - commands: ["move-workspace --direction up"]
     bindings: ["alt+shift+d"]

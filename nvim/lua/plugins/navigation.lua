@@ -51,7 +51,6 @@ return {
 					["<C-j>"] = false,
 					["<C-c>"] = false,
 					["q"] = "actions.close",
-					["<M-l>"] = "actions.select_vsplit",
 				},
 				delete_to_trash = true,
 				view_options = {

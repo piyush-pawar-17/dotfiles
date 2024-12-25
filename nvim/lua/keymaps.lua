@@ -20,9 +20,6 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 vim.keymap.set("n", "<leader>hh", ":nohlsearch<CR>", { noremap = true, silent = true, desc = "Clear [H]ighlight" })
 vim.keymap.set("n", "tw", ":Twilight<CR>", { noremap = false, silent = true })
 
--- Diagnostic keymaps
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-
 --  Use CTRL+<hjkl> to switch between windows
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
@@ -30,10 +27,10 @@ vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower win
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
 -- Resize with splits
-vim.keymap.set("n", "<M-k>", ":resize +3<CR>", { desc = "Resize Horizontal Split Down", silent = true })
-vim.keymap.set("n", "<M-j>", ":resize -3<CR>", { desc = "Resize Horizontal Split Up", silent = true })
-vim.keymap.set("n", "<M-h>", ":vertical resize -5<CR>", { desc = "Resize Vertical Split Down", silent = true })
-vim.keymap.set("n", "<M-l>", ":vertical resize +5<CR>", { desc = "Resize Vertical Split Up", silent = true })
+vim.keymap.set("n", "<M-'>", ":resize +3<CR>", { desc = "Resize Horizontal Split Down", silent = true })
+vim.keymap.set("n", "<M-;>", ":resize -3<CR>", { desc = "Resize Horizontal Split Up", silent = true })
+vim.keymap.set("n", "<M-,>", ":vertical resize -5<CR>", { desc = "Resize Vertical Split Down", silent = true })
+vim.keymap.set("n", "<M-.>", ":vertical resize +5<CR>", { desc = "Resize Vertical Split Up", silent = true })
 
 -- Buffers
 vim.keymap.set("n", "<leader>l", ":b#<CR>", { desc = "[L]ast Buffer", noremap = false, silent = true })
