@@ -72,6 +72,7 @@ export PATH="$PATH:/usr/local/go/bin"
 export VISUAL=nvim
 export EDITOR=nvim
 export MANPAGER="nvim +Man!"
+export BROWSER=wslview
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
