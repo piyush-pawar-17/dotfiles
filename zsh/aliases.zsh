@@ -34,5 +34,7 @@ alias gl="git pull"
 alias glc='git pull origin $(git branch --show-current)'
 alias gp="git push"
 alias gpc='git push origin $(git branch --show-current)'
+alias gr="git rebase"
 alias gs="git status"
+alias gsp='git reflog | grep ".*checkout: moving from.*to.*$(git branch --show-current)" | tail -n1 | sed "s/.*checkout: moving from \(.*\) to.*/\1/"'
 alias gss="git status -s"

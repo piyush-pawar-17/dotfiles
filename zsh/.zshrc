@@ -83,3 +83,10 @@ export NVM_DIR="$HOME/.config/nvm"
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
+# pnpm
+export PNPM_HOME="/home/piyush/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

@@ -14,6 +14,7 @@ vim.opt.relativenumber = true
 -- Editor config
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
 vim.opt.wrap = false
 vim.opt.autoindent = true
 vim.opt.smartindent = true
@@ -41,16 +42,13 @@ vim.opt.signcolumn = "yes"
 -- Decrease update time
 vim.opt.updatetime = 1000
 
--- Displays which-key popup sooner
-vim.opt.timeoutlen = 1000
-
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 vim.opt.list = true
-vim.opt.listchars = { tab = "↳ ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = "↳ ", space = "·", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"

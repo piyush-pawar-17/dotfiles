@@ -127,6 +127,7 @@ return {
 				"<leader>sl",
 				mode = { "n", "x", "o" },
 				function()
+					---@diagnostic disable-next-line: missing-fields
 					require("flash").jump({
 						search = { mode = "search", max_length = 0 },
 						label = { after = { 0, 0 } },
@@ -138,6 +139,7 @@ return {
 				"s",
 				mode = { "n", "x", "o" },
 				function()
+					---@diagnostic disable-next-line: missing-fields
 					require("flash").jump({
 						search = {
 							mode = function(str)
@@ -155,6 +157,33 @@ return {
 					require("flash").treesitter()
 				end,
 				desc = "Flash Treesitter",
+			},
+		},
+	},
+
+	{
+		"folke/snacks.nvim",
+		priority = 1000,
+		lazy = false,
+		opts = {
+			indent = {
+				enabled = true,
+				only_scope = true,
+				only_current = true,
+				scope = {
+					only_current = true,
+				},
+				blank = {
+					char = "·",
+				},
+			},
+			dashboard = {
+				enabled = true,
+				sections = {
+					{ section = "header" },
+					{ section = "keys", gap = 1, padding = 1 },
+					{ section = "startup" },
+				},
 			},
 		},
 	},

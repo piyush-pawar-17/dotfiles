@@ -10,11 +10,8 @@ return {
 				sources = {
 					null_ls.builtins.formatting.stylua,
 					null_ls.builtins.formatting.prettier,
-					require("none-ls.diagnostics.eslint_d")
 				},
 			})
-
-			vim.keymap.set("n", "<leader>fp", "<cmd>Prettier<CR>")
 		end,
 		opts = function(_, opts)
 			local nls = require("null-ls")
@@ -29,7 +26,7 @@ return {
 			local prettier = require("prettier")
 
 			prettier.setup({
-				bin = "prettierd",
+				bin = "prettier",
 				filetypes = {
 					"css",
 					"html",
@@ -57,5 +54,43 @@ return {
 				},
 			})
 		end,
+	},
+	{ -- Autoformat
+		"stevearc/conform.nvim",
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
+		keys = {
+			{
+				"<leader>fd",
+				function()
+					require("conform").format({ async = true, lsp_fallback = true })
+				end,
+				mode = "",
+				desc = "[F]ormat [D]ocument",
+			},
+		},
+		opts = {
+			notify_on_error = false,
+			-- format_on_save = function(bufnr)
+			-- 	-- Disable "format_on_save lsp_fallback" for languages that don't
+			-- 	-- have a well standardized coding style. You can add additional
+			-- 	-- languages here or re-enable it for the disabled ones.
+			-- 	local disable_filetypes = { c = true, cpp = true }
+			-- 	return {
+			-- 		timeout_ms = 500,
+			-- 		lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+			-- 	}
+			-- end,
+			formatters_by_ft = {
+				lua = { "stylua" },
+				typescript = { "prettier", "prettierd", stop_after_first = true },
+				typescriptreact = { "prettier", "prettierd", stop_after_first = true },
+				javascript = { "prettier", "prettierd", stop_after_first = true },
+				javascriptreact = { "prettier", "prettierd", stop_after_first = true },
+				json = { "prettier", "prettierd", stop_after_first = true },
+				html = { "prettier", "prettierd", stop_after_first = true },
+				css = { "prettier", "prettierd", stop_after_first = true },
+			},
+		},
 	},
 }

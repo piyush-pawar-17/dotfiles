@@ -125,6 +125,10 @@ return {
 				defaults = {
 					file_ignore_patterns = {
 						"node_modules",
+						"dist",
+						"package%-lock.json",
+						"pnpm%-lock.yaml",
+						"yarn.lock",
 					},
 					mappings = {
 						n = {

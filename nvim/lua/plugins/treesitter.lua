@@ -102,6 +102,7 @@ return {
 		"windwp/nvim-ts-autotag",
 		dependencies = "nvim-treesitter/nvim-treesitter",
 		config = function()
+			---@diagnostic disable-next-line: missing-fields
 			require("nvim-ts-autotag").setup({})
 		end,
 		lazy = true,
