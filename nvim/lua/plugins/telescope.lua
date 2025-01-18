@@ -206,12 +206,12 @@ return {
 			local colors = require("catppuccin.palettes").get_palette()
 			local TelescopeColor = {
 				TelescopeMatching = { fg = colors.flamingo },
-				TelescopeSelection = { fg = colors.text, bg = colors.surface0, bold = true },
-				TelescopePromptPrefix = { bg = colors.surface0 },
-				TelescopePromptNormal = { bg = colors.surface0 },
+				TelescopeSelection = { fg = colors.text, bg = colors.base, bold = true },
+				TelescopePromptPrefix = { bg = colors.base },
+				TelescopePromptNormal = { bg = colors.base },
 				TelescopeResultsNormal = { bg = colors.mantle },
 				TelescopePreviewNormal = { bg = colors.mantle },
-				TelescopePromptBorder = { bg = colors.surface0, fg = colors.surface0 },
+				TelescopePromptBorder = { bg = colors.base, fg = colors.base },
 				TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
 				TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
 				TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
