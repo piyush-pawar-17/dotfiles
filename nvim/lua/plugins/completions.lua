@@ -49,6 +49,34 @@ return {
 			local luasnip = require("luasnip")
 			luasnip.config.setup({})
 
+			local cmp_kinds = {
+				Text = "  ",
+				Method = "  ",
+				Function = "  ",
+				Constructor = "  ",
+				Field = "  ",
+				Variable = "  ",
+				Class = "  ",
+				Interface = "  ",
+				Module = "  ",
+				Property = "  ",
+				Unit = "  ",
+				Value = "  ",
+				Enum = "  ",
+				Keyword = "  ",
+				Snippet = "  ",
+				Color = "  ",
+				File = "  ",
+				Reference = "  ",
+				Folder = "  ",
+				EnumMember = "  ",
+				Constant = "  ",
+				Struct = "  ",
+				Event = "  ",
+				Operator = "  ",
+				TypeParameter = "  ",
+			}
+
 			cmp.setup({
 				snippet = {
 					expand = function(args)
@@ -64,7 +92,7 @@ return {
 					["<C-f>"] = cmp.mapping.scroll_docs(4),
 					["<C-a>"] = cmp.mapping.confirm({ select = true }),
 					-- Manually trigger a completion from nvim-cmp.
-					["<C-Space>"] = cmp.mapping.complete({}),
+					["<C-t>"] = cmp.mapping.complete({}),
 				}),
 				sources = {
 					{
@@ -84,6 +112,13 @@ return {
 					documentation = {
 						border = "single",
 					},
+				},
+				---@diagnostic disable-next-line: missing-fields
+				formatting = {
+					format = function(_, vim_item)
+						vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
+						return vim_item
+					end,
 				},
 			})
 

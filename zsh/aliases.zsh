@@ -2,6 +2,7 @@ alias v="nvim"
 alias bat=batcat
 alias lg=lazygit
 alias t=tmux
+alias install="sudo apt-get install"
 
 # Listing files
 alias ls="eza -F --color=always --group-directories-first"

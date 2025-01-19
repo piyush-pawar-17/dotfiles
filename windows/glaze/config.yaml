@@ -105,8 +105,7 @@ workspaces:
   - name: "1" # Terminal
     keep_alive: true
   - name: "2" # Browser
-    keep_alive: true
-  - name: "3" # Explorer
+  - name: "3"
   - name: "4"
   - name: "5"
   - name: "6"
@@ -124,11 +123,6 @@ window_rules:
     match:
       # Move chrome to workspace 2
       - window_process: { regex: "chrome" }
-
-  - commands: ["move --workspace 3", "focus --workspace 3"]
-    match:
-      # Move explorer to workspace 3
-      - window_process: { regex: "explorer" }
 
   - commands: ["ignore"]
     match:
@@ -194,13 +188,13 @@ keybindings:
 
   # Resize focused window by a percentage or pixel amount.
   - commands: ["resize --width -2%"]
-    bindings: ["alt+u"]
+    bindings: ["alt+["]
   - commands: ["resize --width +2%"]
-    bindings: ["alt+p"]
+    bindings: ["alt+]"]
   - commands: ["resize --height +2%"]
-    bindings: ["alt+o"]
+    bindings: ["alt+="]
   - commands: ["resize --height -2%"]
-    bindings: ["alt+i"]
+    bindings: ["alt+-"]
 
   # As an alternative to the resize keybindings above, resize mode enables
   # resizing via arrow keys or HJKL. The binding mode is defined above with
@@ -216,10 +210,6 @@ keybindings:
   # be inserted.
   - commands: ["toggle-tiling-direction"]
     bindings: ["alt+v"]
-
-  # Change focus from tiling windows -> floating -> fullscreen.
-  - commands: ["wm-cycle-focus"]
-    bindings: ["alt+space"]
 
   # Change the focused window to be floating.
   - commands: ["toggle-floating --centered"]
@@ -294,17 +284,6 @@ keybindings:
     bindings: ["alt+8"]
   - commands: ["focus --workspace 9"]
     bindings: ["alt+9"]
-
-  # Move the focused window's parent workspace to a monitor in a given
-  # direction.
-  - commands: ["move-workspace --direction left"]
-    bindings: ["alt+shift+a"]
-  - commands: ["move-workspace --direction right"]
-    bindings: ["alt+shift+f"]
-  - commands: ["move-workspace --direction up"]
-    bindings: ["alt+shift+d"]
-  - commands: ["move-workspace --direction down"]
-    bindings: ["alt+shift+s"]
 
   # Move focused window to a workspace defined in `workspaces` config.
   - commands: ["move --workspace 1", "focus --workspace 1"]
