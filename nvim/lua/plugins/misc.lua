@@ -167,7 +167,7 @@ return {
 		lazy = false,
 		opts = {
 			indent = {
-				enabled = true,
+				enabled = false,
 				only_scope = true,
 				only_current = true,
 				scope = {
@@ -185,6 +185,56 @@ return {
 					{ section = "startup" },
 				},
 			},
+			scratch = {
+				ft = "markdown",
+			},
 		},
+		keys = {
+			{
+				"<leader>lg",
+				function()
+					require("snacks").lazygit()
+				end,
+				desc = "Lazygit",
+			},
+			{
+				"<leader>gl",
+				function()
+					require("snacks").lazygit.log()
+				end,
+				desc = "Lazygit Logs",
+			},
+			{
+				"<leader>.",
+				function()
+					require("snacks").scratch()
+				end,
+				desc = "Toggle Scratch Buffer",
+			},
+			{
+				"<leader>S",
+				function()
+					require("snacks").scratch.select()
+				end,
+				desc = "Select Scratch Buffer",
+			},
+		},
+	},
+
+	{
+		"echasnovski/mini.splitjoin",
+		config = function()
+			local miniSplitJoin = require("mini.splitjoin")
+
+			miniSplitJoin.setup({
+				mappings = { toggle = "" }, -- Disable default mapping
+			})
+			vim.keymap.set({ "n", "x" }, "<leader>sj", function()
+				miniSplitJoin.join()
+			end, { desc = "Join arguments" })
+			vim.keymap.set({ "n", "x" }, "sk", function()
+				miniSplitJoin.split()
+			end, { desc = "Split arguments" })
+		end,
 	},
 }

@@ -54,7 +54,11 @@ return {
 			local neogit = require("neogit")
 			neogit.setup({})
 
-			vim.keymap.set("n", "<leader>gb", ":Telescope git_branches<CR>", { desc = "[G]it [b]ranches" })
+			vim.keymap.set("n", "<leader>gb", function()
+				require("telescope.builtin").git_branches(require("telescope.themes").get_dropdown({
+					previewer = false,
+				}))
+			end, { desc = "[G]it [b]ranches" })
 
 			vim.keymap.set(
 				"n",

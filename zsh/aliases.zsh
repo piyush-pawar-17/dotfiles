@@ -22,7 +22,9 @@ function take {
 # Git
 alias g="git"
 alias ga="git add"
+alias gaa="git add -A"
 alias gb="git branch"
+alias gba="git branch -a"
 alias gbd="git branch | fzf -m | xargs git branch -D"
 alias gc="git commit"
 alias gcf="git branch | fzf | xargs git checkout"
@@ -35,7 +37,8 @@ alias gl="git pull"
 alias glc='git pull origin $(git branch --show-current)'
 alias gp="git push"
 alias gpc='git push origin $(git branch --show-current)'
-alias gr="git rebase"
+alias grb="git rebase"
+alias grs="git reset"
 alias gs="git status"
 alias gsp='git reflog | grep ".*checkout: moving from.*to.*$(git branch --show-current)" | tail -n1 | sed "s/.*checkout: moving from \(.*\) to.*/\1/"'
 alias gss="git status -s"

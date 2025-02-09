@@ -32,7 +32,9 @@ return {
 					--  the definition of its *type*, not where it was *defined*.
 					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
 
-					map("<leader>fs", require("telescope.builtin").lsp_document_symbols, "[F]ind [S]ymbols")
+					map("<leader>fs", function()
+						require("telescope.builtin").lsp_document_symbols(require("telescope.themes").get_dropdown())
+					end, "[F]ind [S]ymbols")
 					map(
 						"<leader>ws",
 						require("telescope.builtin").lsp_dynamic_workspace_symbols,
