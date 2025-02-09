@@ -17,6 +17,7 @@ return {
 			"scottmckendry/telescope-resession.nvim",
 		},
 		config = function()
+			-- INFO: Get the symbols of a file while searching to directly jump to the symbol
 			local function document_symbols_for_selected(prompt_bufnr)
 				local action_state = require("telescope.actions.state")
 				local actions = require("telescope.actions")
@@ -121,6 +122,80 @@ return {
 				end)
 			end
 
+			local function filename_first(_, path)
+				local tail = vim.fs.basename(path)
+				local parent = vim.fs.dirname(path)
+
+				if parent == "." then
+					return tail
+				end
+				return string.format("%s\t\t%s", tail, parent)
+			end
+
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = "TelescopeResults",
+
+				callback = function(ctx)
+					vim.api.nvim_buf_call(ctx.buf, function()
+						vim.fn.matchadd("TelescopeParent", "\t\t.*$")
+						vim.api.nvim_set_hl(0, "TelescopeParent", { link = "Comment" })
+					end)
+				end,
+			})
+
+			local icons = {
+				Method = " ",
+				Function = " ",
+				Constructor = " ",
+				Field = " ",
+				Variable = " ",
+				Class = " ",
+				Interface = " ",
+				Module = " ",
+				Property = " ",
+				Value = " ",
+				Enum = " ",
+				Color = " ",
+				EnumMember = " ",
+				Constant = " ",
+				Struct = " ",
+			}
+
+			local function format_entry(entry)
+				local icon = icons[entry.symbol_type] or " "
+				local hl_group = "CmpItemKind" .. (entry.symbol_type or "")
+				local dot_idx = entry.symbol_name:reverse():find("%.") or entry.symbol_name:reverse():find("::")
+
+				local symbol, qualifier
+
+				if dot_idx == nil then
+					symbol = entry.symbol_name
+					qualifier = entry.filename
+				else
+					symbol = entry.symbol_name:sub(1 - dot_idx)
+					qualifier = entry.symbol_name:sub(1, #entry.symbol_name - #symbol - 1)
+				end
+
+				-- Replace cwd with ""
+				qualifier = string.sub(qualifier, #vim.fn.getcwd() + 1)
+				local symbol_type = (entry.symbol_type or "symbol"):lower()
+				icon = icon .. symbol_type
+
+				return icon, hl_group, symbol, qualifier
+			end
+
+			local entry_display = require("telescope.pickers.entry_display")
+
+			local displayer = entry_display.create({
+				separator = " ",
+				items = {
+					{ width = 13 },
+					{ remaining = true },
+				},
+			})
+
+			local entry_maker = require("telescope.make_entry").gen_from_lsp_symbols({})
+
 			require("telescope").setup({
 				defaults = {
 					file_ignore_patterns = {
@@ -130,6 +205,7 @@ return {
 						"pnpm%-lock.yaml",
 						"yarn.lock",
 					},
+					path_display = filename_first,
 					mappings = {
 						n = {
 							["<C-d>"] = require("telescope.actions").delete_buffer,
@@ -153,7 +229,40 @@ return {
 						},
 					},
 				},
-				-- pickers = {},
+				pickers = {
+					lsp_dynamic_workspace_symbols = {
+						entry_maker = function(line)
+							local originalEntryTable = entry_maker(line)
+
+							originalEntryTable.display = function(entry)
+								local icon, hl_group, symbol, qualifier = format_entry(entry)
+
+								return displayer({
+									{ icon, hl_group },
+									string.format("%s\t\tin %s", symbol, qualifier),
+								})
+							end
+
+							return originalEntryTable
+						end,
+					},
+					lsp_document_symbols = {
+						entry_maker = function(line)
+							local originalEntryTable = entry_maker(line)
+
+							originalEntryTable.display = function(entry)
+								local icon, hl_group, symbol = format_entry(entry)
+
+								return displayer({
+									{ icon, hl_group },
+									symbol,
+								})
+							end
+
+							return originalEntryTable
+						end,
+					},
+				},
 				extensions = {
 					fzf = {
 						fuzzy = true, -- false will only do exact matching
