@@ -24,17 +24,11 @@ return {
 				map("n", "]h", gs.next_hunk, { buffer = bufnr, desc = "Go to [N]ext hunk" })
 
 				-- Actions
-				map("n", "<leader>hs", gs.stage_hunk, { desc = "[H]unk [s]tage" })
-				map("n", "<leader>hu", gs.undo_stage_hunk, { desc = "[H]unk [u]ndo" })
 				map("n", "<leader>hr", gs.reset_hunk, { desc = "[H]unk [r]eset" })
 				map("n", "<leader>bl", function()
 					gs.blame_line({ full = true })
 				end, { desc = "[B]lame [l]ine" })
 				map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "[T]oggle [b]lame" })
-				map("n", "<leader>hd", gs.diffthis)
-				map("n", "<leader>hD", function()
-					gs.diffthis("~")
-				end)
 				map("n", "<leader>hp", gs.preview_hunk, { buffer = bufnr, desc = "[H]unk [P]review" })
 
 				-- Text object
