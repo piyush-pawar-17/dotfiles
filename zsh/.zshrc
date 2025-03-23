@@ -21,17 +21,18 @@ _comp_options+=(globdots)
 source "${ZDOTDIR}/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "${ZDOTDIR}/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh"
 
+# Keybinds
 set -o ignoreeof
 
 bindkey -v
 export KEYTIMEOUT=1
 
 bindkey '^R' history-incremental-search-backward
-bindkey -v '^?' backward-delete-char
-bindkey '^H' backward-kill-word
 bindkey '^e' autosuggest-accept
 bindkey '^u' autosuggest-toggle
+bindkey -v '^?' backward-delete-char
 bindkey '^l' vi-forward-word
+bindkey '^h' vi-backward-word
 bindkey '^k' up-line-or-search
 bindkey '^j' down-line-or-search
 

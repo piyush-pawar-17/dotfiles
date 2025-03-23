@@ -151,7 +151,7 @@ return {
 				desc = "Flash",
 			},
 			{
-				"S",
+				"<leader>sb",
 				mode = { "n", "x", "o" },
 				function()
 					require("flash").treesitter()
@@ -167,7 +167,7 @@ return {
 		lazy = false,
 		opts = {
 			indent = {
-				enabled = false,
+				enabled = true,
 				only_scope = true,
 				only_current = true,
 				scope = {
@@ -232,7 +232,7 @@ return {
 			vim.keymap.set({ "n", "x" }, "<leader>sj", function()
 				miniSplitJoin.join()
 			end, { desc = "Join arguments" })
-			vim.keymap.set({ "n", "x" }, "sk", function()
+			vim.keymap.set({ "n", "x" }, "<leader>sk", function()
 				miniSplitJoin.split()
 			end, { desc = "Split arguments" })
 		end,

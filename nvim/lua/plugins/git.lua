@@ -12,6 +12,7 @@ return {
 			current_line_blame = true,
 			on_attach = function(bufnr)
 				local gs = package.loaded.gitsigns
+				local builtin = require("telescope.builtin")
 
 				local function map(mode, l, r, opts)
 					opts = opts or {}
@@ -31,6 +32,14 @@ return {
 				map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "[T]oggle [b]lame" })
 				map("n", "<leader>hp", gs.preview_hunk, { buffer = bufnr, desc = "[H]unk [P]review" })
 
+				-- Telescope
+				map("n", "<leader>gs", builtin.git_status, { desc = "[G]it [S]tatus" })
+				map("n", "<leader>gb", function()
+					require("telescope.builtin").git_branches(require("telescope.themes").get_dropdown({
+						previewer = false,
+					}))
+				end, { desc = "[G]it [b]ranches" })
+
 				-- Text object
 				map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "[I]n [h]unk" })
 			end,
@@ -47,12 +56,6 @@ return {
 		config = function()
 			local neogit = require("neogit")
 			neogit.setup({})
-
-			vim.keymap.set("n", "<leader>gb", function()
-				require("telescope.builtin").git_branches(require("telescope.themes").get_dropdown({
-					previewer = false,
-				}))
-			end, { desc = "[G]it [b]ranches" })
 
 			vim.keymap.set(
 				"n",

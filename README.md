@@ -21,10 +21,10 @@ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
 ### Nerd font
 
 ```sh
-wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip \
+wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/GeistMono.zip \
 && cd ~/.local/share/fonts \
-&& unzip JetBrainsMono.zip \
-&& rm JetBrainsMono.zip \
+&& unzip GeistMono.zip \
+&& rm GeistMono.zip \
 && fc-cache -fv
 ```
 
