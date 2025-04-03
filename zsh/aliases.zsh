@@ -32,12 +32,14 @@ alias gco="git checkout"
 alias gcp="git cherry-pick"
 alias gd="git diff"
 alias gf="git fetch --prune"
-alias gg="git log --graph --abbrev-commit --date=relative --branches --all --pretty=format:'%C(bold red)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'"
+alias gg="git log --graph --abbrev-commit --date=relative --branches --pretty=format:'%C(bold yellow)%h%C(reset)%C(reset)%C(auto)%d%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an (%ar)'"
 alias gl="git pull"
 alias glc='git pull origin $(git branch --show-current)'
+alias glo="git log --oneline"
 alias gp="git push"
 alias gpc='git push origin $(git branch --show-current)'
 alias grb="git rebase"
+alias grf="git reflog"
 alias grs="git reset"
 alias gs="git status"
 alias gsp='git reflog | grep ".*checkout: moving from.*to.*$(git branch --show-current)" | tail -n1 | sed "s/.*checkout: moving from \(.*\) to.*/\1/"'

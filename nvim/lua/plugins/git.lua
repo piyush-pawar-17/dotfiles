@@ -12,7 +12,6 @@ return {
 			current_line_blame = true,
 			on_attach = function(bufnr)
 				local gs = package.loaded.gitsigns
-				local builtin = require("telescope.builtin")
 
 				local function map(mode, l, r, opts)
 					opts = opts or {}
@@ -33,7 +32,6 @@ return {
 				map("n", "<leader>hp", gs.preview_hunk, { buffer = bufnr, desc = "[H]unk [P]review" })
 
 				-- Telescope
-				map("n", "<leader>gs", builtin.git_status, { desc = "[G]it [S]tatus" })
 				map("n", "<leader>gb", function()
 					require("telescope.builtin").git_branches(require("telescope.themes").get_dropdown({
 						previewer = false,
@@ -57,12 +55,32 @@ return {
 			local neogit = require("neogit")
 			neogit.setup({})
 
+			vim.keymap.set("n", "<leader>gs", function()
+				neogit.open({ kind = "floating" })
+			end, { silent = true, noremap = true, desc = "[G]it [S]tatus" })
+
+			vim.keymap.set("n", "<leader>gf", function()
+				neogit.open({ "fetch" })
+			end, { silent = true, noremap = true, desc = "[G]it [F]etch" })
+
+			vim.keymap.set("n", "<leader>gl", function()
+				neogit.open({ "log" })
+			end, { silent = true, noremap = true, desc = "[G]it [L]og" })
+
+			vim.keymap.set(
+				{ "n", "v", "x" },
+				"<leader>gh",
+				":DiffviewFileHistory %<CR>",
+				{ silent = true, noremap = true, desc = "[G]it [H]istory" }
+			)
+
 			vim.keymap.set(
 				"n",
 				"<leader>gd",
 				":DiffviewOpen<CR>",
 				{ silent = true, noremap = true, desc = "Open Diffview" }
 			)
+
 			vim.keymap.set(
 				"n",
 				"<leader>gg",
