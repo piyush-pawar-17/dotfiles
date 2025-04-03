@@ -1,19 +1,47 @@
 return {
 	{
-		"echasnovski/mini.files",
-		config = function()
-			require("mini.files").setup({
-				options = {
-					permanent_delete = false,
-					use_as_default_explorer = false,
+		"nvim-neo-tree/neo-tree.nvim",
+		version = "*",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+		},
+		cmd = "Neotree",
+		keys = {
+			{ "\\", ":Neotree reveal<CR>", desc = "NeoTree reveal" },
+		},
+		opts = {
+			enable_git_status = true,
+			default_component_configs = {
+				modified = {
+					symbol = " ",
+					highlight = "NeoTreeModified",
 				},
-				mappings = {
-					close = "\\",
+			},
+			filesystem = {
+				filtered_items = {
+					hide_by_name = { "node_modules" },
 				},
-			})
+				components = {
+					name = function(config, node, state)
+						local components = require("neo-tree.sources.common.components")
 
-			vim.keymap.set("n", "\\", ":lua MiniFiles.open()<CR>", { desc = "Open Mini Files" })
-		end,
+						local name = components.name(config, node, state)
+						if node:get_depth() == 1 then
+							name.text = vim.fs.basename(vim.loop.cwd() or "")
+						end
+						return name
+					end,
+				},
+				window = {
+					position = "right",
+					mappings = {
+						["\\"] = "close_window",
+					},
+				},
+			},
+		},
 	},
 
 	{
