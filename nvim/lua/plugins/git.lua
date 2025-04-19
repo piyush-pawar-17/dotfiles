@@ -53,10 +53,12 @@ return {
 		},
 		config = function()
 			local neogit = require("neogit")
-			neogit.setup({})
+			neogit.setup({
+				kind = "floating",
+			})
 
 			vim.keymap.set("n", "<leader>gs", function()
-				neogit.open({ kind = "floating" })
+				neogit.open()
 			end, { silent = true, noremap = true, desc = "[G]it [S]tatus" })
 
 			vim.keymap.set("n", "<leader>gf", function()

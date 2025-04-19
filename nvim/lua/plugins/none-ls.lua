@@ -10,6 +10,9 @@ return {
 				sources = {
 					null_ls.builtins.formatting.stylua,
 					null_ls.builtins.formatting.prettier,
+					null_ls.builtins.formatting.goimports,
+					null_ls.builtins.formatting.gofumpt,
+					null_ls.builtins.formatting.golines,
 				},
 			})
 		end,
@@ -37,10 +40,9 @@ return {
 					"scss",
 					"typescript",
 					"typescriptreact",
-					"yaml",
 				},
 				cli_options = {
-					arrow_parens = "avoid",
+					arrow_parens = "always",
 					bracket_spacing = true,
 					embedded_language_formatting = "auto",
 					html_whitespace_sensitivity = "css",
@@ -50,7 +52,8 @@ return {
 					semi = true,
 					single_quote = true,
 					tab_width = 4,
-					trailingComma = "none",
+					use_tabs = false,
+					trailing_comma = "none",
 				},
 			})
 		end,
@@ -90,6 +93,7 @@ return {
 				json = { "prettier", "prettierd", stop_after_first = true },
 				html = { "prettier", "prettierd", stop_after_first = true },
 				css = { "prettier", "prettierd", stop_after_first = true },
+				go = { "goimports", "gofumpt", "golines" },
 			},
 		},
 	},

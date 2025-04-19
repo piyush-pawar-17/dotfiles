@@ -17,7 +17,7 @@ y = 5
 history = 100000
 
 [font]
-size = 12.0
+size = 13.0
 
 [font.bold]
 family = "GeistMono Nerd Font"
@@ -57,11 +57,6 @@ mods = "Control"
 
 [[keyboard.bindings]]
 action = "IncreaseFontSize"
-key = "Equals"
-mods = "Control"
-
-[[keyboard.bindings]]
-action = "IncreaseFontSize"
 key = "Plus"
 mods = "Control"
 
@@ -76,7 +71,6 @@ key = "F11"
 mods = "None"
 
 # Colors (Catppuccin Mocha)
-
 [colors.primary]
 background = "#11111b"
 foreground = "#cdd6f4"

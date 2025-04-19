@@ -9,7 +9,9 @@ return {
 		},
 		cmd = "Neotree",
 		keys = {
-			{ "\\", ":Neotree reveal<CR>", desc = "NeoTree reveal" },
+			{ "<C-\\>", ":Neotree reveal<CR>", desc = "NeoTree reveal", silent = true },
+			{ "\\", ":Neotree git_status<CR>", desc = "NeoTree git status", silent = true },
+			{ "|", ":Neotree close<CR>", desc = "NeoTree close", silent = true },
 		},
 		opts = {
 			enable_git_status = true,
@@ -38,6 +40,14 @@ return {
 					position = "right",
 					mappings = {
 						["\\"] = "close_window",
+					},
+				},
+			},
+			git_status = {
+				window = {
+					position = "right",
+					mappings = {
+						["<C-\\>"] = "close_window",
 					},
 				},
 			},
