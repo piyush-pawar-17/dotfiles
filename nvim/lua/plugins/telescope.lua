@@ -26,6 +26,8 @@ return {
 			local pickers = require("plugins.telescope.pickers")
 			local colors = require("plugins.telescope.colors")
 
+			local map = require("utils.keymap").map
+
 			require("telescope").setup({
 				defaults = {
 					sorting_strategy = "ascending",
@@ -113,13 +115,12 @@ return {
 			end
 
 			-- Keymaps
-			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-			vim.keymap.set("n", "<leader>ff", find_files, { desc = "[F]ind [F]iles" })
-			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-			vim.keymap.set("n", "<leader>fg", multi_ripgrep, { desc = "[F]ind by [G]rep" })
-			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
+			map("n", "<leader>ff", find_files, { desc = "[F]ind [F]iles" })
+			map("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
+			map("n", "<leader>fg", multi_ripgrep, { desc = "[F]ind by [G]rep" })
+			map("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+			map("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
+			map("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 		end,
 	},
 }

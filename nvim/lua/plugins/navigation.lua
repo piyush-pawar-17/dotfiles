@@ -9,9 +9,8 @@ return {
 		},
 		cmd = "Neotree",
 		keys = {
-			{ "<C-\\>", ":Neotree reveal<CR>", desc = "NeoTree reveal", silent = true },
-			{ "\\", ":Neotree git_status<CR>", desc = "NeoTree git status", silent = true },
-			{ "|", ":Neotree close<CR>", desc = "NeoTree close", silent = true },
+			{ "<C-\\>", ":Neotree toggle<CR>", desc = "NeoTree reveal", silent = true },
+			{ "\\", ":Neotree git_status toggle<CR>", desc = "NeoTree git status", silent = true },
 		},
 		opts = {
 			enable_git_status = true,
@@ -89,11 +88,12 @@ return {
 				},
 			})
 
-			-- Open parent directory in current window
-			vim.keymap.set("n", "-", ":Oil<CR>", { silent = true, desc = "Open parent directory" })
+			local map = require("utils.keymap").map
 
+			-- Open parent directory in current window
+			map("n", "-", ":Oil<CR>", { silent = true, desc = "Open parent directory" })
 			-- Open parent directory in floating window
-			vim.keymap.set("n", "<space>-", require("oil").toggle_float)
+			map("n", "<space>-", require("oil").toggle_float)
 		end,
 	},
 }

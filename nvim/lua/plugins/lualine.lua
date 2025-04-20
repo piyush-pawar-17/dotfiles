@@ -17,7 +17,6 @@ return {
 			return string.format("%s", filetype)
 		end
 
-		local branch = { "branch", icon = { "󰘬" }, "|" }
 		local function search_result()
 			if vim.v.hlsearch == 0 then
 				return ""
@@ -46,7 +45,14 @@ return {
 						end,
 					},
 				},
-				lualine_b = { branch, "diff" },
+				lualine_b = {
+					{
+						"branch",
+						icon = { "󰘬" },
+						"|"
+					},
+					"diff"
+				},
 				lualine_c = {
 					{
 						"filename",

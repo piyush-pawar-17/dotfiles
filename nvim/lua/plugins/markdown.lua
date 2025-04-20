@@ -9,13 +9,15 @@ return {
 		config = function()
 			require("markview").setup({})
 
-			vim.keymap.set(
+			local map = require("utils.keymap").map
+
+			map(
 				"n",
 				"<leader>mp",
 				":Markview toggle<CR>",
 				{ silent = true, noremap = true, desc = "[M]arkview [p]review toggle" }
 			)
-			vim.keymap.set(
+			map(
 				"n",
 				"<leader>ms",
 				":Markview splitToggle<CR>",

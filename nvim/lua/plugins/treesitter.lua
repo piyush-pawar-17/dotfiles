@@ -95,9 +95,9 @@ return {
 			--    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 		end,
 	},
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-	},
+
+	{ "nvim-treesitter/nvim-treesitter-textobjects" },
+
 	{
 		"windwp/nvim-ts-autotag",
 		dependencies = "nvim-treesitter/nvim-treesitter",
@@ -108,14 +108,17 @@ return {
 		lazy = true,
 		event = "VeryLazy",
 	},
+
 	{
 		"windwp/nvim-autopairs",
 		event = "InsertEnter",
 		dependencies = { "hrsh7th/nvim-cmp" },
 		config = function()
 			require("nvim-autopairs").setup({})
+
 			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
 			local cmp = require("cmp")
+
 			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 		end,
 	},

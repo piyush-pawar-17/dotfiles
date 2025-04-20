@@ -10,48 +10,21 @@ return {
 			"hrsh7th/cmp-nvim-lsp",
 		},
 		config = function()
-			--  This function gets run when an LSP attaches to a particular buffer.
-			--    That is to say, every time a new file is opened that is associated with
-			--    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-			--    function will be executed to configure the current buffer
+			-- This function gets run when an LSP attaches to a particular buffer.
+			-- That is to say, every time a new file is opened that is associated with
+			-- an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
+			-- function will be executed to configure the current buffer
 			vim.api.nvim_create_autocmd("LspAttach", {
 				group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 				callback = function(event)
-					local map = function(keys, func, desc)
-						vim.keymap.set("n", keys, func, { buffer = event.buf, silent = true, desc = "LSP: " .. desc })
-					end
-
-					--  To jump back, press <C-t>.
-					map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-
-					map("gr", ":Glance references<CR>", "[G]oto [R]eferences")
-					map("gt", ":Glance type_definitions<CR>", "[G]oto [T]ype Definitions")
-					map("gi", ":Glance implementations<CR>", "[G]oto [I]mplementation")
-
-					--  Useful when you're not sure what type a variable is and you want to see
-					--  the definition of its *type*, not where it was *defined*.
-					map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-
-					map("<leader>fs", function()
-						require("telescope.builtin").lsp_document_symbols(require("telescope.themes").get_dropdown())
-					end, "[F]ind [S]ymbols")
-					map(
-						"<leader>ws",
-						require("telescope.builtin").lsp_dynamic_workspace_symbols,
-						"[W]orkspace [S]ymbols"
-					)
-					map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-					map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-					map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-					map("K", vim.lsp.buf.hover, "Hover documentation")
-
 					-- The following two autocommands are used to highlight references of the
 					-- word under your cursor when your cursor rests there for a little while.
-					--
 					-- When you move your cursor, the highlights will be cleared (the second autocommand).
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
+
 					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
 						local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
 							buffer = event.buf,
 							group = highlight_augroup,
@@ -73,13 +46,33 @@ return {
 						})
 					end
 
-					-- The following code creates a keymap to toggle inlay hints in your
-					-- code, if the language server you are using supports them
-					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
-						map("<leader>th", function()
-							vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
-						end, "[T]oggle Inlay [H]ints")
+					local map = require("utils.keymap").map
+					local lsp_map = function(keys, func, desc)
+						map("n", keys, func, { buffer = event.buf, silent = true, desc = "LSP: " .. desc })
 					end
+
+					lsp_map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+
+					lsp_map("gr", ":Glance references<CR>", "[G]oto [R]eferences")
+					lsp_map("gt", ":Glance type_definitions<CR>", "[G]oto [T]ype Definitions")
+					lsp_map("gi", ":Glance implementations<CR>", "[G]oto [I]mplementation")
+
+					--  Useful when you're not sure what type a variable is and you want to see
+					--  the definition of its *type*, not where it was *defined*.
+					lsp_map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+
+					lsp_map("<leader>fs", function()
+						require("telescope.builtin").lsp_document_symbols(require("telescope.themes").get_dropdown())
+					end, "[F]ind [S]ymbols")
+					lsp_map(
+						"<leader>ws",
+						require("telescope.builtin").lsp_dynamic_workspace_symbols,
+						"[W]orkspace [S]ymbols"
+					)
+					lsp_map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
+					lsp_map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+					lsp_map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+					lsp_map("K", vim.lsp.buf.hover, "Hover documentation")
 				end,
 			})
 
@@ -119,7 +112,9 @@ return {
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
 			})
+
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
 			---@diagnostic disable-next-line: missing-fields
 			require("mason-lspconfig").setup({
 				handlers = {

@@ -32,16 +32,11 @@ return {
 		opts = { signs = true },
 		config = function()
 			local todo_comments = require("todo-comments")
+			local map = require("utils.keymap").map
 
-			vim.keymap.set("n", "]t", function()
-				todo_comments.jump_next()
-			end, { desc = "Next todo comment" })
-
-			vim.keymap.set("n", "[t", function()
-				todo_comments.jump_prev()
-			end, { desc = "Previous todo comment" })
-
-			vim.keymap.set("n", "<leader>tl", ":TodoTelescope<CR>", { desc = "Toggle todo list" })
+			map("n", "]t", todo_comments.jump_next, { desc = "Next todo comment" })
+			map("n", "[t", todo_comments.jump_prev, { desc = "Previous todo comment" })
+			map("n", "<leader>tl", ":TodoTelescope<CR>", { desc = "Toggle todo list" })
 
 			todo_comments.setup()
 		end,
@@ -50,7 +45,10 @@ return {
 	{
 		"brenoprata10/nvim-highlight-colors",
 		config = function()
-			require("nvim-highlight-colors").setup({
+			local nvim_highlight_colors = require("nvim-highlight-colors")
+			local map = require("utils.keymap").map
+
+			nvim_highlight_colors.setup({
 				render = "virtual",
 				virtual_symbol = "",
 				virtual_symbol_prefix = "",
@@ -58,12 +56,7 @@ return {
 				enable_tailwind = true,
 			})
 
-			vim.keymap.set(
-				"n",
-				"tc",
-				require("nvim-highlight-colors").toggle,
-				{ silent = true, desc = "[T]oggle [C]olors" }
-			)
+			map("n", "tc", nvim_highlight_colors.toggle, { silent = true, desc = "[T]oggle [C]olors" })
 		end,
 	},
 
@@ -211,16 +204,14 @@ return {
 		"echasnovski/mini.splitjoin",
 		config = function()
 			local miniSplitJoin = require("mini.splitjoin")
+			local map = require("utils.keymap").map
 
 			miniSplitJoin.setup({
 				mappings = { toggle = "" }, -- Disable default mapping
 			})
-			vim.keymap.set({ "n", "x" }, "<leader>sj", function()
-				miniSplitJoin.join()
-			end, { desc = "Join arguments" })
-			vim.keymap.set({ "n", "x" }, "<leader>sk", function()
-				miniSplitJoin.split()
-			end, { desc = "Split arguments" })
+
+			map({ "n", "x" }, "<leader>sj", miniSplitJoin.join, { desc = "Join arguments" })
+			map({ "n", "x" }, "<leader>sk", miniSplitJoin.split, { desc = "Split arguments" })
 		end,
 	},
 }
