@@ -19,6 +19,14 @@ history = 100000
 [font]
 size = 13.0
 
+[font.offset]
+x = 1
+y = 3
+
+[font.glyph_offset]
+x = 0
+y = 3
+
 [font.bold]
 family = "GeistMono Nerd Font"
 style = "Bold"
@@ -34,10 +42,6 @@ style = "Regular"
 [font.normal]
 family = "GeistMono Nerd Font"
 style = "Regular"
-
-[font.offset]
-x = 1
-y = 3
 
 # Bindings
 [[keyboard.bindings]]
@@ -72,7 +76,7 @@ mods = "None"
 
 # Colors (Catppuccin Mocha)
 [colors.primary]
-background = "#11111b"
+background = "#1e1e2e"
 foreground = "#cdd6f4"
 dim_foreground = "#7f849c"
 bright_foreground = "#cdd6f4"

@@ -17,17 +17,35 @@ return {
 			return string.format("%s", filetype)
 		end
 
-		local branch = { "branch", icon = { "" }, "|" }
+		local branch = { "branch", icon = { "󰘬" }, "|" }
+		local function search_result()
+			if vim.v.hlsearch == 0 then
+				return ""
+			end
+			local last_search = vim.fn.getreg("/")
+			if not last_search or last_search == "" then
+				return ""
+			end
+			local searchcount = vim.fn.searchcount({ maxcount = 9999 })
+			return last_search .. "(" .. searchcount.current .. "/" .. searchcount.total .. ")"
+		end
 
 		require("lualine").setup({
 			options = {
 				theme = "catppuccin",
-				section_separators = "",
-				component_separators = "",
+				section_separators = { left = "", right = "" },
+				component_separators = { left = "/", right = "\\" },
 				disabled_filetypes = { "neo-tree", "alpha", "oil" },
 			},
 			sections = {
-				lualine_a = { "mode" },
+				lualine_a = {
+					{
+						"mode",
+						fmt = function(mode)
+							return " " .. mode
+						end,
+					},
+				},
 				lualine_b = { branch, "diff" },
 				lualine_c = {
 					{
@@ -40,8 +58,18 @@ return {
 						},
 					},
 				},
-				lualine_x = { "diagnostics" },
-				lualine_y = {},
+				lualine_x = {
+					{
+						"diagnostics",
+						symbols = {
+							error = " ",
+							warn = " ",
+							hint = "󰠠 ",
+							info = " ",
+						},
+					},
+				},
+				lualine_y = { search_result },
 				lualine_z = { get_filetype },
 			},
 		})

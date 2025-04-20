@@ -8,7 +8,7 @@ error_symbol = "[➜](bold red)"
 vimcmd_symbol = "[←](bold yellow)"
 
 [git_branch]
-symbol = " "
+symbol = "󰘬 "
 format = "[on](white) [$symbol$branch](bold fg:#f5c2e7) "
 
 [git_status]
