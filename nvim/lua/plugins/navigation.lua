@@ -12,45 +12,74 @@ return {
 			{ "<C-\\>", ":Neotree toggle<CR>", desc = "NeoTree reveal", silent = true },
 			{ "\\", ":Neotree git_status toggle<CR>", desc = "NeoTree git status", silent = true },
 		},
-		opts = {
-			enable_git_status = true,
-			default_component_configs = {
-				modified = {
-					symbol = " ",
-					highlight = "NeoTreeModified",
-				},
-			},
-			filesystem = {
-				filtered_items = {
-					hide_by_name = { "node_modules" },
-				},
-				components = {
-					name = function(config, node, state)
-						local components = require("neo-tree.sources.common.components")
+		config = function()
+			require("neo-tree").setup({
 
-						local name = components.name(config, node, state)
-						if node:get_depth() == 1 then
-							name.text = vim.fs.basename(vim.loop.cwd() or "")
-						end
-						return name
-					end,
-				},
-				window = {
-					position = "right",
-					mappings = {
-						["\\"] = "close_window",
+				enable_git_status = true,
+				default_component_configs = {
+					modified = {
+						symbol = " ",
+						highlight = "NeoTreeModified",
+					},
+					icon = {
+						default = "󰈚",
+						folder_closed = "",
+						folder_empty = "",
+						folder_empty_open = "",
+						folder_open = "",
+						symlink = "",
+						highlight = "NeoTreeFileIcon",
+					},
+					git_status = {
+						symbols = {
+							added = "✚",
+							modified = "",
+							deleted = "",
+							renamed = "",
+							untracked = "",
+							ignored = "",
+							unstaged = "󰄱",
+							staged = "",
+							conflict = "",
+						},
 					},
 				},
-			},
-			git_status = {
-				window = {
-					position = "right",
-					mappings = {
-						["<C-\\>"] = "close_window",
+				filesystem = {
+					filtered_items = {
+						hide_by_name = { "node_modules" },
+					},
+					components = {
+						name = function(config, node, state)
+							local components = require("neo-tree.sources.common.components")
+
+							local name = components.name(config, node, state)
+							if node:get_depth() == 1 then
+								name.text = vim.fs.basename(vim.loop.cwd() or "")
+							end
+							return name
+						end,
+					},
+					window = {
+						position = "right",
+						mappings = {
+							["\\"] = "close_window",
+						},
 					},
 				},
-			},
-		},
+				git_status = {
+					window = {
+						position = "right",
+						mappings = {
+							["<C-\\>"] = "close_window",
+						},
+					},
+				},
+			})
+
+			vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "#181825" })
+			vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "#181825" })
+			vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { fg = "#181825", bg = "NONE" })
+		end,
 	},
 
 	{
