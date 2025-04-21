@@ -72,7 +72,9 @@ return {
 					lsp_map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					lsp_map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 					lsp_map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-					lsp_map("K", vim.lsp.buf.hover, "Hover documentation")
+					lsp_map("K", function()
+						vim.lsp.buf.hover({ border = "single" })
+					end, "Hover documentation")
 				end,
 			})
 
