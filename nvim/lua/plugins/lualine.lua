@@ -70,7 +70,7 @@ return {
 						symbols = {
 							error = " ",
 							warn = " ",
-							hint = "󰠠 ",
+							hint = "󰌵 ",
 							info = " ",
 						},
 					},

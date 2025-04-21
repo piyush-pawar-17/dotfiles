@@ -3,7 +3,7 @@ return {
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {},
-		enabled = false,
+		enabled = true,
 		dependencies = {
 			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
 			"MunifTanjim/nui.nvim",
@@ -13,7 +13,7 @@ return {
 
 			noice.setup({
 				cmdline = {
-					enabled = true,
+					enabled = false,
 					view = "cmdline_popup",
 					opts = {},
 					format = {
@@ -31,7 +31,7 @@ return {
 					},
 				},
 				lsp = {
-					progress = { enabled = false },
+					progress = { enabled = true },
 					-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
 					override = {
 						["vim.lsp.util.convert_input_to_markdown_lines"] = true,
@@ -74,6 +74,14 @@ return {
 						},
 					},
 				},
+			})
+
+			vim.diagnostic.config({
+				virtual_text = {
+					prefix = "",
+					spacing = 4,
+				},
+				underline = true,
 			})
 		end,
 	},

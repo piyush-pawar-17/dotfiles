@@ -95,9 +95,7 @@ return {
 				highlight_group = "Comment",
 				patterns = {
 					{
-						file_pattern = {
-							".env*",
-						},
+						file_pattern = { ".env*" },
 						cloak_pattern = "=.+",
 					},
 				},
@@ -110,9 +108,7 @@ return {
 		event = "VeryLazy",
 		opts = {
 			modes = {
-				char = {
-					enabled = false,
-				},
+				char = { enabled = false },
 			},
 		},
 		keys = {
@@ -163,12 +159,8 @@ return {
 				enabled = true,
 				only_scope = true,
 				only_current = true,
-				scope = {
-					only_current = true,
-				},
-				blank = {
-					char = "·",
-				},
+				scope = { only_current = true },
+				blank = { char = "·" },
 			},
 			dashboard = {
 				enabled = true,
@@ -178,9 +170,7 @@ return {
 					{ section = "startup" },
 				},
 			},
-			scratch = {
-				ft = "markdown",
-			},
+			scratch = { ft = "markdown" },
 		},
 		keys = {
 			{
