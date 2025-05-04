@@ -82,6 +82,9 @@ return {
 					spacing = 4,
 				},
 				underline = true,
+				float = {
+					border = "single",
+				},
 			})
 		end,
 	},

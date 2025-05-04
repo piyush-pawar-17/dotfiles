@@ -56,7 +56,16 @@ return {
 			local neogit = require("neogit")
 			local map = require("utils.keymap").map
 
-			neogit.setup({ kind = "floating" })
+			neogit.setup({
+				kind = "floating",
+				auto_close_console = false,
+				mappings = {
+					finder = {
+						["<c-j>"] = "Next",
+						["<c-k>"] = "Previous",
+					},
+				},
+			})
 
 			map("n", "<leader>gs", neogit.open, { silent = true, noremap = true, desc = "[G]it [S]tatus" })
 

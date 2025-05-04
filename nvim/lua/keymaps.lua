@@ -35,7 +35,7 @@ map("n", "<M-,>", ":vertical resize -5<CR>", { desc = "Resize Vertical Split Dow
 map("n", "<M-.>", ":vertical resize +5<CR>", { desc = "Resize Vertical Split Up", silent = true })
 
 -- Buffers
-map("n", "<leader>ll", ":b#<CR>", { desc = "[L]ast Buffer", noremap = false, silent = true })
+map("n", "<leader>l", ":b#<CR>", { desc = "[L]ast Buffer", noremap = false, silent = true })
 
 -- Undotree
 map("n", "<leader>u", vim.cmd.UndotreeToggle)

@@ -51,15 +51,12 @@ return {
 					end
 
 					lsp_map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
-
 					lsp_map("gr", ":Glance references<CR>", "[G]oto [R]eferences")
 					lsp_map("gt", ":Glance type_definitions<CR>", "[G]oto [T]ype Definitions")
 					lsp_map("gi", ":Glance implementations<CR>", "[G]oto [I]mplementation")
-
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
 					lsp_map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
-
 					lsp_map("<leader>fs", function()
 						require("telescope.builtin").lsp_document_symbols(require("telescope.themes").get_dropdown())
 					end, "[F]ind [S]ymbols")
@@ -71,6 +68,7 @@ return {
 					lsp_map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					lsp_map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 					lsp_map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+					lsp_map("<leader>k", vim.diagnostic.open_float, "Open Diagnostics")
 					lsp_map("K", function()
 						vim.lsp.buf.hover({ border = "single" })
 					end, "Hover documentation")
