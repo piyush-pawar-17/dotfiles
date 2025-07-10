@@ -19,6 +19,8 @@ return {
 		config = function()
 			local builtin = require("telescope.builtin")
 			local utils = require("telescope.utils")
+			local open_with_trouble = require("trouble.sources.telescope").open
+			local add_to_trouble = require("trouble.sources.telescope").add
 
 			local multi_ripgrep = require("plugins.telescope.multi-ripgrep")
 			local mappings = require("plugins.telescope.mappings")
@@ -49,6 +51,8 @@ return {
 						n = {
 							["<C-d>"] = require("telescope.actions").delete_buffer,
 							["<C-a>"] = mappings.document_symbols_for_selected,
+							["<C-t>"] = open_with_trouble,
+							["<C-e>"] = add_to_trouble,
 						},
 						i = {
 							["<C-d>"] = require("telescope.actions").delete_buffer,
@@ -65,6 +69,8 @@ return {
 							["<C-a>"] = mappings.document_symbols_for_selected,
 							["<C-n>"] = false,
 							["<C-p>"] = false,
+							["<C-t>"] = open_with_trouble,
+							["<C-e>"] = add_to_trouble,
 						},
 					},
 				},

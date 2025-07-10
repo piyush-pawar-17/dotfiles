@@ -20,29 +20,9 @@ function take {
 }
 
 # Git
-alias g="git"
-alias ga="git add"
-alias gaa="git add -A"
-alias gb="git branch"
-alias gba="git branch -a"
-alias gbd="git branch -D"
 alias gbdf="git branch | fzf -m | xargs git branch -D"
-alias gc="git commit"
-alias gco="git checkout"
 alias gcof="git branch | fzf | xargs git checkout"
-alias gcp="git cherry-pick"
-alias gd="git diff"
-alias gf="git fetch --prune"
-alias gg="git log --graph --abbrev-commit --date=relative --branches --pretty=format:'%C(bold yellow)%h%C(reset)%C(reset)%C(auto)%d%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an (%ar)'"
-alias gl="git pull"
 alias glc='git pull origin $(git branch --show-current)'
-alias glo="git log --oneline"
-alias gm="git merge"
-alias gp="git push"
-alias gpc='git push origin $(git branch --show-current)'
-alias grb="git rebase"
-alias grf="git reflog"
-alias grs="git reset"
-alias gs="git status"
+alias glo="git log --oneline --pretty=format:'%C(bold yellow)%h%C(reset)%C(reset)%C(auto)%d%C(reset) - %C(white)%s%C(reset) %C(dim white)- %an (%ar)'"
 alias gsp='git reflog | grep ".*checkout: moving from.*to.*$(git branch --show-current)" | tail -n1 | sed "s/.*checkout: moving from \(.*\) to.*/\1/"'
 alias gss="git status -s"

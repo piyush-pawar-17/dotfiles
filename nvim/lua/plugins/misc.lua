@@ -107,18 +107,6 @@ return {
 		},
 		keys = {
 			{
-				"<leader>sl",
-				mode = { "n", "x", "o" },
-				function()
-					---@diagnostic disable-next-line: missing-fields
-					require("flash").jump({
-						search = { mode = "search", max_length = 0 },
-						label = { after = { 0, 0 } },
-						pattern = "^",
-					})
-				end,
-			},
-			{
 				"s",
 				mode = { "n", "x", "o" },
 				function()
@@ -196,6 +184,23 @@ return {
 
 			map({ "n", "x" }, "<leader>sj", miniSplitJoin.join, { desc = "Join arguments" })
 			map({ "n", "x" }, "<leader>sk", miniSplitJoin.split, { desc = "Split arguments" })
+		end,
+	},
+
+	{
+		"code-biscuits/nvim-biscuits",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
+		},
+		config = function()
+			require("nvim-biscuits").setup({
+				toggle_keybind = "<leader>bb",
+				cursor_line_only = true,
+				show_on_start = false,
+			})
+
+			vim.cmd([[highlight BiscuitColor guifg=#f5c2e7]])
+			vim.cmd([[highlight BiscuitColor guibg=#181825]])
 		end,
 	},
 }

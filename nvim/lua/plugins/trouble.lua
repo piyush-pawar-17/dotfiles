@@ -20,6 +20,11 @@ return {
 				desc = "Quickfix List (Trouble)",
 			},
 			{
+				"<leader>xt",
+				"<cmd>Trouble telescope toggle focus=true<CR>",
+				desc = "Telescope List (Trouble)",
+			},
+			{
 				"<leader>xs",
 				"<cmd>Trouble lsp_document_symbols toggle focus=true win.position=right<CR>",
 				desc = "Document Symbols (Trouble)",
