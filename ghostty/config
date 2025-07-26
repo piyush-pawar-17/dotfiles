@@ -1,0 +1,17 @@
+term = xterm-256color
+
+theme = catppuccin-mocha
+background = #1e1e2e
+background-opacity = 0.98
+font-size = 13
+font-family = GeistMono Nerd Font Mono
+cursor-color = #f5e0dc
+cursor-text = #1e1e2e
+
+macos-titlebar-style = hidden
+window-decoration = false
+window-padding-y = 4
+window-padding-x = 4
+
+keybind = ctrl+shift+c=copy_to_clipboard
+keybind = ctrl+shift+v=paste_from_clipboard
