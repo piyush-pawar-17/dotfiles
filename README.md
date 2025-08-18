@@ -11,6 +11,11 @@ sudo apt update
 sudo apt install make gcc ripgrep unzip git xclip bat eza libfuse2q wslu
 ```
 
+### Languages for Neovim LSP
+
+- Install [Node.js](https://nodejs.org/en/download)
+- Install [Go](https://go.dev/doc/install)
+
 ### fzf
 
 ```sh
@@ -103,4 +108,16 @@ stow .
 winget install GlazeWM
 ```
 
-- Copy the Glaze and Zebar config into [config folder](https://github.com/glzr-io/glazewm?tab=readme-ov-file#config-documentation)
+- Copy the Glaze and Zebar config into [config folder](https://github.com/glzr-io/glazewm?tab=readme-ov-file#config-documentation). Usually in `C:\Users\<username>\.glzr\(glazewm|zebar)`
+
+- Go to Zebar folder and install dependencies (Note: Use the windows version of `pnpm`)
+
+```sh
+pnpm install
+```
+
+- Build Zebar UI
+
+```sh
+pnpm build
+```

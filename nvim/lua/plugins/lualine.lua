@@ -49,9 +49,9 @@ return {
 					{
 						"branch",
 						icon = { "󰘬" },
-						"|"
+						"|",
 					},
-					"diff"
+					"diff",
 				},
 				lualine_c = {
 					{
@@ -76,7 +76,7 @@ return {
 					},
 				},
 				lualine_y = { search_result },
-				lualine_z = { get_filetype },
+				lualine_z = {},
 			},
 		})
 	end,

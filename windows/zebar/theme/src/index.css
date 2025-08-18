@@ -1,0 +1,38 @@
+@import "https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap";
+@import "tailwindcss";
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
+  font-family:
+    "Geist Mono", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  tab-size: 4;
+  color: rgb(255 255 255 / 90%);
+  font-size: 12px;
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
