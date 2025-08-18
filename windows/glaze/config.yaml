@@ -178,14 +178,18 @@ keybindings:
 
   # Move focused window in a given direction.
   - commands: ["move --direction left"]
-    bindings: ["alt+shift+h", "alt+shift+left"]
+    bindings: ["alt+shift+h"]
   - commands: ["move --direction right"]
-    bindings: ["alt+shift+l", "alt+shift+right"]
-
+    bindings: ["alt+shift+l"]
   - commands: ["move --direction up"]
     bindings: ["alt+shift+k", "alt+shift+up"]
   - commands: ["move --direction down"]
     bindings: ["alt+shift+j", "alt+shift+down"]
+  - commands: ["move-workspace --direction left"]
+    bindings: ["alt+shift+left"]
+  - commands: ["move-workspace --direction right"]
+    bindings: ["alt+shift+right"]
+
 
   # Resize focused window by a percentage or pixel amount.
   - commands: ["resize --width -2%"]
