@@ -4,19 +4,6 @@ return {
 		"nvim-tree/nvim-web-devicons",
 	},
 	config = function()
-		local function get_filetype()
-			local devicons = require("nvim-web-devicons")
-
-			local filetype = vim.bo.filetype
-			-- Don't show anything if there is no filetype
-			if filetype == "" then
-				return ""
-			end
-			filetype = devicons.get_icon(vim.fn.expand("%:t"), nil, { default = true }) .. " " .. filetype
-
-			return string.format("%s", filetype)
-		end
-
 		local function search_result()
 			if vim.v.hlsearch == 0 then
 				return ""

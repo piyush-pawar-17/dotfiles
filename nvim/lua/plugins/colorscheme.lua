@@ -10,15 +10,13 @@ return {
 				transparent_background = true,
 				custom_highlights = function(colors)
 					return {
-						Keyword = { fg = colors.maroon },
-						Special = { fg = colors.maroon },
-						Include = { fg = colors.blue },
-						["@variable.member"] = { fg = colors.text },
-						["@property"] = { fg = colors.text },
+						["@tag.builtin.tsx"] = { fg = colors.blue },
 						["@tag"] = { fg = colors.blue },
-						["@tag.attribute"] = { fg = colors.yellow },
-						["@tag.attribute.tsx"] = { fg = colors.yellow },
-						["@keyword.return"] = { fg = colors.red },
+						["@tag.attribute.tsx"] = { fg = colors.peach },
+						["@tag.attribute"] = { fg = colors.peach },
+						["@tag.tsx"] = { fg = colors.yellow },
+						["@tag.delimiter"] = { fg = colors.overlay2 },
+						["@markup.heading"] = { fg = colors.text },
 					}
 				end,
 			})

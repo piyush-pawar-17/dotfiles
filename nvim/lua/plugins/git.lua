@@ -89,4 +89,37 @@ return {
 			map("n", "<leader>gg", ":DiffviewClose<CR>", { silent = true, noremap = true, desc = "Close Diffview" })
 		end,
 	},
+
+	{
+		"akinsho/git-conflict.nvim",
+		version = "*",
+		config = function()
+			vim.api.nvim_set_hl(0, "GitConflictCurrent", {
+				bg = "#556D9E",
+			})
+			vim.api.nvim_set_hl(0, "GitConflictIncoming", {
+				bg = "#30572A",
+			})
+			vim.api.nvim_set_hl(0, "GitConflictAncestor", {
+				bg = "#3E3E66",
+			})
+			vim.api.nvim_set_hl(0, "GitConflictMiddle", {
+				bg = "#45475A",
+			})
+
+			require("git-conflict").setup({
+				debug = false,
+				default_mappings = true,
+				default_commands = true,
+				disable_diagnostics = false,
+				list_opener = "copen",
+				highlights = {
+					current = "GitConflictCurrent",
+					incoming = "GitConflictIncoming",
+					ancestor = "GitConflictAncestor",
+					middle = "GitConflictMiddle",
+				},
+			})
+		end,
+	},
 }

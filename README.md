@@ -9,6 +9,7 @@ The dot files are symlinked with [Stow](https://www.gnu.org/software/stow/)
 ```sh
 sudo apt update
 sudo apt install make gcc ripgrep unzip git xclip bat eza libfuse2q wslu
+curl -fsSL https://opencode.ai/install | bash
 ```
 
 ### Languages for Neovim LSP

@@ -83,6 +83,7 @@ return {
 				cssls = {},
 				cssmodules_ls = {},
 				eslint = {},
+				biome = {},
 				html = {},
 				jsonls = {},
 				marksman = {},
