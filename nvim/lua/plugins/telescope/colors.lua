@@ -5,16 +5,16 @@ M.set_colors = function()
 	local TelescopeColor = {
 		TelescopeMatching = { fg = colors.flamingo },
 		TelescopeSelection = { fg = colors.text, bg = colors.base, bold = true },
-		TelescopePromptPrefix = { bg = colors.base },
-		TelescopePromptNormal = { bg = colors.base },
-		TelescopeResultsNormal = { bg = colors.mantle },
-		TelescopePreviewNormal = { bg = colors.mantle },
-		TelescopePromptBorder = { bg = colors.base, fg = colors.base },
-		TelescopeResultsBorder = { bg = colors.mantle, fg = colors.mantle },
-		TelescopePreviewBorder = { bg = colors.mantle, fg = colors.mantle },
-		TelescopePromptTitle = { bg = colors.pink, fg = colors.mantle },
-		TelescopeResultsTitle = { fg = colors.mantle },
-		TelescopePreviewTitle = { bg = colors.green, fg = colors.mantle },
+		TelescopePromptPrefix = { bg = colors.mantle },
+		TelescopePromptNormal = { bg = colors.mantle },
+		TelescopeResultsNormal = { bg = colors.crust },
+		TelescopePreviewNormal = { bg = colors.crust },
+		TelescopePromptBorder = { bg = colors.mantle, fg = colors.mantle },
+		TelescopeResultsBorder = { bg = colors.crust, fg = colors.crust },
+		TelescopePreviewBorder = { bg = colors.crust, fg = colors.crust },
+		TelescopePromptTitle = { bg = colors.pink, fg = colors.crust },
+		TelescopeResultsTitle = { fg = colors.crust },
+		TelescopePreviewTitle = { bg = colors.green, fg = colors.crust },
 	}
 
 	for hl, col in pairs(TelescopeColor) do

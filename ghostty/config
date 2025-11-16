@@ -1,8 +1,8 @@
 term = xterm-256color
 
 theme = catppuccin-mocha
-background = #1e1e2e
-background-opacity = 0.98
+background = #181825
+background-opacity = 0.97
 font-size = 13
 font-family = GeistMono Nerd Font Mono
 cursor-color = #f5e0dc
