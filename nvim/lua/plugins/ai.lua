@@ -19,16 +19,16 @@ return {
 
 			vim.o.autoread = true
 
-			keymap.map({ "n", "x" }, "<C-a><C-w>", function()
+			keymap.map({ "n", "x" }, "<C-c><C-w>", function()
 				require("opencode").ask("@this: ", { submit = true })
 			end, { desc = "Ask opencode" })
 			keymap.map({ "n", "x" }, "<leader>os", function()
 				require("opencode").select()
 			end, { desc = "Execute opencode action…" })
-			keymap.map({ "n", "x" }, "<C-a><C-a>", function()
+			keymap.map({ "n", "x" }, "<C-c><C-c>", function()
 				require("opencode").prompt("@this")
 			end, { desc = "Add to opencode" })
-			keymap.map({ "n", "t" }, "<C-a><C-t>", function()
+			keymap.map({ "n", "t" }, "<C-c><C-t>", function()
 				require("opencode").toggle()
 			end, { desc = "Toggle opencode" })
 			keymap.map("n", "<S-C-u>", function()
