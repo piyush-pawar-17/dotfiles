@@ -10,6 +10,7 @@ return {
 				changedelete = { text = "~" },
 			},
 			current_line_blame = true,
+			preview_config = { border = "single" },
 			on_attach = function(bufnr)
 				local gs = package.loaded.gitsigns
 				local map = require("utils.keymap").map

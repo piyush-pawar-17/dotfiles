@@ -8,8 +8,9 @@ The dot files are symlinked with [Stow](https://www.gnu.org/software/stow/)
 
 ```sh
 sudo apt update
-sudo apt install make gcc ripgrep unzip git xclip bat eza libfuse2q wslu
+sudo apt install make gcc ripgrep unzip git xclip bat eza libfuse2q wslu fd-find
 curl -fsSL https://opencode.ai/install | bash
+ln -s $(which fdfind) ~/.local/bin/fd # (for snacks.nvim search)
 ```
 
 ### Languages for Neovim LSP

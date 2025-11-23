@@ -153,6 +153,19 @@ return {
 				},
 			},
 			scratch = { ft = "markdown" },
+			explorer = { enabled = true },
+			gitbrowse = { enabled = true },
+			picker = {
+				sources = {
+					explorer = {
+						layout = {
+							layout = {
+								position = "right",
+							},
+						},
+					},
+				},
+			},
 		},
 		keys = {
 			{
@@ -168,6 +181,20 @@ return {
 					require("snacks").scratch.select()
 				end,
 				desc = "Select Scratch Buffer",
+			},
+			{
+				"<C-\\>",
+				function()
+					require("snacks").explorer.open()
+				end,
+				desc = "Open file explorer",
+			},
+			{
+				"<leader>go",
+				function()
+					require("snacks").gitbrowse.open()
+				end,
+				desc = "Open the repo of the active file in the browse",
 			},
 		},
 	},
