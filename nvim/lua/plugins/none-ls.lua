@@ -13,6 +13,7 @@ return {
 					null_ls.builtins.formatting.goimports,
 					null_ls.builtins.formatting.gofumpt,
 					null_ls.builtins.formatting.golines,
+					null_ls.builtins.formatting.sql_formatter,
 				},
 			})
 		end,
@@ -94,6 +95,22 @@ return {
 				html = { "prettier", "prettierd", stop_after_first = true },
 				css = { "prettier", "prettierd", stop_after_first = true },
 				go = { "goimports", "gofumpt", "golines" },
+				sql = { "pg_format" },
+			},
+			formatters = {
+				pg_format = {
+					command = "pg_format",
+					args = {
+						"-s",
+						"4", -- 4 spaces indentation
+						"-u",
+						"2", -- Uppercase keywords
+						"-U",
+						"2", -- Uppercase types
+						"-",
+					},
+					stdin = true,
+				},
 			},
 		},
 	},

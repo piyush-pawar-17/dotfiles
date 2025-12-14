@@ -6,6 +6,7 @@ return {
 	{ "mbbill/undotree" },
 	{ "kevinhwang91/nvim-bqf", event = "VeryLazy", opts = {} },
 	{ "JoosepAlviste/nvim-ts-context-commentstring" },
+	{ "j-hui/fidget.nvim", opts = {} },
 
 	{
 		"numToStr/Comment.nvim",
@@ -50,7 +51,7 @@ return {
 				enable_tailwind = true,
 			})
 
-			map("n", "tc", nvim_highlight_colors.toggle, { silent = true, desc = "[T]oggle [C]olors" })
+			map("n", "<leader>tc", nvim_highlight_colors.toggle, { silent = true, desc = "[T]oggle [C]olors" })
 		end,
 	},
 

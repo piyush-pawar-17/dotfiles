@@ -8,6 +8,7 @@ map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 map("n", "n", "nzzzv")
 map("n", "N", "Nzzzv")
+map("n", "<leader>tt", ":tabclose<CR>", { desc = "Close current tab", silent = true })
 
 -- Stay in indent mode
 map("v", "<", "<gv")
@@ -39,8 +40,3 @@ map("n", "<leader>l", ":b#<CR>", { desc = "[L]ast Buffer", noremap = false, sile
 
 -- Undotree
 map("n", "<leader>u", vim.cmd.UndotreeToggle)
-
--- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
--- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
--- is not what someone will guess without a bit more experience.
-map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

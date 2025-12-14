@@ -52,7 +52,7 @@ return {
 
 					lsp_map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
 					lsp_map("gr", ":Glance references<CR>", "[G]oto [R]eferences")
-					lsp_map("gt", ":Glance type_definitions<CR>", "[G]oto [T]ype Definitions")
+					lsp_map("<leader>gt", ":Glance type_definitions<CR>", "[G]oto [T]ype Definitions")
 					lsp_map("gi", ":Glance implementations<CR>", "[G]oto [I]mplementation")
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.

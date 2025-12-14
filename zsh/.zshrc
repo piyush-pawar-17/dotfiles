@@ -70,6 +70,7 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 export PATH="$PATH:/opt/nvim/"
 export PATH="$PATH:$HOME/.local/bin/"
 export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$(go env GOPATH)/bin"
 export VISUAL=nvim
 export EDITOR=nvim
 export BROWSER=wslview
