@@ -7,7 +7,11 @@ return {
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
-			require("markview").setup({})
+			require("markview").setup({
+				preview = {
+					enable = false,
+				},
+			})
 
 			local map = require("utils.keymap").map
 

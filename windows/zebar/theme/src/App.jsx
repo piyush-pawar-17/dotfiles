@@ -32,6 +32,7 @@ const providers = zebar.createProviderGroup({
 
 function App() {
   const [output, setOutput] = useState(providers.outputMap);
+  const [focusedIndex, setFocusedIndex] = useState(0);
 
   useEffect(() => {
     providers.onOutput(() => setOutput(providers.outputMap));
@@ -67,26 +68,91 @@ function App() {
   }
 
   function getWorkspaceColor(workspace, index) {
-    if (workspace.hasFocus) {
-      return index % 3 === 0
-        ? "#cb6868"
-        : index % 3 === 1
-          ? "#d38b33"
-          : "#3e8fb0";
+    if (!workspace.hasFocus) {
+      return undefined;
     }
 
-    return index % 3 === 0
-      ? "#6e5366"
-      : index % 3 === 1
-        ? "#725f5d"
-        : "#3b506e";
+    const colors = ["#f8a0d0", "#d4a5e8", "#a0d8f8", "#a8f0c8", "#f0d0a8"];
+    return colors[index % 5];
   }
 
   return (
     <div className="grid gap-2 text-sm h-full grid-cols-[1fr_1fr_1fr] items-center">
-      <div className="px-4 h-full w-fit flex items-center">
-        <div className="bg-[#393552] shadow-[3px_3px_0px_1px_#2a283e] py-2 px-3 w-fit flex items-center gap-3">
+      <div className="px-4 h-full w-fit flex gap-3 items-center">
+        <div className="rounded-full bg-[#11111b] py-2 px-4 w-fit flex items-center gap-3">
           <Terminal size={16} className="ml-1" />
+
+          {output.glazewm && (
+            <>
+              <div className="size-1.5 rounded-full bg-white" />
+
+              <div className="flex gap-2 relative">
+                {output.glazewm.currentWorkspaces.map((workspace, index) => {
+                  if (workspace.hasFocus && focusedIndex !== index) {
+                    setFocusedIndex(index);
+                  }
+                })}
+                <div
+                  className="size-7 rounded-full absolute transition-all ease-in-out duration-300"
+                  style={{
+                    backgroundColor: output.glazewm.currentWorkspaces[
+                      focusedIndex
+                    ]
+                      ? getWorkspaceColor(
+                          output.glazewm.currentWorkspaces[focusedIndex],
+                          focusedIndex,
+                        )
+                      : undefined,
+                    transform: `translateX(calc(${focusedIndex} * (1.75rem + 0.5rem)))`,
+                  }}
+                />
+                {output.glazewm.currentWorkspaces.map((workspace) => (
+                  <button
+                    key={workspace.name}
+                    className="size-7 rounded-full transition-colors duration-300 flex items-center cursor-pointer justify-center relative z-10"
+                    style={{
+                      backgroundColor: "transparent",
+                      color: workspace.hasFocus ? "#11111b" : "#ffffff",
+                    }}
+                    onClick={() =>
+                      output.glazewm.runCommand(
+                        `focus --workspace ${workspace.name}`,
+                      )
+                    }
+                  >
+                    {workspace.displayName ?? workspace.name}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+      <div className="px-4 h-full w-full flex justify-center items-center"></div>
+      <div className="px-4 h-full w-full flex gap-2 justify-end items-center">
+        <div className="bg-[#11111b] rounded-full py-2 px-4 w-fit flex items-center gap-3">
+          {output.glazewm && (
+            <>
+              {output.glazewm.bindingModes.map((bindingMode) => (
+                <button key={bindingMode.name} className="capitalize mr-2">
+                  {bindingMode.displayName ?? bindingMode.name}
+                </button>
+              ))}
+
+              <button
+                className="cursor-pointer hover:bg-[#252338] size-7 flex items-center justify-center"
+                onClick={() =>
+                  output.glazewm.runCommand("toggle-tiling-direction")
+                }
+              >
+                {output.glazewm.tilingDirection === "horizontal" ? (
+                  <ArrowRightLeft size={14} />
+                ) : (
+                  <ArrowUpDown size={14} />
+                )}
+              </button>
+            </>
+          )}
 
           {output.network && (
             <>
@@ -138,56 +204,6 @@ function App() {
                 )}
                 {Math.round(output.battery.chargePercent)}%
               </div>
-            </>
-          )}
-        </div>
-      </div>
-      <div className="px-4 h-full w-full flex justify-center items-center">
-        <div className="bg-[#393552] shadow-[3px_3px_0px_1px_#2a283e] py-2 px-3 w-fit flex items-center gap-1">
-          {output.glazewm && (
-            <div className="flex gap-2">
-              {output.glazewm.currentWorkspaces.map((workspace, index) => (
-                <button
-                  key={workspace.name}
-                  className={`${workspace.hasFocus ? "h-7 w-12" : "size-7"} transition-[width] ease-in-out duration-300 flex items-center cursor-pointer justify-center`}
-                  style={{
-                    backgroundColor: getWorkspaceColor(workspace, index),
-                  }}
-                  onClick={() =>
-                    output.glazewm.runCommand(
-                      `focus --workspace ${workspace.name}`,
-                    )
-                  }
-                >
-                  {workspace.displayName ?? workspace.name}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
-      <div className="px-4 h-full w-full flex gap-2 justify-end items-center">
-        <div className="bg-[#393552] shadow-[3px_3px_0px_1px_#2a283e] py-2 pl-3 pr-4 w-fit flex items-center gap-3">
-          {output.glazewm && (
-            <>
-              {output.glazewm.bindingModes.map((bindingMode) => (
-                <button key={bindingMode.name} className="capitalize mr-2">
-                  {bindingMode.displayName ?? bindingMode.name}
-                </button>
-              ))}
-
-              <button
-                className="cursor-pointer hover:bg-[#252338] size-7 flex items-center justify-center"
-                onClick={() =>
-                  output.glazewm.runCommand("toggle-tiling-direction")
-                }
-              >
-                {output.glazewm.tilingDirection === "horizontal" ? (
-                  <ArrowRightLeft size={14} />
-                ) : (
-                  <ArrowUpDown size={14} />
-                )}
-              </button>
             </>
           )}
 
