@@ -1,0 +1,7 @@
+theme = "catppuccin-mocha"
+vcs = "git"
+watch = false
+exclude_untracked = false
+line_numbers = true
+wrap_lines = false
+transparent_background = true

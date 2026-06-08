@@ -5,7 +5,7 @@ add_newline = true
 [character]
 success_symbol = "[➜](bold green)"
 error_symbol = "[➜](bold red)"
-vimcmd_symbol = "[←](bold yellow)"
+vimcmd_symbol = "[](bold yellow)"
 
 [git_branch]
 symbol = "󰘬 "
@@ -19,15 +19,15 @@ format = """\
 	[(\\($modified$deleted$renamed$typechanged$untracked\\) )](bold yellow)\
 	$stashed)\
 """
-ahead = "⇡${count}"
-diverged = "⇕⇡${count}"
-behind = "⇣${count}"
+ahead = "${count}"
+diverged = "${count}"
+behind = "${count}"
 staged = "([\\(+${count}\\)](bold green) )"
 modified = "~"
 untracked = "?"
 deleted = "x"
 conflicted = "([\\(!${count}\\)](bold red) )"
-renamed = "»"
+renamed = ""
 stashed = "([\\(📦${count}\\)](bold blue) )"
 
 [git_commit]

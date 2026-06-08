@@ -58,7 +58,7 @@ return {
 			local map = require("utils.keymap").map
 
 			neogit.setup({
-				kind = "split_above_all",
+				kind = "tab",
 				auto_close_console = false,
 				mappings = {
 					finder = {

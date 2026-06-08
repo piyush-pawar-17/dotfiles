@@ -9,6 +9,7 @@ The dot files are symlinked with [Stow](https://www.gnu.org/software/stow/)
 ```sh
 sudo apt update
 sudo apt install make gcc ripgrep unzip git xclip bat eza libfuse2q wslu fd-find git-delta
+npm install -g hunkdiff # better git diffs
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 curl -fsSL https://opencode.ai/install | bash
 ln -s $(which fdfind) ~/.local/bin/fd # (for snacks.nvim search)
