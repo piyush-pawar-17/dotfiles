@@ -1,6 +1,6 @@
 term = xterm-256color
 
-theme = catppuccin-mocha
+theme = Catppuccin Mocha
 background = #181825
 background-opacity = 0.97
 font-size = 13

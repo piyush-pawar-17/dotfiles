@@ -101,4 +101,3 @@ esac
 # opencode
 export PATH=/home/piyush/.opencode/bin:$PATH
 
-. "$HOME/.local/share/../bin/env"

@@ -5,7 +5,7 @@ return {
 	{ "eandrju/cellular-automaton.nvim" },
 	{ "mbbill/undotree" },
 	{ "kevinhwang91/nvim-bqf", event = "VeryLazy", opts = {} },
-	{ "JoosepAlviste/nvim-ts-context-commentstring" },
+	{ "JoosepAlviste/nvim-ts-context-commentstring", opts = { enable_autocmd = false } },
 	{ "j-hui/fidget.nvim", opts = {} },
 
 	{
