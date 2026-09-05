@@ -15,18 +15,25 @@ return {
 			local keymap = require("utils.keymap")
 
 			---@type opencode.Opts
-			vim.g.opencode_opts = {}
+			vim.g.opencode_opts = {
+				server = { url = "http://localhost:4096" },
+				contexts = {
+					["@this"] = function(context)
+						return "@" .. require("opencode.context.builtins").this(context)
+					end,
+				},
+			}
 
 			vim.o.autoread = true
 
 			keymap.map({ "n", "x" }, "<C-c><C-w>", function()
-				require("opencode").ask("@this: ", { submit = true })
+				require("opencode").ask("@this: ")
 			end, { desc = "Ask opencode" })
 			keymap.map({ "n", "x" }, "<leader>os", function()
 				require("opencode").select()
 			end, { desc = "Execute opencode action…" })
 			keymap.map({ "n", "x" }, "<C-c><C-c>", function()
-				require("opencode").prompt("@this")
+				require("opencode").prompt("@this ")
 			end, { desc = "Add to opencode" })
 			keymap.map({ "n", "t" }, "<C-c><C-t>", function()
 				require("opencode").toggle()

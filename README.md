@@ -87,7 +87,7 @@ For Arch
 
 ```sh
 sudo pacman -Syu
-yay -S base-devel ripgrep unzip git xclip bat eza fuse2 fd git-delta
+yay -S base-devel ripgrep unzip git wl-clipboard bat eza fuse2 fd git-delta
 yay -S wslu # Only when installing Arch in WSL
 npm install -g hunkdiff # Better git diffs
 curl -fsSL https://get.pnpm.io/install.sh | sh -

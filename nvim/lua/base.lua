@@ -3,6 +3,8 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.g.have_nerd_font = true
 vim.opt.termguicolors = true
+vim.cmd("syntax on")
+vim.cmd("filetype plugin indent on")
 
 -- Disable swap files
 vim.opt.swapfile = false

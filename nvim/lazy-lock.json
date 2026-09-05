@@ -34,7 +34,7 @@
   "nvim-cmp": { "branch": "main", "commit": "2ffe79f1f021def8dd1fcd81deb16f1bb0d989f3" },
   "nvim-highlight-colors": { "branch": "main", "commit": "e4c7af0211866162d999ce0bdd6a029302e19139" },
   "nvim-lspconfig": { "branch": "master", "commit": "84252f9832fb5b9024fe9f7258e7c2aff915e6fb" },
-  "nvim-treesitter": { "branch": "main", "commit": "427e9222363d07c32d6db6169e4049c28d58d141" },
+  "nvim-treesitter": { "branch": "main", "commit": "41416e81a6c7f4af4984395bfe0cd8d174e70976" },
   "nvim-treesitter-textobjects": { "branch": "main", "commit": "5c7b0263797dfd1bd6202f2b219f3b53a80b2187" },
   "nvim-ts-autotag": { "branch": "main", "commit": "88c1453db4ba7dd24131086fe51fdf74e587d275" },
   "nvim-ts-context-commentstring": { "branch": "main", "commit": "6141a40173c6efa98242dc951ed4b6f892c97027" },
@@ -57,5 +57,6 @@
   "twilight.nvim": { "branch": "main", "commit": "664e752f4a219801265cc3fc18782b457b58c1e1" },
   "undotree": { "branch": "master", "commit": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d" },
   "vim-sleuth": { "branch": "master", "commit": "be69bff86754b1aa5adcbb527d7fcd1635a84080" },
-  "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" }
+  "vim-surround": { "branch": "master", "commit": "3d188ed2113431cf8dac77be61b842acb64433d9" },
+  "vim-tmux": { "branch": "master", "commit": "cfe76281efc29890548cf9eedd42ad51c7a1faf0" }
 }

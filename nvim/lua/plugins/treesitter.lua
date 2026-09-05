@@ -34,11 +34,17 @@ return {
 			-- Highlighting is provided by Neovim core
 			vim.api.nvim_create_autocmd("FileType", {
 				callback = function()
-					pcall(vim.treesitter.start)
+					local ft = vim.bo.filetype
+					if vim.treesitter.language.add(ft) and vim.treesitter.query.get(ft, "highlights") then
+						vim.treesitter.start()
+					else
+						vim.bo.syntax = vim.bo.filetype
+					end
 				end,
 			})
 		end,
 	},
+	{ "tmux-plugins/vim-tmux", ft = "tmux" },
 
 	{
 		"nvim-treesitter/nvim-treesitter-textobjects",
