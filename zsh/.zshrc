@@ -74,6 +74,7 @@ export PATH="$PATH:$(go env GOPATH)/bin"
 export VISUAL=nvim
 export EDITOR=nvim
 export BROWSER=wslview
+export COLORTERM=truecolor
 
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -87,7 +88,17 @@ source <(fzf --zsh)
 # pnpm
 export PNPM_HOME="/home/piyush/.local/share/pnpm"
 case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
+
 # pnpm end
+
+# opencode
+export PATH=/home/piyush/.opencode/bin:$PATH
+
+. "$HOME/.local/share/../bin/env"
