@@ -1,5 +1,4 @@
 alias v="nvim"
-alias bat=batcat
 alias lg=lazygit
 
 # Listing files
