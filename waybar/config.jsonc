@@ -4,7 +4,12 @@
     "height": 34,
     "exclusive": true,
     "spacing": 8,
-    "modules-left": ["hyprland/workspaces"],
+    "modules-left": ["custom/arch", "hyprland/workspaces"],
+    "custom/arch": {
+        "exec": "printf ''",
+        "format": "{}",
+        "interval": "once"
+    },
     "modules-center": ["custom/ycal"],
     "modules-right": ["tray", "pulseaudio", "network", "cpu", "memory", "battery"],
     "hyprland/workspaces": {

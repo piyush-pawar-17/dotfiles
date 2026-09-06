@@ -1,15 +1,14 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font", sans-serif;
+    font-family: "Geist Mono Nerd Font", "JetBrainsMono Nerd Font", "Symbols Nerd Font", sans-serif;
     font-size: 13px;
     font-weight: 600;
     min-height: 0;
 }
 
 window#waybar {
-    background: #1d2230;
-    border-bottom: 1px solid #343c52;
+    background: #11111b;
     color: #cdd6e9;
 }
 
@@ -24,33 +23,64 @@ tooltip label {
     padding: 8px 10px;
 }
 
-#workspaces {
-    margin: 5px 0 5px 10px;
-    padding: 0 5px;
-    background: #252b3d;
+#custom-arch {
+    margin: 4px 0 4px 8px;
+    padding: 0 6px;
     border-radius: 8px;
+    color: #89b4fa;
+}
+
+#workspaces {
+    margin: 5px 0;
+    padding: 0 6px;
+    background: #11111b;
+    border-radius: 999px;
 }
 
 #workspaces button {
-    min-width: 20px;
-    min-height: 20px;
+    min-width: 24px;
+    min-height: 24px;
     margin: 0 3px;
     padding: 0;
-    background: #68728d;
-    border-radius: 10px;
-    color: #252b3d;
+    background: transparent;
+    border-radius: 11px;
+    color: #ffffff;
     font-size: 10px;
-    transition: all 180ms ease;
+    transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+#workspaces button label {
+    margin: 0;
+    padding: 0;
 }
 
 #workspaces button:hover {
-    background: #8b96b2;
-    color: #171b28;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
 }
 
 #workspaces button.active {
-    background: #c9b7ee;
-    color: #252b3d;
+    color: #11111b;
+}
+
+#workspaces button.active:nth-child(5n + 1) {
+    background: #f8a0d0;
+}
+
+#workspaces button.active:nth-child(5n + 2) {
+    background: #d4a5e8;
+}
+
+#workspaces button.active:nth-child(5n + 3) {
+    background: #a0d8f8;
+}
+
+#workspaces button.active:nth-child(5n + 4) {
+    background: #a8f0c8;
+}
+
+#workspaces button.active:nth-child(5n + 5) {
+    background: #f0d0a8;
 }
 
 #workspaces button.urgent {
@@ -60,7 +90,7 @@ tooltip label {
 
 #custom-ycal {
     margin: 5px 0;
-    padding: 0 13px;
+    padding: 0 8px;
     color: #d8ccf1;
 }
 
@@ -75,14 +105,13 @@ tooltip label {
 #memory,
 #battery {
     margin: 5px 0;
-    padding: 0 10px;
+    padding: 0 8px;
     background: #252b3d;
     color: #cdd6e9;
 }
 
 #tray {
     margin-left: 0;
-    padding-right: 8px;
     border-radius: 8px 0 0 8px;
 }
 
@@ -94,7 +123,7 @@ tooltip label {
 }
 
 #battery {
-    margin-right: 10px;
+    margin-right: 8px;
     border-left: 1px solid #343c52;
     border-radius: 0 8px 8px 0;
     color: #b9d9b1;
