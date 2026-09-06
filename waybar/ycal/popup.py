@@ -15,11 +15,9 @@ import signal
 import subprocess
 import sys
 import threading
-import tomllib
 
 CACHE_FILE = os.path.expanduser('~/.cache/waybar-ycal/events.json')
 PID_FILE = os.path.expanduser('~/.cache/waybar-ycal/popup.pid')
-THEME_FILE = os.path.expanduser('~/.config/omarchy/current/theme/colors.toml')
 CREDENTIALS_FILE = os.path.expanduser('~/.config/waybar-ycal/credentials.json')
 TOKEN_FILE = os.path.expanduser('~/.cache/waybar-ycal/token.json')
 SYNC_INTERVAL_SEC = 15 * 60  # 15 minutes
@@ -205,18 +203,20 @@ def sync_in_background():
     threading.Thread(target=_run_sync, daemon=True).start()
     return True  # Keep GLib timer repeating
 
+CATPPUCCIN = {
+    'foreground': '#cdd6f4',
+    'background': '#1e1e2e',
+    'accent': '#cba6f7',
+    'surface0': '#313244',
+    'surface1': '#45475a',
+    'yellow': '#f9e2af',
+    'red': '#f38ba8',
+    'green': '#a6e3a1',
+}
+
+
 def load_theme():
-    defaults = {
-        'foreground': '#ffcead',
-        'background': '#060B1E',
-        'accent': '#7d82d9',
-    }
-    try:
-        with open(THEME_FILE, 'rb') as f:
-            t = tomllib.load(f)
-            return {**defaults, **t}
-    except Exception:
-        return defaults
+    return CATPPUCCIN
 
 def hex_to_rgb_float(hex_color):
     h = hex_color.lstrip('#')
@@ -483,7 +483,7 @@ class CalendarPopup(Gtk.ApplicationWindow):
 
         # ── Right: day panel ─────────────────────────────────────
         self.right_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=8)
-        self.right_box.set_size_request(220, -1)
+        self.right_box.set_size_request(280, -1)
         self.right_box.add_css_class('day-panel')
         self.main_box.append(self.right_box)
 
@@ -650,7 +650,7 @@ class CalendarPopup(Gtk.ApplicationWindow):
             separator = Gtk.Label(label="-")
             separator.add_css_class('event-separator')
             name = Gtk.Label(label=event['title'])
-            name.set_max_width_chars(18)
+            name.set_max_width_chars(24)
             name.set_ellipsize(Pango.EllipsizeMode.END)
             name.set_tooltip_text(event['title'])
             name.add_css_class('event-name')
@@ -823,7 +823,11 @@ class CalendarPopup(Gtk.ApplicationWindow):
         fg = t['foreground']
         bg = t['background']
         accent = t['accent']
-        red = '#ff5555'
+        surface0 = t['surface0']
+        surface1 = t['surface1']
+        yellow = t['yellow']
+        red = t['red']
+        green = t['green']
         self._refresh_fg = hex_to_rgb_float(fg)
 
         css = f"""
@@ -834,8 +838,8 @@ class CalendarPopup(Gtk.ApplicationWindow):
       .click-shield {{
           background: rgba(0, 0, 0, 0.01);
       }}
-      .popup-bg {{
-          background: {hex_to_rgba(bg, 0.92)};
+       .popup-bg {{
+           background: {bg};
           border-radius: 12px;
           border: 1px solid {hex_to_rgba(accent, 0.35)};
           padding: 10px;
@@ -848,11 +852,11 @@ class CalendarPopup(Gtk.ApplicationWindow):
           font-size: 11px;
           font-weight: 500;
       }}
-      button:hover {{
-          background: rgba(255, 255, 255, 0.07);
-      }}
-      button:active {{
-          background: rgba(255, 255, 255, 0.18);
+       button:hover {{
+           background: {surface0};
+       }}
+       button:active {{
+           background: {surface1};
           transition: background 50ms;
       }}
       button:focus,
@@ -924,7 +928,7 @@ class CalendarPopup(Gtk.ApplicationWindow):
            color: {fg};
        }}
        .event-time {{
-           color: #f9e2af;
+           color: {yellow};
            font-family: monospace;
            font-size: 10px;
        }}
@@ -956,8 +960,8 @@ class CalendarPopup(Gtk.ApplicationWindow):
           color: {hex_to_rgba(red, 0.9)};
           font-size: 10px;
       }}
-      .done-dot {{
-          color: {hex_to_rgba('#50fa7b', 0.9)};
+       .done-dot {{
+           color: {hex_to_rgba(green, 0.9)};
           font-size: 10px;
       }}
       .done-toggle {{
@@ -971,14 +975,14 @@ class CalendarPopup(Gtk.ApplicationWindow):
           border: 1px solid {hex_to_rgba(fg, 0.2)};
           color: transparent;
       }}
-      .done-toggle-inactive:hover {{
-          border-color: {hex_to_rgba('#50fa7b', 0.6)};
-          color: {hex_to_rgba('#50fa7b', 0.6)};
-      }}
-      .done-toggle-active {{
-          border: 1px solid {hex_to_rgba('#50fa7b', 0.6)};
-          color: {hex_to_rgba('#50fa7b', 0.9)};
-          background: {hex_to_rgba('#50fa7b', 0.15)};
+       .done-toggle-inactive:hover {{
+           border-color: {hex_to_rgba(green, 0.6)};
+           color: {hex_to_rgba(green, 0.6)};
+       }}
+       .done-toggle-active {{
+           border: 1px solid {hex_to_rgba(green, 0.6)};
+           color: {hex_to_rgba(green, 0.9)};
+           background: {hex_to_rgba(green, 0.15)};
       }}
       .no-events {{
           font-size: 11px;

@@ -30,62 +30,92 @@ tooltip label {
     color: #89b4fa;
 }
 
-#workspaces {
-    margin: 5px 0;
-    padding: 0 6px;
-    background: #11111b;
-    border-radius: 999px;
-}
-
-#workspaces button {
+#custom-workspace-1,
+#custom-workspace-2,
+#custom-workspace-3,
+#custom-workspace-4,
+#custom-workspace-5,
+#custom-workspace-6,
+#custom-workspace-7,
+#custom-workspace-8,
+#custom-workspace-9,
+#custom-workspace-10 {
     min-width: 24px;
     min-height: 24px;
-    margin: 0 3px;
+    margin: 6px 0px;
     padding: 0;
     background: transparent;
-    border-radius: 11px;
+    border-radius: 999px;
     color: #ffffff;
     font-size: 10px;
     transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
 }
 
-#workspaces button label {
-    margin: 0;
-    padding: 0;
-}
-
-#workspaces button:hover {
-    background: rgba(255, 255, 255, 0.1);
+#custom-workspace-1:hover,
+#custom-workspace-2:hover,
+#custom-workspace-3:hover,
+#custom-workspace-4:hover,
+#custom-workspace-5:hover,
+#custom-workspace-6:hover,
+#custom-workspace-7:hover,
+#custom-workspace-8:hover,
+#custom-workspace-9:hover,
+#custom-workspace-10:hover {
+    background: transparent;
     color: #ffffff;
 }
 
-#workspaces button.active {
+#custom-workspace-1.empty,
+#custom-workspace-2.empty,
+#custom-workspace-3.empty,
+#custom-workspace-4.empty,
+#custom-workspace-5.empty,
+#custom-workspace-6.empty,
+#custom-workspace-7.empty,
+#custom-workspace-8.empty,
+#custom-workspace-9.empty,
+#custom-workspace-10.empty {
+    min-width: 0;
+    min-height: 0;
+    margin: 0;
+}
+
+#custom-workspace-1.active,
+#custom-workspace-2.active,
+#custom-workspace-3.active,
+#custom-workspace-4.active,
+#custom-workspace-5.active,
+#custom-workspace-6.active,
+#custom-workspace-7.active,
+#custom-workspace-8.active,
+#custom-workspace-9.active,
+#custom-workspace-10.active {
     color: #11111b;
 }
 
-#workspaces button.active:nth-child(5n + 1) {
+#custom-workspace-1.active,
+#custom-workspace-6.active {
     background: #f8a0d0;
 }
 
-#workspaces button.active:nth-child(5n + 2) {
+#custom-workspace-2.active,
+#custom-workspace-7.active {
     background: #d4a5e8;
 }
 
-#workspaces button.active:nth-child(5n + 3) {
+#custom-workspace-3.active,
+#custom-workspace-8.active {
     background: #a0d8f8;
 }
 
-#workspaces button.active:nth-child(5n + 4) {
+#custom-workspace-4.active,
+#custom-workspace-9.active {
     background: #a8f0c8;
 }
 
-#workspaces button.active:nth-child(5n + 5) {
+#custom-workspace-5.active,
+#custom-workspace-10.active {
     background: #f0d0a8;
-}
-
-#workspaces button.urgent {
-    background: #e8899d;
-    color: #252b3d;
 }
 
 #custom-ycal {
