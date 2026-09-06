@@ -66,6 +66,7 @@ local runner = "rofi -show run"
 -- Or execute your favorite apps at launch like this:
 --
 hl.on("hyprland.start", function()
+	hl.exec_cmd("hyprpaper")
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("hyprctl setcursor Bibata-Modern-Ice 30")
@@ -81,6 +82,12 @@ hl.env("AQ_DRM_DEVICES", "/dev/dri/card1:/dev/dri/card0")
 hl.env("XCURSOR_SIZE", "30")
 hl.env("HYPRCURSOR_SIZE", "30")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+
+local home = os.getenv("HOME")
+local path = os.getenv("PATH")
+if home and path and not path:find(home .. "/.local/bin", 1, true) then
+	hl.env("PATH", home .. "/.local/bin:" .. path)
+end
 
 -----------------------
 ----- PERMISSIONS -----

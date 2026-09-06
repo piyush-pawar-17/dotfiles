@@ -44,8 +44,8 @@ curl -fsSL https://opencode.ai/install | bash
 Install the desktop packages used by the Hyprland and Waybar configuration:
 
 ```sh
-sudo pacman -S --needed \
-  bibata-cursor-theme bluez bluez-utils brightnessctl hyprland hyprpolkitagent \
+yay -S --needed \
+  bibata-cursor-theme bluez bluez-utils brightnessctl hyprland hyprpaper hyprpolkitagent \
   networkmanager \
   hyprshot playerctl pipewire qt6ct rofi thunar waybar wireplumber \
   xdg-desktop-portal-gtk xdg-desktop-portal-hyprland

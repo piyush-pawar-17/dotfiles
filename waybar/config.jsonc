@@ -2,7 +2,6 @@
     "layer": "top",
     "position": "top",
     "height": 34,
-    "margin-right": 8,
     "exclusive": true,
     "spacing": 8,
     "modules-left": [

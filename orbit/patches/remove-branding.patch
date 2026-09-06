@@ -442,7 +442,7 @@ index 01df9ef..453f5e5 100644
          None => run_gui(config),
      }
  }
-@@ -165,18 +169,49 @@ fn reload_config() {
+@@ -165,18 +169,52 @@ fn reload_config() {
      }
  }
  
@@ -464,7 +464,10 @@ index 01df9ef..453f5e5 100644
 +                    tooltip = "Bluetooth on".to_string();
 +                    if let Ok(devices) = bt.get_devices().await {
 +                        if let Some(device) = devices.into_iter().find(|device| device.is_connected) {
-+                            text = format!(" {}", device.name);
++                            text = match device.battery_percentage {
++                                Some(battery) => format!(" {} • {}%", device.name, battery),
++                                None => format!(" {}", device.name),
++                            };
 +                            tooltip = match device.battery_percentage {
 +                                Some(battery) => format!("{}\nBattery: {}%", device.name, battery),
 +                                None => device.name,

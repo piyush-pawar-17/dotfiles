@@ -10,6 +10,7 @@
 window#waybar {
     background: #11111b;
     color: #cdd6e9;
+    padding-right: 8px;
 }
 
 tooltip {
@@ -156,7 +157,10 @@ tooltip label {
 
 #tray {
     margin-right: 8px;
-    padding: 0 8px;
+}
+
+#memory {
+    margin-right: 8px;
 }
 
 #pulseaudio {
