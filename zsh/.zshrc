@@ -77,7 +77,8 @@ export BROWSER=wslview
 export COLORTERM=truecolor
 
 export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# NVM's default-alias lookup is incompatible with Zsh's `extendedglob` option.
+() { unsetopt extendedglob; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"; }
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -100,4 +101,3 @@ esac
 
 # opencode
 export PATH=/home/piyush/.opencode/bin:$PATH
-

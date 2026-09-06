@@ -11,4 +11,3 @@ setopt share_history        # Share history between terminals
 setopt extendedglob         # Extended globbing. Allows using regular expressions with *
 setopt nocaseglob           # Case insensitive globbing
 setopt numericglobsort      # Sort filenames numerically when it makes sense
-

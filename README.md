@@ -149,6 +149,22 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 && fc-cache -fv
 ```
 
+### Hyprland status bar
+
+Waybar uses [waybar-ycal](https://github.com/yagybaba/waybar-ycal) for its
+Google Calendar and Google Tasks popup.
+
+For Arch
+
+```sh
+yay -S waybar-ycal
+systemctl --user enable --now waybar-ycal.service
+```
+
+Enable the Google Calendar and Google Tasks APIs for a Desktop OAuth client,
+then place its credentials at `~/.config/waybar-ycal/credentials.json`. Click
+the Waybar calendar module to finish authentication.
+
 ### Starship
 
 ```sh
