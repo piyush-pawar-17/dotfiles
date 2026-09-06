@@ -4,7 +4,8 @@ theme = Catppuccin Mocha
 background = #11111b
 background-opacity = 0.96
 font-size = 13
-font-family = GeistMono Nerd Font Mono
+font-family = GeistMono Nerd Font
+font-feature = +ss11
 cursor-color = #f5e0dc
 cursor-text = #1e1e2e
 

@@ -2,6 +2,7 @@
     "layer": "top",
     "position": "top",
     "height": 34,
+    "margin-right": 8,
     "exclusive": true,
     "spacing": 8,
     "modules-left": [
@@ -23,7 +24,7 @@
         "interval": "once"
     },
     "modules-center": ["custom/ycal"],
-    "modules-right": ["tray", "pulseaudio", "network", "cpu", "memory", "battery"],
+    "modules-right": ["pulseaudio", "custom/wifi", "custom/bluetooth", "battery", "cpu", "memory", "tray"],
     "custom/workspace-1": {
         "exec": "python3 ~/.config/waybar/workspace.py 1",
         "return-type": "json",
@@ -92,12 +93,17 @@
             "default": ["", "", ""]
         }
     },
-    "network": {
-        "format-wifi": " {signalStrength}%",
-        "format-ethernet": "󰈀 wired",
-        "format-disconnected": "󰖪 offline",
-        "tooltip-format-wifi": "{essid}\n{ipaddr}/{cidr}\n{signalStrength}% signal",
-        "tooltip-format-ethernet": "{ifname}\n{ipaddr}/{cidr}"
+    "custom/wifi": {
+        "exec": "orbit waybar-status wifi",
+        "return-type": "json",
+        "interval": 3,
+        "on-click": "orbit toggle top-right --tab wifi"
+    },
+    "custom/bluetooth": {
+        "exec": "orbit waybar-status bluetooth",
+        "return-type": "json",
+        "interval": 3,
+        "on-click": "orbit toggle top-right --tab bluetooth"
     },
     "cpu": {
         "interval": 5,

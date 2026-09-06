@@ -45,11 +45,12 @@ Install the desktop packages used by the Hyprland and Waybar configuration:
 
 ```sh
 sudo pacman -S --needed \
-  bibata-cursor-theme blueman brightnessctl hyprland hyprpolkitagent \
+  bibata-cursor-theme bluez bluez-utils brightnessctl hyprland hyprpolkitagent \
+  networkmanager \
   hyprshot playerctl pipewire qt6ct rofi thunar waybar wireplumber \
   xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
 
-yay -S --needed ghostty google-chrome waybar-ycal
+yay -S --needed ghostty google-chrome orbit-wifi waybar-ycal
 ```
 
 The configuration uses `wpctl` for volume controls. It is provided by
@@ -82,16 +83,17 @@ cd ~/code/dotfiles
 ## Link Dotfiles with Stow
 
 The repository `.stowrc` targets `~/.config` and excludes non-configuration
-directories such as `docs/`, `windows/`, and `mac/`. Preview the links first,
-resolve any conflicts with existing files, then create the symlinks:
+directories such as `docs/`, `windows/`, `mac/`, and `systemd/`. Preview the
+links first, resolve any conflicts with existing files, then create the
+symlinks:
 
 ```sh
 stow -n .
 stow .
 ```
 
-Stow links the shell, terminal, editor, Hyprland, Waybar, fontconfig, and
-systemd user configuration. Re-run `stow .` after pulling future changes.
+Stow links the shell, terminal, editor, Hyprland, Waybar, and fontconfig
+configuration. Re-run `stow .` after pulling future changes.
 
 Copy the Git configuration separately because it belongs at the home-directory
 root rather than under `~/.config`:
@@ -150,7 +152,7 @@ and the bundled Zsh plugins.
 ## Configure Hyprland
 
 The linked Hyprland configuration is at `~/.config/hypr/hyprland.lua` and
-starts Waybar, `hyprpolkitagent`, the Bibata cursor, and `blueman-applet`.
+starts Waybar, `hyprpolkitagent`, and the Bibata cursor.
 
 Before starting Hyprland, update the monitor-specific settings for this
 machine:
@@ -164,6 +166,46 @@ machine:
 
 The configured keybindings expect Ghostty, Thunar, Google Chrome, Rofi,
 Hyprshot, PipeWire, Brightnessctl, and Playerctl to be installed.
+
+## Configure Waybar Status Modules
+
+The custom Wi-Fi and Bluetooth modules remain available while their radios are
+off, so either can open the matching Orbit tab. The center calendar remains the
+time and date control.
+
+Orbit is the unified Wayland manager for Wi-Fi, Bluetooth, VPN, and Ethernet.
+Link its user service, then enable it after installing `orbit-wifi`:
+
+```sh
+mkdir -p ~/.config/systemd/user
+ln -sfn ~/code/dotfiles/systemd/user/orbit.service ~/.config/systemd/user/orbit.service
+systemctl --user daemon-reload
+systemctl --user enable --now orbit
+```
+
+If AUR installation is unavailable, build Orbit with the Rust toolchain and
+install it to the user-local bin directory instead. The local patch is kept
+outside Stow at `orbit/patches/`; its companion README explains the patch.
+
+```sh
+git clone https://github.com/LifeOfATitan/orbit.git /tmp/orbit
+git -C /tmp/orbit apply ~/code/dotfiles/orbit/patches/remove-branding.patch
+cargo build --release --manifest-path /tmp/orbit/Cargo.toml
+install -Dm755 /tmp/orbit/target/release/orbit ~/.local/bin/orbit
+systemctl --user restart orbit
+```
+
+The Orbit service uses the user-local binary when present and otherwise uses
+the AUR-installed `/usr/bin/orbit` binary.
+
+The Stow-managed `orbit/` directory provides Orbit's configuration and theme
+files. Apply its configuration after pulling updates with:
+
+```sh
+stow .
+orbit reload-config
+orbit reload-theme
+```
 
 ## Configure Waybar Calendar
 
@@ -183,9 +225,12 @@ Cloud project. Create a Desktop OAuth client and save its downloaded credentials
 as `~/.config/waybar-ycal/credentials.json`. Do not add this file or the token
 cache to the repository.
 
-Enable the service after the Stow-provided systemd override is linked:
+Link the local ycal service override, then enable the service:
 
 ```sh
+mkdir -p ~/.config/systemd/user/waybar-ycal.service.d
+ln -sfn ~/code/dotfiles/systemd/user/waybar-ycal.service.d/override.conf \
+  ~/.config/systemd/user/waybar-ycal.service.d/override.conf
 systemctl --user daemon-reload
 systemctl --user enable --now waybar-ycal.service
 ```

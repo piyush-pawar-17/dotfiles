@@ -20,7 +20,7 @@ tooltip {
 }
 
 tooltip label {
-    padding: 8px 10px;
+    padding: 5px 7px;
 }
 
 #custom-arch {
@@ -130,63 +130,75 @@ tooltip label {
 
 #tray,
 #pulseaudio,
-#network,
+#custom-wifi,
+#custom-bluetooth,
 #cpu,
 #memory,
 #battery {
     margin: 5px 0;
-    padding: 0 8px;
-    background: #252b3d;
+    min-height: 22px;
+    padding: 0 10px;
+    background: #1e1e2e;
+    border-radius: 9px;
     color: #cdd6e9;
+    transition: background-color 150ms ease-in-out, color 150ms ease-in-out;
+}
+
+#pulseaudio:hover,
+#custom-wifi:hover,
+#custom-bluetooth:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#tray:hover {
+    background: #313244;
 }
 
 #tray {
-    margin-left: 0;
-    border-radius: 8px 0 0 8px;
-}
-
-#pulseaudio,
-#network,
-#cpu,
-#memory {
-    border-left: 1px solid #343c52;
-}
-
-#battery {
     margin-right: 8px;
-    border-left: 1px solid #343c52;
-    border-radius: 0 8px 8px 0;
-    color: #b9d9b1;
+    padding: 0 8px;
 }
 
 #pulseaudio {
-    color: #e8bdc9;
+    color: #f38ba8;
 }
 
-#network {
-    color: #a9d4e8;
+#custom-wifi {
+    color: #cba6f7;
 }
 
-#network.disconnected {
+#custom-wifi.disconnected {
     color: #e8899d;
+}
+
+#custom-bluetooth {
+    color: #94e2d5;
 }
 
 #cpu,
 #memory {
-    color: #c6d3ea;
+    color: #f38ba8;
+}
+
+#memory {
+    color: #b4befe;
+}
+
+#battery {
+    color: #f9e2af;
 }
 
 #battery.charging,
 #battery.plugged {
-    color: #b9d9b1;
+    color: #a6e3a1;
 }
 
 #battery.warning:not(.charging) {
-    color: #eac38e;
+    color: #f9e2af;
 }
 
 #battery.critical:not(.charging) {
-    color: #e8899d;
+    color: #f38ba8;
     animation: blink 1s steps(2) infinite alternate;
 }
 

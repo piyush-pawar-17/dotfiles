@@ -69,7 +69,6 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("hyprctl setcursor Bibata-Modern-Ice 30")
-	hl.exec_cmd("blueman-applet")
 end)
 
 -------------------------------
@@ -111,10 +110,10 @@ hl.config({
 		gaps_in = 5,
 		gaps_out = 10,
 
-		border_size = 2,
+		border_size = 1,
 
 		col = {
-			active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
+			active_border = "rgba(f5c2e7ff)",
 			inactive_border = "rgba(595959aa)",
 		},
 
