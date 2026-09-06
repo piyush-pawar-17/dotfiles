@@ -1,5 +1,7 @@
 --target=~/.config
 --ignore=.stowrc
+--ignore=.gitconfig
 --ignore=tmux-sessionizer
 --ignore=windows
 --ignore=mac
+--ignore=docs
