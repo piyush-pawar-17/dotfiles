@@ -1,0 +1,222 @@
+* {
+    box-shadow: none;
+    text-shadow: none;
+    -gtk-icon-shadow: none;
+}
+
+window,
+.background,
+.orbit-panel {
+    background-color: #1e1e2e;
+    background-image: none;
+    border-color: #45475a;
+    opacity: 1;
+}
+
+.orbit-panel {
+    border-radius: 12px;
+}
+
+.orbit-header,
+.orbit-footer {
+    background-color: #181825;
+    background-image: none;
+    border-color: #45475a;
+}
+
+.orbit-header {
+    border-radius: 8px 8px 0 0;
+    margin: 0 0 8px 0;
+}
+
+.orbit-tab-bar,
+.orbit-search-container,
+.orbit-saved-list-container {
+    background-color: #313244;
+    background-image: none;
+    border-color: #45475a;
+}
+
+.orbit-tab {
+    color: #bac2de;
+    opacity: 1;
+    border-radius: 9999px;
+}
+
+.orbit-tab:nth-child(1):hover,
+.orbit-tab:nth-child(1).active {
+    background-color: #89b4fa;
+    color: #11111b;
+}
+
+.orbit-tab:nth-child(2):hover,
+.orbit-tab:nth-child(2).active {
+    background-color: #94e2d5;
+    color: #11111b;
+}
+
+.orbit-tab:nth-child(3):hover,
+.orbit-tab:nth-child(3).active {
+    background-color: #cba6f7;
+    color: #11111b;
+}
+
+.orbit-network-row,
+.orbit-wired-device-row {
+    background-color: #313244;
+    border-color: #45475a;
+}
+
+.orbit-network-row:hover,
+.orbit-network-row.connected,
+.orbit-network-row.focused,
+.orbit-wired-device-row:hover {
+    background-color: #1e2b3f;
+    border-color: #89b4fa;
+}
+
+.orbit-network-row .orbit-icon-accent,
+.orbit-wired-device-row .orbit-icon-accent {
+    color: #89b4fa;
+}
+
+.orbit-network-row .orbit-signal-bar-active-accent {
+    background-color: #89b4fa;
+}
+
+.orbit-device-row {
+    background-color: #313244;
+    border-color: #45475a;
+}
+
+.orbit-device-row:hover,
+.orbit-device-row.connected,
+.orbit-device-row.focused {
+    background-color: #1e3838;
+    border-color: #94e2d5;
+}
+
+.orbit-device-row .orbit-device-icon,
+.orbit-device-row .orbit-icon-accent {
+    color: #94e2d5;
+}
+
+.orbit-vpn-dashboard .orbit-network-row,
+.orbit-dns-header {
+    background-color: #302942;
+    border-color: #45475a;
+}
+
+.orbit-vpn-dashboard .orbit-network-row:hover,
+.orbit-dns-header:hover {
+    background-color: #3b3155;
+    border-color: #cba6f7;
+}
+
+.orbit-vpn-dashboard .orbit-icon-accent,
+.orbit-vpn-dashboard .orbit-status-accent {
+    color: #cba6f7;
+}
+
+.orbit-section-header,
+.orbit-battery-mini,
+.orbit-status-accent {
+    color: #f9e2af;
+    opacity: 1;
+}
+
+.orbit-battery-mini.low,
+.orbit-status-error,
+.orbit-password-error {
+    color: #f38ba8;
+}
+
+.orbit-button.primary {
+    background-color: #cba6f7;
+    color: #11111b;
+}
+
+.orbit-button,
+.orbit-button:hover,
+.orbit-button.primary:hover,
+.orbit-button.destructive:hover {
+    min-height: 24px;
+    padding: 0 12px;
+}
+
+.orbit-button.orbit-action-button,
+.orbit-button.orbit-action-button:hover {
+    min-height: 24px;
+    padding: 2px 10px;
+}
+
+.orbit-button.orbit-scan-button,
+.orbit-button.orbit-scan-button:hover {
+    min-height: 32px;
+    padding: 4px 14px;
+}
+
+.orbit-button.orbit-wired-action-button,
+.orbit-button.orbit-wired-action-button:hover {
+    min-height: 20px;
+    padding: 0 10px;
+}
+
+.orbit-wired-button:hover,
+.orbit-wired-button:hover image {
+    color: #11111b;
+}
+
+.orbit-button.destructive {
+    background-color: #f38ba8;
+    color: #11111b;
+}
+
+entry,
+password-entry {
+    background-color: #313244;
+    border-color: #45475a;
+}
+
+entry:focus,
+password-entry:focus {
+    border-color: #cba6f7;
+}
+
+.orbit-power.wifi-toggle switch:checked,
+.orbit-power.wifi-toggle switch:checked:not(:backdrop),
+.orbit-power.wifi-toggle switch:checked:hover,
+.orbit-power.wifi-toggle switch:checked trough,
+.orbit-power.wifi-toggle switch:checked:not(:backdrop) trough {
+    background: #89b4fa;
+    background-color: #89b4fa;
+    background-image: none;
+    border-color: #89b4fa;
+}
+
+.orbit-power.wifi-toggle switch:checked slider,
+.orbit-power.wifi-toggle switch:checked:not(:backdrop) slider {
+    background: #1e1e2e;
+    background-color: #1e1e2e;
+    background-image: none;
+    border-color: #89b4fa;
+}
+
+.orbit-power.bluetooth-toggle switch:checked,
+.orbit-power.bluetooth-toggle switch:checked:not(:backdrop),
+.orbit-power.bluetooth-toggle switch:checked:hover,
+.orbit-power.bluetooth-toggle switch:checked trough,
+.orbit-power.bluetooth-toggle switch:checked:not(:backdrop) trough {
+    background: #94e2d5;
+    background-color: #94e2d5;
+    background-image: none;
+    border-color: #94e2d5;
+}
+
+.orbit-power.bluetooth-toggle switch:checked slider,
+.orbit-power.bluetooth-toggle switch:checked:not(:backdrop) slider {
+    background: #1e1e2e;
+    background-color: #1e1e2e;
+    background-image: none;
+    border-color: #94e2d5;
+}

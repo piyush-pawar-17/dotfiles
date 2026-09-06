@@ -1,0 +1,607 @@
+diff --git a/src/theme.rs b/src/theme.rs
+index 6f14b48..9c0de41 100644
+--- a/src/theme.rs
++++ b/src/theme.rs
+@@ -218,8 +218,8 @@ window {{
+     background-color: {section_bg};
+     background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.03), transparent);
+     border-bottom: 1px solid {separator};
+-    border-radius: 16px 16px 0 0;
+-    margin: -8px -8px 8px -8px;
++    border-radius: 8px 8px 0 0;
++    margin: 0 0 8px 0;
+     padding: 8px 8px 8px 8px;
+ }}
+ 
+@@ -236,6 +236,7 @@ window {{
+     color: {fg};
+     opacity: 0.6;
+     border: none;
++    border-radius: 9999px;
+     box-shadow: none;
+     outline: none;
+     font-size: 11px;
+@@ -336,7 +337,8 @@ window {{
+     color: {fg};
+     border: 1px solid rgba(255, 255, 255, 0.1);
+     border-radius: 9999px;
+-    padding: 8px 18px;
++    padding: 0 12px;
++    min-height: 24px;
+     font-size: 10px;
+     font-weight: 700;
+     box-shadow: none;
+@@ -354,8 +356,8 @@ window {{
+     border-color: {accent};
+     color: {accent_fg};
+     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+-    padding: 8px 18px;
++    padding: 0 12px;
+-    min-height: 0;
++    min-height: 24px;
+     min-width: 0;
+     outline: none;
+ }}
+@@ -377,8 +379,8 @@ window {{
+     background-image: none;
+     color: {accent_fg};
+     box-shadow: 0 6px 16px {separator};
+-    padding: 8px 18px;
++    padding: 0 12px;
+-    min-height: 0;
++    min-height: 24px;
+     min-width: 0;
+     outline: none;
+ }}
+@@ -401,8 +403,8 @@ window {{
+     background-image: none;
+     color: #ffffff;
+     box-shadow: 0 6px 16px {destructive_separator};
+-    padding: 8px 18px;
++    padding: 0 12px;
+-    min-height: 0;
++    min-height: 24px;
+     min-width: 0;
+     outline: none;
+ }}
+@@ -598,10 +599,10 @@ window switch.orbit-toggle-switch,
+ window switch.orbit-toggle-switch:not(:backdrop),
+ window switch.orbit-toggle-switch trough,
+ window switch.orbit-toggle-switch:not(:backdrop) trough {{
+-    background-color: rgba(255, 255, 255, 0.12) !important;
+-    background-image: none !important;
+-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+-    box-shadow: none !important;
++    background-color: rgba(255, 255, 255, 0.12);
++    background-image: none;
++    border: 1px solid rgba(255, 255, 255, 0.1);
++    box-shadow: none;
+     border-radius: 9999px;
+     min-width: 44px;
+     min-height: 24px;
+@@ -612,16 +613,16 @@ window switch.orbit-toggle-switch:checked:not(:backdrop),
+ window switch.orbit-toggle-switch:checked:hover,
+ window switch.orbit-toggle-switch:checked trough,
+ window switch.orbit-toggle-switch:checked:not(:backdrop) trough {{
+-    background-color: {accent} !important;
+-    background-image: none !important;
+-    border-color: {accent} !important;
+-    box-shadow: none !important;
++    background-color: {accent};
++    background-image: none;
++    border-color: {accent};
++    box-shadow: none;
+ }}
+ 
+ window switch.orbit-toggle-switch slider {{
+-    background-color: #ffffff !important;
++    background-color: #ffffff;
+     border-radius: 9999px;
+-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
++    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+     min-width: 18px;
+     min-height: 18px;
+     margin: 3px;
+@@ -629,7 +630,7 @@ window switch.orbit-toggle-switch slider {{
+ 
+ window switch.orbit-toggle-switch:checked slider,
+ window switch.orbit-toggle-switch:checked:not(:backdrop) slider {{
+-    background-color: {accent_fg} !important;
++    background-color: {accent_fg};
+ }}
+ 
+ .orbit-battery-mini {{
+diff --git a/src/ui/header.rs b/src/ui/header.rs
+index 9ae0fd5..0c64082 100644
+--- a/src/ui/header.rs
++++ b/src/ui/header.rs
+@@ -1,12 +1,8 @@
+ use gtk4::prelude::*;
+ use gtk4::{self as gtk, Orientation};
+-use gtk4::gdk;
+-use gdk_pixbuf::PixbufLoader;
+ use std::cell::RefCell;
+ use std::rc::Rc;
+ 
+-const ORBIT_LOGO: &[u8] = include_bytes!("../../assets/OrbitLogo.png");
+-
+ #[derive(Clone)]
+ pub struct Header {
+     container: gtk::Box,
+@@ -33,32 +29,8 @@ impl Header {
+             .spacing(4)
+             .build();
+         
+-        let loader = PixbufLoader::new();
+-        loader.write(ORBIT_LOGO).expect("Failed to load embedded Orbit logo");
+-        loader.close().expect("Failed to close logo loader");
+-        let pixbuf = loader.pixbuf().expect("Failed to get logo pixbuf");
+-        let logo_texture = gdk::Texture::for_pixbuf(&pixbuf);
+-
+-        let orbit_icon = gtk::Image::builder()
+-            .paintable(&logo_texture)
+-            .pixel_size(64)
+-            .build();
+-
+-        let logo_container = gtk::Box::builder()
+-            .css_classes(["orbit-logo-container"])
+-            .valign(gtk::Align::Center)
+-            .build();
+-        logo_container.append(&orbit_icon);
+-        
+-        let title = gtk::Label::builder()
+-            .label("Orbit")
+-            .css_classes(["orbit-title"])
+-            .hexpand(true)
+-            .halign(gtk::Align::Start)
+-            .build();
+-        
+         let power_switch = gtk::Switch::builder()
+-            .css_classes(["orbit-toggle-switch"])
++            .css_classes(["orbit-toggle-switch", "wifi-toggle"])
+             .active(false)
+             .sensitive(false)
+             .build();
+@@ -70,8 +42,11 @@ impl Header {
+         
+         let power_box = gtk::Box::builder()
+             .orientation(Orientation::Horizontal)
++            .css_classes(["orbit-power", "wifi-toggle"])
+             .spacing(8)
+             .valign(gtk::Align::Center)
++            .hexpand(true)
++            .halign(gtk::Align::End)
+             .build();
+         power_box.append(&power_label);
+         power_box.append(&power_switch);
+@@ -83,14 +58,13 @@ impl Header {
+             .valign(gtk::Align::Center)
+             .build();
+         
+-        title_row.append(&logo_container);
+-        title_row.append(&title);
+         title_row.append(&power_box);
+         title_row.append(&wired_button);
+         
+         let tab_bar = gtk::Box::builder()
+             .orientation(Orientation::Horizontal)
+             .css_classes(["orbit-tab-bar"])
++            .spacing(4)
+             .homogeneous(true)
+             .build();
+         
+@@ -171,16 +145,24 @@ impl Header {
+         self.wifi_tab.remove_css_class("active");
+         self.bluetooth_tab.remove_css_class("active");
+         self.vpn_tab.remove_css_class("active");
++        self.power_switch.remove_css_class("wifi-toggle");
++        self.power_switch.remove_css_class("bluetooth-toggle");
++        self.power_box.remove_css_class("wifi-toggle");
++        self.power_box.remove_css_class("bluetooth-toggle");
+ 
+         match tab {
+             "wifi" | "saved" => {
+                 self.wifi_tab.add_css_class("active");
++                self.power_switch.add_css_class("wifi-toggle");
++                self.power_box.add_css_class("wifi-toggle");
+                 self.power_box.set_visible(true);
+                 self.power_label.set_label("WiFi");
+                 self.wired_button.set_visible(true);
+             }
+             "bluetooth" => {
+                 self.bluetooth_tab.add_css_class("active");
++                self.power_switch.add_css_class("bluetooth-toggle");
++                self.power_box.add_css_class("bluetooth-toggle");
+                 self.power_box.set_visible(true);
+                 self.power_label.set_label("Bluetooth");
+                 self.wired_button.set_visible(false);
+@@ -194,4 +176,3 @@ impl Header {
+         }
+     }
+ }
+-
+diff --git a/src/ui/device_list.rs b/src/ui/device_list.rs
+index a1b714a..401ada9 100644
+--- a/src/ui/device_list.rs
++++ b/src/ui/device_list.rs
+@@ -57,7 +57,7 @@ impl DeviceList {
+         let scan_button = gtk::Button::builder()
+             .label(" Scan for Devices")
+-            .css_classes(["orbit-button", "primary", "flat"])
++            .css_classes(["orbit-button", "orbit-scan-button", "primary", "flat"])
+             .hexpand(true)
+             .build();
+         
+         footer.append(&scan_button);
+@@ -324,6 +324,7 @@ impl DeviceList {
+         let actions_box = gtk::Box::builder()
+             .orientation(Orientation::Horizontal)
+             .spacing(8)
++            .valign(gtk::Align::Start)
+             .build();
+         
+         self.build_actions_box_content(&actions_box, device);
+@@ -377,9 +378,9 @@ impl DeviceList {
+             let action_btn = gtk::Button::builder()
+                 .label(action_label)
+                 .css_classes(if device.is_connected || device.is_paired {
+-                    vec!["orbit-button", "primary", "flat"]
++                    vec!["orbit-button", "orbit-action-button", "primary", "flat"]
+                 } else {
+-                    vec!["orbit-button", "flat"]
++                    vec!["orbit-button", "orbit-action-button", "flat"]
+                 })
+                 .build();
+             
+@@ -396,7 +397,7 @@ impl DeviceList {
+             if device.is_paired {
+                 let details_btn = gtk::Button::builder()
+                     .icon_name("help-about-symbolic")
+-                    .css_classes(["orbit-button", "flat"])
++                    .css_classes(["orbit-button", "orbit-action-button", "flat"])
+                     .tooltip_text("Device Details")
+                     .build();
+                 
+diff --git a/src/ui/network_list.rs b/src/ui/network_list.rs
+index 6fc4edb..a5ada53 100644
+--- a/src/ui/network_list.rs
++++ b/src/ui/network_list.rs
+@@ -98,7 +98,7 @@ impl NetworkList {
+         let scan_button = gtk::Button::builder()
+             .label(" Scan")
+             .icon_name("view-refresh-symbolic")
+-            .css_classes(["orbit-button", "primary", "flat"])
++            .css_classes(["orbit-button", "orbit-scan-button", "primary", "flat"])
+             .hexpand(true)
+             .tooltip_text("Scan for Networks")
+             .build();
+@@ -405,6 +405,7 @@ impl NetworkList {
+         let actions_box = gtk::Box::builder()
+             .orientation(Orientation::Horizontal)
+             .spacing(8)
++            .valign(gtk::Align::Start)
+             .build();
+         
+         self.build_actions_box_content(&actions_box, network);
+@@ -460,9 +461,9 @@ impl NetworkList {
+             };
+             
+             let btn_classes = if network.is_connected { 
+-                vec!["orbit-button", "flat"] 
++                vec!["orbit-button", "orbit-action-button", "flat"] 
+             } else { 
+-                vec!["orbit-button", "primary", "flat"] 
++                vec!["orbit-button", "orbit-action-button", "primary", "flat"] 
+             };
+             
+             let action_btn = gtk::Button::builder()
+@@ -485,7 +486,7 @@ impl NetworkList {
+         if network.is_connected && !is_disconnecting {
+             let details_btn = gtk::Button::builder()
+                 .label("Details")
+-                .css_classes(["orbit-button", "flat"])
++                .css_classes(["orbit-button", "orbit-action-button", "flat"])
+                 .tooltip_text("Network Details")
+                 .build();
+             
+diff --git a/src/theme.rs b/src/theme.rs
+index 6f14b48..ea67cd5 100644
+--- a/src/theme.rs
++++ b/src/theme.rs
+@@ -408,4 +408,16 @@ window {{
+     outline: none;
+ }}
+ 
++.orbit-button.orbit-action-button,
++.orbit-button.orbit-action-button:hover {{
++    min-height: 24px;
++    padding: 2px 10px;
++}}
++
++.orbit-button.orbit-scan-button,
++.orbit-button.orbit-scan-button:hover {{
++    min-height: 32px;
++    padding: 4px 14px;
++}}
++
+ /* Section Headers */
+diff --git a/src/ui/network_list.rs b/src/ui/network_list.rs
+index 6fc4edb..029a692 100644
+--- a/src/ui/network_list.rs
++++ b/src/ui/network_list.rs
+@@ -106,14 +106,14 @@ impl NetworkList {
+         let hidden_button = gtk::Button::builder()
+             .label(" Hidden")
+             .icon_name("network-wireless-encrypted-symbolic")
+-            .css_classes(["orbit-button", "flat"])
++            .css_classes(["orbit-button", "orbit-scan-button", "flat"])
+             .tooltip_text("Hidden Network")
+             .build();
+         
+         let saved_button = gtk::Button::builder()
+             .label(" Saved")
+             .icon_name("document-open-recent-symbolic")
+-            .css_classes(["orbit-button", "flat"])
++            .css_classes(["orbit-button", "orbit-scan-button", "flat"])
+             .tooltip_text("Saved Networks")
+             .build();
+         
+diff --git a/src/theme.rs b/src/theme.rs
+index 6f14b48..b9b8507 100644
+--- a/src/theme.rs
++++ b/src/theme.rs
+@@ -466,6 +480,12 @@ window {{
+ .orbit-wired-button:hover {{
+     opacity: 1.0;
+-    color: {accent};
++    color: {accent_fg};
+ }}
+ 
++.orbit-button.orbit-wired-action-button,
++.orbit-button.orbit-wired-action-button:hover {{
++    min-height: 20px;
++    padding: 0 10px;
++}}
++
+ /* Footer */
+diff --git a/src/ui/window.rs b/src/ui/window.rs
+index e9f4e1f..3359c19 100644
+--- a/src/ui/window.rs
++++ b/src/ui/window.rs
+@@ -1323,7 +1323,8 @@ impl OrbitWindow {
+         if profile.is_active && !profile.connection_path.is_empty() {
+             let disc_btn = gtk::Button::builder()
+                 .label("Disconnect")
+-                .css_classes(["orbit-button", "flat"])
++                .css_classes(["orbit-button", "orbit-wired-action-button", "flat"])
++                .valign(gtk::Align::Start)
+                 .build();
+             let dev_path = profile.device_path.clone();
+             let cb = self.wired_disconnect_callback.clone();
+@@ -1336,7 +1337,8 @@ impl OrbitWindow {
+         } else if !profile.connection_path.is_empty() {
+             let conn_btn = gtk::Button::builder()
+                 .label("Connect")
+-                .css_classes(["orbit-button", "flat", "primary"])
++                .css_classes(["orbit-button", "orbit-wired-action-button", "flat", "primary"])
++                .valign(gtk::Align::Start)
+                 .build();
+             let conn_path = profile.connection_path.clone();
+             let dev_path = profile.device_path.clone();
+@@ -1358,7 +1358,7 @@ impl OrbitWindow {
+             let details_btn = gtk::Button::builder()
+                 .label("Details")
+                 .icon_name("pan-end-symbolic")
+-                .css_classes(["orbit-button", "flat"])
++                .css_classes(["orbit-button", "orbit-wired-action-button", "flat"])
+                 .build();
+             
+             // Build details content
+diff --git a/src/dbus/bluez.rs b/src/dbus/bluez.rs
+index 3ed2510..a6fd358 100644
+--- a/src/dbus/bluez.rs
++++ b/src/dbus/bluez.rs
+@@ -229,6 +229,14 @@ impl BluetoothManager {
+                 }
+             }
+         } else {
++            if let Ok(devices) = self.get_devices().await {
++                for device in devices.into_iter().filter(|device| device.is_connected) {
++                    if let Err(error) = self.disconnect_device(&device.path).await {
++                        log::warn!("BlueZ: Failed to disconnect {} before power-off: {}", device.name, error);
++                    }
++                }
++            }
++
+             log::info!("BlueZ: Running rfkill block bluetooth");
+             let status = std::process::Command::new("rfkill")
+                 .arg("block")
+diff --git a/src/main.rs b/src/main.rs
+index 01df9ef..453f5e5 100644
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -41,7 +41,11 @@ enum Commands {
+     /// Reload config (position, margins) from config.toml
+     ReloadConfig,
+     /// Output status in JSON format for Waybar
+-    WaybarStatus,
++    WaybarStatus {
++        /// Status module to render (wifi or bluetooth)
++        #[arg(default_value = "wifi")]
++        module: String,
++    },
+ }
+ 
+ fn main() {
+@@ -58,7 +62,7 @@ fn main() {
+         Some(Commands::Hide) => hide(),
+         Some(Commands::ReloadTheme) => reload_theme(),
+         Some(Commands::ReloadConfig) => reload_config(),
+-        Some(Commands::WaybarStatus) => waybar_status(),
++        Some(Commands::WaybarStatus { module }) => waybar_status(&module),
+         None => run_gui(config),
+     }
+ }
+@@ -165,18 +169,49 @@ fn reload_config() {
+     }
+ }
+ 
+-fn waybar_status() {
++fn waybar_status(module: &str) {
+     let rt = tokio::runtime::Runtime::new().expect("Failed to create runtime");
+     rt.block_on(async {
+-        let mut status = "Disconnected".to_string();
+-        if let Ok(nm) = dbus::NetworkManager::new().await {
+-            if let Ok(aps) = nm.get_access_points().await {
+-                if let Some(active) = aps.iter().find(|ap| ap.is_connected) {
+-                    status = active.ssid.clone();
++        let (text, tooltip) = if module == "bluetooth" {
++            let mut tooltip = "Bluetooth off".to_string();
++            let mut text = "".to_string();
++
++            if let Ok(bt) = dbus::BluetoothManager::new().await {
++                if bt.is_powered().await.unwrap_or(false) {
++                    tooltip = "Bluetooth on".to_string();
++                    if let Ok(devices) = bt.get_devices().await {
++                        if let Some(device) = devices.into_iter().find(|device| device.is_connected) {
++                            text = format!(" {}", device.name);
++                            tooltip = match device.battery_percentage {
++                                Some(battery) => format!("{}\nBattery: {}%", device.name, battery),
++                                None => device.name,
++                            };
++                        }
++                    }
+                 }
+             }
+-        }
+-        println!(r#"{{"text": "󱗿", "tooltip": "{}"}}"#, status);
++
++            (text, tooltip)
++        } else {
++            let mut tooltip = "Wi-Fi off".to_string();
++            let mut text = "󰖪 offline".to_string();
++
++            if let Ok(nm) = dbus::NetworkManager::new().await {
++                if nm.is_wifi_enabled().await.unwrap_or(false) {
++                    tooltip = "Wi-Fi on".to_string();
++                    if let Ok(aps) = nm.get_access_points().await {
++                        if let Some(active) = aps.into_iter().find(|ap| ap.is_connected) {
++                            text = format!("  {}", active.ssid);
++                            tooltip = format!("{}\n{}% signal", active.ssid, active.signal_strength);
++                        }
++                    }
++                }
++            }
++
++            (text, tooltip)
++        };
++
++        println!("{}", serde_json::json!({ "text": text, "tooltip": tooltip }));
+     });
+ }
+ 
+ fn list_networks() {
+diff --git a/src/app/mod.rs b/src/app/mod.rs
+index f1c4998..9b49240 100644
+--- a/src/app/mod.rs
++++ b/src/app/mod.rs
+@@ -244,7 +244,7 @@ impl OrbitApp {
+                 win.show();
+             }
+             
+-            setup_events_receiver(win.clone(), rx.clone(), is_visible.clone(), last_refresh.clone(), nm.clone(), bt.clone(), rt.clone(), tx.clone(), win_theme.clone(), is_switching_pwr.clone());
++            setup_events_receiver(win.clone(), rx.clone(), is_visible.clone(), last_refresh.clone(), nm.clone(), bt.clone(), rt.clone(), tx.clone(), win_theme.clone(), current_tab.clone());
+             setup_ui_callbacks(win.clone(), nm.clone(), bt.clone(), rt.clone(), tx.clone(), current_tab.clone(), is_switching_pwr.clone());
+             setup_periodic_refresh(win.clone(), nm, bt, rt.clone(), tx.clone(), is_visible.clone(), current_tab.clone());
+         });
+diff --git a/src/app/mod.rs b/src/app/mod.rs
+index f1c4998..b0b8613 100644
+--- a/src/app/mod.rs
++++ b/src/app/mod.rs
+@@ -556,8 +550,8 @@ fn setup_events_receiver(
+                                     win.set_position(&pos);
+                                 }
+                                 
+-                                let _current_target_tab = tab.clone();
+                                 if let Some(t) = tab {
++                                    *current_tab.borrow_mut() = t.clone();
+                                     win.set_tab(&t);
+                                 }
+                                 win.show();
+@@ -263,7 +263,7 @@ fn setup_events_receiver(
+     rt: Arc<tokio::runtime::Runtime>,
+     tx: async_channel::Sender<AppEvent>,
+     win_theme: Rc<RefCell<Theme>>,
+-    is_switching_pwr: Arc<Mutex<bool>>,
++    current_tab: Rc<RefCell<String>>,
+ ) {
+     glib::spawn_future_local(async move {
+         while let Ok(event) = rx.recv().await {
+@@ -284,9 +283,6 @@ fn setup_events_receiver(
+                     win.device_list().set_devices(devices);
+                 }
+                 AppEvent::WifiPowerState(enabled) => {
+-                    if *is_switching_pwr.lock().unwrap() {
+-                        continue;
+-                    }
+                     if let Some(tab) = win.stack().visible_child_name() {
+                         let tab_str = tab.as_str();
+                         if tab_str == "wifi" || tab_str == "saved" {
+@@ -296,9 +292,6 @@ fn setup_events_receiver(
+                     }
+                 }
+                 AppEvent::BtPowerState(enabled) => {
+-                    if *is_switching_pwr.lock().unwrap() {
+-                        continue;
+-                    }
+                     if let Some(tab) = win.stack().visible_child_name() {
+                         let tab_str = tab.as_str();
+                         if tab_str == "bluetooth" {
+@@ -703,7 +696,6 @@ fn setup_ui_callbacks(
+     let nm_wifi = nm.clone();
+     let rt_wifi = rt.clone();
+     let tx_wifi = tx.clone();
+-    let is_switching_wifi = is_switching_pwr.clone();
+     header.wifi_tab().connect_clicked(move |_| {
+         *current_tab_wifi.borrow_mut() = "wifi".to_string();
+         stack_wifi.set_visible_child_name("wifi");
+@@ -711,14 +703,11 @@ fn setup_ui_callbacks(
+         let nm = nm_wifi.clone();
+         let rt = rt_wifi.clone();
+         let tx = tx_wifi.clone();
+-        let is_switching = is_switching_wifi.clone();
+         std::thread::spawn(move || {
+             let nm_guard = nm.lock().unwrap();
+             if let Some(ref nm_inst) = *nm_guard {
+                 if let Ok(enabled) = rt.block_on(async { nm_inst.is_wifi_enabled().await }) {
+-                    if !*is_switching.lock().unwrap() {
+-                        let _ = tx.send_blocking(AppEvent::WifiPowerState(enabled));
+-                    }
++                    let _ = tx.send_blocking(AppEvent::WifiPowerState(enabled));
+                 }
+             }
+         });
+@@ -730,7 +719,6 @@ fn setup_ui_callbacks(
+     let bt_tab = bt.clone();
+     let rt_bt_tab = rt.clone();
+     let tx_bt_tab = tx.clone();
+-    let is_switching_bt_tab = is_switching_pwr.clone();
+     header.bluetooth_tab().connect_clicked(move |_| {
+         *current_tab_bt.borrow_mut() = "bluetooth".to_string();
+         stack_bt.set_visible_child_name("bluetooth");
+@@ -738,14 +726,11 @@ fn setup_ui_callbacks(
+         let bt = bt_tab.clone();
+         let rt = rt_bt_tab.clone();
+         let tx = tx_bt_tab.clone();
+-        let is_switching = is_switching_bt_tab.clone();
+         std::thread::spawn(move || {
+             let bt_guard = bt.lock().unwrap();
+             if let Some(ref bt_inst) = *bt_guard {
+                 if let Ok(enabled) = rt.block_on(async { bt_inst.is_powered().await }) {
+-                    if !*is_switching.lock().unwrap() {
+-                        let _ = tx.send_blocking(AppEvent::BtPowerState(enabled));
+-                    }
++                    let _ = tx.send_blocking(AppEvent::BtPowerState(enabled));
+                 }
+             }
+         });

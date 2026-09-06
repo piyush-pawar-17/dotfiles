@@ -1,0 +1,11 @@
+[Unit]
+Description=Orbit network manager daemon
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/sh -c 'if [ -x "$HOME/.local/bin/orbit" ]; then exec "$HOME/.local/bin/orbit" daemon; else exec /usr/bin/orbit daemon; fi'
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

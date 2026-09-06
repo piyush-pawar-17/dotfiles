@@ -1,0 +1,7 @@
+accent_primary = "#cba6f7"
+accent_secondary = "#f9e2af"
+accent_primary_foreground = "#11111b"
+background = "#1e1e2e"
+foreground = "#cdd6f4"
+destructive = "#f38ba8"
+opacity = 1.0
