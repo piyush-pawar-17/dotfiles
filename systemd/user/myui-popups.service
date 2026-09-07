@@ -1,0 +1,11 @@
+[Unit]
+Description=MyUI popup manager
+After=graphical-session.target
+
+[Service]
+ExecStart=/usr/bin/python3 %h/.config/waybar/myui_popup_manager.py
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=default.target

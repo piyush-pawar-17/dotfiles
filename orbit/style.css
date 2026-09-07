@@ -5,15 +5,18 @@
 }
 
 window,
-.background,
+.background {
+    background-color: transparent;
+    background-image: none;
+    border-color: transparent;
+    opacity: 1;
+}
+
 .orbit-panel {
     background-color: #1e1e2e;
     background-image: none;
     border-color: #45475a;
     opacity: 1;
-}
-
-.orbit-panel {
     border-radius: 12px;
 }
 
@@ -35,6 +38,17 @@ window,
     background-color: #313244;
     background-image: none;
     border-color: #45475a;
+}
+
+tooltip,
+tooltip.background {
+    background-color: #1e1e2e;
+    border: 1px solid #45475a;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: #cdd6f4;
 }
 
 .orbit-tab {

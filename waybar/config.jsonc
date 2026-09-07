@@ -23,7 +23,7 @@
         "interval": "once"
     },
     "modules-center": ["custom/ycal"],
-    "modules-right": ["pulseaudio", "custom/wifi", "custom/bluetooth", "battery", "cpu", "memory", "tray"],
+    "modules-right": ["pulseaudio", "custom/brightness", "custom/connectivity", "battery", "cpu", "memory", "tray"],
     "custom/workspace-1": {
         "exec": "python3 ~/.config/waybar/workspace.py 1",
         "return-type": "json",
@@ -87,22 +87,24 @@
     "pulseaudio": {
         "format": "{icon} {volume}%",
         "format-muted": "󰝟 muted",
+        "on-click": "python3 ~/.config/waybar/myui-popup-toggle.py volume",
         "format-icons": {
             "headphone": "",
             "default": ["", "", ""]
         }
     },
-    "custom/wifi": {
-        "exec": "orbit waybar-status wifi",
-        "return-type": "json",
-        "interval": 3,
-        "on-click": "orbit toggle top-right --tab wifi"
+    "custom/brightness": {
+        "exec": "brightnessctl -m | cut -d, -f4",
+        "format": "󰃟 {}",
+        "interval": 2,
+        "on-click": "python3 ~/.config/waybar/myui-popup-toggle.py brightness",
+        "tooltip": false
     },
-    "custom/bluetooth": {
-        "exec": "orbit waybar-status bluetooth",
+    "custom/connectivity": {
+        "exec": "python3 ~/.config/waybar/orbit-connectivity.py",
         "return-type": "json",
         "interval": 3,
-        "on-click": "orbit toggle top-right --tab bluetooth"
+        "on-click": "orbit toggle top-right"
     },
     "cpu": {
         "interval": 5,

@@ -45,12 +45,19 @@ Install the desktop packages used by the Hyprland and Waybar configuration:
 
 ```sh
 yay -S --needed \
-  bibata-cursor-theme bluez bluez-utils brightnessctl hyprland hyprpaper hyprpolkitagent \
-  networkmanager \
-  hyprshot playerctl pipewire qt6ct rofi thunar waybar wireplumber \
+  bibata-cursor-theme bluez bluez-utils brightnessctl ddcutil hyprland hyprpaper hyprpolkitagent \
+  libadwaita networkmanager python-gobject \
+  gtk4 hyprshot playerctl pipewire qt6ct rofi thunar waybar wireplumber \
   xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
 
 yay -S --needed ghostty google-chrome orbit-wifi waybar-ycal
+```
+
+Install the MyUI sources used by the Waybar volume and brightness popups:
+
+```sh
+git clone https://github.com/givani30/myui-popups.git ~/.local/share/myui-popups
+git -C ~/.local/share/myui-popups checkout 35fb4da
 ```
 
 The configuration uses `wpctl` for volume controls. It is provided by

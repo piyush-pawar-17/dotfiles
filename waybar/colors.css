@@ -1,0 +1,45 @@
+@define-color background #1e1e2e;
+@define-color surface_container #181825;
+@define-color surface_variant #313244;
+@define-color primary #89b4fa;
+@define-color on_surface #cdd6f4;
+@define-color on_primary #1e1e2e;
+@define-color error #f38ba8;
+@define-color on_error #1e1e2e;
+@define-color outline #6c7086;
+
+window.volume-popup {
+    border-color: alpha(#f38ba8, 0.55);
+}
+
+window.volume-popup .icon-label,
+window.volume-popup .title-label {
+    color: #f38ba8;
+}
+
+window.volume-popup scale highlight,
+window.volume-popup scale slider {
+    background-color: #f38ba8;
+}
+
+window.volume-popup scale slider {
+    border-color: #1e1e2e;
+}
+
+window.brightness-popup {
+    border-color: alpha(#f9e2af, 0.55);
+}
+
+window.brightness-popup .icon-label,
+window.brightness-popup .title-label {
+    color: #f9e2af;
+}
+
+window.brightness-popup scale highlight,
+window.brightness-popup scale slider {
+    background-color: #f9e2af;
+}
+
+window.brightness-popup scale slider {
+    border-color: #1e1e2e;
+}

@@ -68,6 +68,7 @@ local runner = "rofi -show run"
 hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprpaper")
 	hl.exec_cmd("waybar")
+	hl.exec_cmd("systemctl --user start myui-popups.service")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("hyprctl setcursor Bibata-Modern-Ice 30")
 end)
@@ -178,7 +179,7 @@ hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" }
 hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
 hl.animation({ leaf = "windows", enabled = true, speed = 4.79, spring = "easy" })
 hl.animation({ leaf = "windowsIn", enabled = true, speed = 4.1, spring = "easy", style = "popin 87%" })
-hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.49, bezier = "linear", style = "popin 87%" })
+	hl.animation({ leaf = "windowsOut", enabled = true, speed = 5, bezier = "linear", style = "popin 87%" })
 hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.73, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.46, bezier = "almostLinear" })
 hl.animation({ leaf = "fade", enabled = true, speed = 3.03, bezier = "quick" })
@@ -443,4 +444,28 @@ hl.window_rule({
 
 	move = "20 monitor_h-120",
 	float = true,
+})
+
+hl.window_rule({
+	name = "float-myui-popup-before-map",
+	match = { title = "^(Volume|Brightness) Control$" },
+
+	border_size = 0,
+	float = true,
+	rounding = 14,
+})
+
+myuiNoAnimRule = hl.window_rule({
+	name = "disable-myui-popup-animation",
+	match = { title = "^(Volume|Brightness) Control$" },
+
+	no_anim = true,
+})
+myuiNoAnimRule:set_enabled(false)
+
+hl.window_rule({
+	name = "hide-myui-popup-before-placement",
+	match = { title = "^(Volume|Brightness) Control$" },
+
+	move = "monitor_w-400 -1000",
 })

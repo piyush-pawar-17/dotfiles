@@ -131,8 +131,8 @@ tooltip label {
 
 #tray,
 #pulseaudio,
-#custom-wifi,
-#custom-bluetooth,
+#custom-brightness,
+#custom-connectivity,
 #cpu,
 #memory,
 #battery {
@@ -146,8 +146,8 @@ tooltip label {
 }
 
 #pulseaudio:hover,
-#custom-wifi:hover,
-#custom-bluetooth:hover,
+#custom-brightness:hover,
+#custom-connectivity:hover,
 #battery:hover,
 #cpu:hover,
 #memory:hover,
@@ -167,16 +167,16 @@ tooltip label {
     color: #f38ba8;
 }
 
-#custom-wifi {
+#custom-brightness {
+    color: #f9e2af;
+}
+
+#custom-connectivity {
     color: #cba6f7;
 }
 
-#custom-wifi.disconnected {
+#custom-connectivity.disconnected {
     color: #e8899d;
-}
-
-#custom-bluetooth {
-    color: #94e2d5;
 }
 
 #cpu,
