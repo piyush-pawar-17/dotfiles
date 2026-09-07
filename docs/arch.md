@@ -47,10 +47,10 @@ Install the desktop packages used by the Hyprland and Waybar configuration:
 yay -S --needed \
   bibata-cursor-theme bluez bluez-utils brightnessctl ddcutil hyprland hyprlock hyprpaper hyprpolkitagent \
   libadwaita networkmanager python-gobject \
-  gtk4 hyprshot playerctl pipewire qt6ct rofi swaync thunar waybar wireplumber \
+  gtk4 hyprshot playerctl pipewire qt6ct swaync thunar waybar wireplumber \
   xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
 
-yay -S --needed ghostty google-chrome orbit-wifi waybar-ycal
+yay -S --needed ghostty google-chrome orbit-wifi vicinae-bin waybar-ycal
 ```
 
 Build the local SwayNC variant that reduces the empty-state icon and uses the

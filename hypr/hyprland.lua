@@ -53,8 +53,8 @@ hl.workspace_rule({
 local terminal = "ghostty"
 local fileManager = "thunar"
 local browser = "google-chrome-stable"
-local launcher = "rofi -show drun -show-icons"
-local runner = "rofi -show run"
+local launcher = "vicinae toggle"
+local runner = "vicinae open"
 
 -------------------
 ---- AUTOSTART ----
@@ -68,6 +68,7 @@ local runner = "rofi -show run"
 hl.on("hyprland.start", function()
 	hl.exec_cmd("hyprpaper")
 	hl.exec_cmd("waybar")
+	hl.exec_cmd("vicinae server --replace")
 	hl.exec_cmd("/home/piyush/.local/bin/swaync")
 	hl.exec_cmd("systemctl --user start myui-popups.service")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
@@ -478,4 +479,11 @@ hl.layer_rule({
 	match = { namespace = "^swaync-control-center$" },
 
 	animation = "slide right",
+})
+
+hl.layer_rule({
+	name = "slide-waybar-calendar",
+	match = { namespace = "^waybar-ycal$" },
+
+	animation = "slide top",
 })

@@ -288,6 +288,7 @@ class CalendarPopup(Gtk.ApplicationWindow):
         self.connect("close-request", lambda *_: self._hide())
 
         Gtk4LayerShell.init_for_window(self)
+        Gtk4LayerShell.set_namespace(self, 'waybar-ycal')
         Gtk4LayerShell.set_layer(self, Gtk4LayerShell.Layer.OVERLAY)
         Gtk4LayerShell.set_anchor(self, Gtk4LayerShell.Edge.TOP, True)
         Gtk4LayerShell.set_anchor(self, Gtk4LayerShell.Edge.LEFT, False)
