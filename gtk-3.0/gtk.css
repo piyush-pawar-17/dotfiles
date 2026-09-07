@@ -1,0 +1,21 @@
+.shortcuts-pane {
+    min-width: 210px;
+    border-right: 1px solid alpha(#45475a, 0.7);
+}
+
+.shortcuts-pane treeview.view {
+    -GtkTreeView-vertical-separator: 5;
+}
+
+.shortcuts-pane treeview.view:selected {
+    background-color: #cba6f7;
+    color: #1e1e2e;
+}
+
+iconview.view:selected,
+iconview.view:selected:focus {
+    background-color: #585b70;
+    background-image: none;
+    box-shadow: none;
+    color: #cdd6f4;
+}
