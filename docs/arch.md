@@ -45,12 +45,25 @@ Install the desktop packages used by the Hyprland and Waybar configuration:
 
 ```sh
 yay -S --needed \
-  bibata-cursor-theme bluez bluez-utils brightnessctl ddcutil hyprland hyprpaper hyprpolkitagent \
+  bibata-cursor-theme bluez bluez-utils brightnessctl ddcutil hyprland hyprlock hyprpaper hyprpolkitagent \
   libadwaita networkmanager python-gobject \
-  gtk4 hyprshot playerctl pipewire qt6ct rofi thunar waybar wireplumber \
+  gtk4 hyprshot playerctl pipewire qt6ct rofi swaync thunar waybar wireplumber \
   xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
 
 yay -S --needed ghostty google-chrome orbit-wifi waybar-ycal
+```
+
+Build the local SwayNC variant that reduces the empty-state icon and uses the
+pointer cursor on interactive controls:
+
+```sh
+sudo pacman -S --needed meson ninja vala blueprint-compiler sassc scdoc
+~/code/dotfiles/swaync/build-local.sh
+mkdir -p ~/.config/systemd/user/swaync.service.d
+ln -sfn ~/code/dotfiles/systemd/user/swaync.service.d/local-build.conf \
+  ~/.config/systemd/user/swaync.service.d/local-build.conf
+systemctl --user daemon-reload
+systemctl --user restart swaync
 ```
 
 Install the MyUI sources used by the Waybar volume and brightness popups:
@@ -90,7 +103,7 @@ cd ~/code/dotfiles
 ## Link Dotfiles with Stow
 
 The repository `.stowrc` targets `~/.config` and excludes non-configuration
-directories such as `docs/`, `windows/`, `mac/`, and `systemd/`. Preview the
+directories such as `backgrounds/`, `docs/`, `windows/`, `mac/`, and `systemd/`. Preview the
 links first, resolve any conflicts with existing files, then create the
 symlinks:
 

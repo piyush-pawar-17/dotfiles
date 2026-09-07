@@ -1,0 +1,154 @@
+* {
+    font-family: "GeistMono Nerd Font", monospace;
+    font-size: 13px;
+}
+
+.control-center {
+    background: #1e1e2e;
+    border: 1px solid #45475a;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    color: #cdd6f4;
+    padding: 12px;
+}
+
+.control-center-list,
+.floating-notifications {
+    background: transparent;
+}
+
+.widget-notifications {
+    padding: 4px 0;
+}
+
+.widget-title,
+.widget-dnd,
+.widget-buttons {
+    background: #181825;
+    border: 1px solid #313244;
+    border-radius: 10px;
+    margin: 4px 0;
+    padding: 10px;
+}
+
+.widget-title > label {
+    color: #cdd6f4;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.widget-title > button {
+    background: #313244;
+    border: 0;
+    border-radius: 7px;
+    color: #bac2de;
+    padding: 4px 8px;
+}
+
+.widget-title > button:hover {
+    background: #45475a;
+    color: #cdd6f4;
+}
+
+.widget-dnd > switch {
+    background: #313244;
+    border-radius: 999px;
+}
+
+.widget-dnd > switch:checked {
+    background: #cba6f7;
+}
+
+.widget-dnd > switch slider {
+    background: #cdd6f4;
+}
+
+.widget-buttons-grid flowboxchild > button {
+    background: #313244;
+    border: 0;
+    border-radius: 8px;
+    color: #cdd6f4;
+    margin: 2px;
+    min-width: 150px;
+    padding: 8px 6px;
+}
+
+.widget-buttons-grid flowboxchild > button:hover {
+    background: #45475a;
+}
+
+.widget-buttons-grid flowboxchild:first-child > button {
+    background: #f38ba8;
+    color: #1e1e2e;
+}
+
+.widget-buttons-grid flowboxchild:first-child > button:hover {
+    background: #eba0ac;
+}
+
+.widget-buttons-grid flowboxchild:nth-child(2) > button {
+    background: #f9e2af;
+    color: #1e1e2e;
+}
+
+.widget-buttons-grid flowboxchild:nth-child(2) > button:hover {
+    background: #f5e0dc;
+}
+
+.notification-row {
+    margin: 5px 0;
+}
+
+.notification {
+    background: #313244;
+    border: 1px solid #313244;
+    border-radius: 10px;
+    color: #cdd6f4;
+    padding: 12px;
+}
+
+.notification.critical {
+    border-color: #f38ba8;
+}
+
+.notification-default-action,
+.notification-action {
+    background: transparent;
+    border: 0;
+    color: #cdd6f4;
+}
+
+.notification-action:hover {
+    background: #313244;
+    border-radius: 7px;
+}
+
+.summary {
+    color: #cdd6f4;
+    font-weight: 700;
+}
+
+.body,
+.time {
+    color: #a6adc8;
+}
+
+.close-button {
+    background: #f38ba8;
+    border: 0;
+    border-radius: 999px;
+    color: #1e1e2e;
+}
+
+.close-button:hover {
+    background: #eba0ac;
+}
+
+.control-center-list-placeholder {
+    color: #6c7086;
+    padding: 28px 0;
+}
+
+.control-center-list-placeholder image {
+    -gtk-icon-size: 56px;
+}

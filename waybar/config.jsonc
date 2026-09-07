@@ -23,7 +23,7 @@
         "interval": "once"
     },
     "modules-center": ["custom/ycal"],
-    "modules-right": ["pulseaudio", "custom/brightness", "custom/connectivity", "battery", "cpu", "memory", "tray"],
+    "modules-right": ["pulseaudio", "custom/brightness", "custom/connectivity", "battery", "cpu", "memory", "tray", "custom/notification"],
     "custom/workspace-1": {
         "exec": "python3 ~/.config/waybar/workspace.py 1",
         "return-type": "json",
@@ -83,6 +83,26 @@
     "tray": {
         "icon-size": 15,
         "spacing": 8
+    },
+    "custom/notification": {
+        "tooltip": true,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󱅫",
+            "none": "󰂜",
+            "dnd-notification": "󰂠",
+            "dnd-none": "󰪓",
+            "inhibited-notification": "󰂛",
+            "inhibited-none": "󰪑",
+            "dnd-inhibited-notification": "󰂛",
+            "dnd-inhibited-none": "󰪑"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",

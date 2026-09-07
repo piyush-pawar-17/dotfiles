@@ -133,6 +133,7 @@ tooltip label {
 #pulseaudio,
 #custom-brightness,
 #custom-connectivity,
+#custom-notification,
 #cpu,
 #memory,
 #battery {
@@ -148,6 +149,7 @@ tooltip label {
 #pulseaudio:hover,
 #custom-brightness:hover,
 #custom-connectivity:hover,
+#custom-notification:hover,
 #battery:hover,
 #cpu:hover,
 #memory:hover,
@@ -156,10 +158,6 @@ tooltip label {
 }
 
 #tray {
-    margin-right: 8px;
-}
-
-#memory {
     margin-right: 8px;
 }
 
@@ -177,6 +175,15 @@ tooltip label {
 
 #custom-connectivity.disconnected {
     color: #e8899d;
+}
+
+#custom-notification {
+    color: #cba6f7;
+    margin-right: 8px;
+}
+
+#custom-notification.notification {
+    color: #f9e2af;
 }
 
 #cpu,

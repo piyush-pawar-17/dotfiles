@@ -1,0 +1,119 @@
+diff --git a/data/ui/notifications_widget.blp b/data/ui/notifications_widget.blp
+index 582c9d0..db759d0 100644
+--- a/data/ui/notifications_widget.blp
++++ b/data/ui/notifications_widget.blp
+@@ -48,7 +48,7 @@ template $SwayNotificationCenterWidgetsNotifications: $SwayNotificationCenterWid
+         ]
+ 
+         Image {
+-          pixel-size: 96;
++          pixel-size: 56;
+           icon-name: "preferences-system-notifications-symbolic";
+           use-fallback: true;
+         }
+diff --git a/src/controlCenter/widgets/buttonsGrid/buttonsGrid.vala b/src/controlCenter/widgets/buttonsGrid/buttonsGrid.vala
+index b7bfda9..7b0c547 100644
+--- a/src/controlCenter/widgets/buttonsGrid/buttonsGrid.vala
++++ b/src/controlCenter/widgets/buttonsGrid/buttonsGrid.vala
+@@ -42,10 +42,12 @@ namespace SwayNotificationCenter.Widgets {
+                     case ButtonType.TOGGLE :
+                         ToggleButton tb = new ToggleButton (act.label, act.command,
+                                                             act.update_command, act.active);
++                        tb.set_cursor_from_name ("pointer");
+                         container.insert (tb, -1);
+                         toggle_buttons.append (tb);
+                         break;
+                     default:
+                         Gtk.Button b = new Gtk.Button.with_label (act.label);
++                        b.set_cursor_from_name ("pointer");
+                         b.clicked.connect (() => execute_command.begin (act.command));
+                         container.insert (b, -1);
+                         break;
+diff --git a/src/controlCenter/widgets/dnd/dnd.vala b/src/controlCenter/widgets/dnd/dnd.vala
+index 63691a1..4a16290 100644
+--- a/src/controlCenter/widgets/dnd/dnd.vala
++++ b/src/controlCenter/widgets/dnd/dnd.vala
+@@ -34,6 +34,7 @@ namespace SwayNotificationCenter.Widgets {
+             dnd_button = new Gtk.Switch () {
+                 active = noti_daemon.dnd,
+             };
++            dnd_button.set_cursor_from_name ("pointer");
+             dnd_button.notify["active"].connect (switch_active_changed_cb);
+             noti_daemon.on_dnd_toggle.connect ((dnd) => {
+                 dnd_button.notify["active"].disconnect (switch_active_changed_cb);
+diff --git a/src/controlCenter/widgets/inhibitors/inhibitors.vala b/src/controlCenter/widgets/inhibitors/inhibitors.vala
+index 3c99516..8964ea4 100644
+--- a/src/controlCenter/widgets/inhibitors/inhibitors.vala
++++ b/src/controlCenter/widgets/inhibitors/inhibitors.vala
+@@ -55,6 +55,7 @@ namespace SwayNotificationCenter.Widgets {
+ 
+             if (has_clear_all_button) {
+                 clear_all_button = new Gtk.Button.with_label (button_text);
++                clear_all_button.set_cursor_from_name ("pointer");
+                 clear_all_button.clicked.connect (() => {
+                     try {
+                         swaync_daemon.clear_inhibitors ();
+diff --git a/src/controlCenter/widgets/title/title.vala b/src/controlCenter/widgets/title/title.vala
+index b8cde77..35c4360 100644
+--- a/src/controlCenter/widgets/title/title.vala
++++ b/src/controlCenter/widgets/title/title.vala
+@@ -45,6 +45,7 @@ namespace SwayNotificationCenter.Widgets {
+ 
+             if (has_clear_all_button) {
+                 clear_all_button = new Gtk.Button.with_label (button_text);
++                clear_all_button.set_cursor_from_name ("pointer");
+                 clear_all_button.clicked.connect (() => {
+                     noti_daemon.request_dismiss_all_notifications (ClosedReasons.DISMISSED);
+                 });
+diff --git a/src/notification/notification.vala b/src/notification/notification.vala
+index 637762a..79faa54 100644
+--- a/src/notification/notification.vala
++++ b/src/notification/notification.vala
+@@ -569,6 +569,7 @@ namespace SwayNotificationCenter {
+ 
+                     Gtk.Button action_button = new Gtk.Button.with_label (
+                         "COPY \"%s\"".printf (code));
++                    action_button.set_cursor_from_name ("pointer");
+                     action_button.clicked.connect (() => {
+                         // Copy to clipboard
+                         get_clipboard ().set_text (code);
+@@ -588,6 +589,7 @@ namespace SwayNotificationCenter {
+                     alt_actions_box.append (flowbox_child);
+ 
+                     Gtk.Button action_button = new Gtk.Button.with_label (action.text);
++                    action_button.set_cursor_from_name ("pointer");
+                     action_button.clicked.connect (() => action_clicked (action));
+                     action_button.set_can_focus (false);
+                     flowbox_child.set_child (action_button);
+diff --git a/src/notificationCloseButton/notificationCloseButton.vala b/src/notificationCloseButton/notificationCloseButton.vala
+index 8de8d68..406874d 100644
+--- a/src/notificationCloseButton/notificationCloseButton.vala
++++ b/src/notificationCloseButton/notificationCloseButton.vala
+@@ -24,6 +24,7 @@ namespace SwayNotificationCenter {
+             };
+             button.add_css_class ("close-button");
+             button.add_css_class ("circular");
++            button.set_cursor_from_name ("pointer");
+             button.clicked.connect (click_cb);
+             revealer.set_child (button);
+         }
+diff --git a/src/notificationGroup/notificationGroup.vala b/src/notificationGroup/notificationGroup.vala
+index af4da85..3c1822d 100644
+--- a/src/notificationGroup/notificationGroup.vala
++++ b/src/notificationGroup/notificationGroup.vala
+@@ -88,6 +88,7 @@ namespace SwayNotificationCenter {
+                 "swaync-collapse-symbolic");
+             collapse_button.add_css_class ("circular");
+             collapse_button.add_css_class ("notification-group-collapse-button");
++            collapse_button.set_cursor_from_name ("pointer");
+             collapse_button.set_halign (Gtk.Align.END);
+             collapse_button.set_valign (Gtk.Align.CENTER);
+             collapse_button.clicked.connect (() => {
+@@ -101,6 +102,7 @@ namespace SwayNotificationCenter {
+                 "swaync-close-symbolic");
+             close_all_button.add_css_class ("circular");
+             close_all_button.add_css_class ("notification-group-close-all-button");
++            close_all_button.set_cursor_from_name ("pointer");
+             close_all_button.set_halign (Gtk.Align.END);
+             close_all_button.set_valign (Gtk.Align.CENTER);
+             close_all_button.clicked.connect (() => {

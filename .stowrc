@@ -7,3 +7,4 @@
 --ignore=docs
 --ignore=systemd
 --ignore=patches
+--ignore=backgrounds
