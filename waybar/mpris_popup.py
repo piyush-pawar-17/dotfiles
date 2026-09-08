@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-import re
 import subprocess
 import sys
 from pathlib import Path
@@ -90,6 +89,11 @@ window.mpris-popup button.mpris-primary:hover {
     background-color: #74a8e8;
 }
 
+window.mpris-popup .mpris-time {
+    color: #a6adc8;
+    font-size: 11px;
+}
+
 window.mpris-popup scale trough {
     min-height: 6px;
     background-color: #45475a;
@@ -114,7 +118,8 @@ class MprisPopup(AppWindow):
         )
         self.add_css_class("mpris-popup")
         self.player = None
-        self.syncing_volume = False
+        self.syncing_progress = False
+        self.seek_timeout = None
         self._apply_css()
         self._build_ui()
         self._refresh()
@@ -181,17 +186,21 @@ class MprisPopup(AppWindow):
         controls.append(self.next_button)
         self.main_box.append(controls)
 
-        volume_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-        volume_icon = Gtk.Label(label="󰕾")
-        volume_icon.add_css_class("icon-label")
-        volume_row.append(volume_icon)
-        self.volume_scale = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 0, 100, 1)
-        self.volume_scale.set_draw_value(False)
-        self.volume_scale.set_hexpand(True)
-        self.volume_scale.connect("value-changed", self._set_volume)
-        volume_row.append(self.volume_scale)
-        self.volume_row = volume_row
-        self.main_box.append(volume_row)
+        progress_row = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
+        self.position_label = Gtk.Label(label="0:00")
+        self.position_label.add_css_class("mpris-time")
+        self.position_label.set_valign(Gtk.Align.CENTER)
+        progress_row.append(self.position_label)
+        self.progress_scale = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 0, 1, 1)
+        self.progress_scale.set_draw_value(False)
+        self.progress_scale.set_hexpand(True)
+        self.progress_scale.connect("change-value", self._seek_to)
+        progress_row.append(self.progress_scale)
+        self.duration_label = Gtk.Label(label="0:00")
+        self.duration_label.add_css_class("mpris-time")
+        progress_row.append(self.duration_label)
+        self.progress_row = progress_row
+        self.main_box.append(progress_row)
 
     def _control_button(self, icon, action, primary=False):
         button = Gtk.Button(label=icon)
@@ -233,7 +242,7 @@ class MprisPopup(AppWindow):
             self.player_label.set_text("MPRIS")
             self.art.set_visible(False)
             self.art_placeholder.set_visible(True)
-            self.volume_row.set_visible(False)
+            self.progress_row.set_visible(False)
             return GLib.SOURCE_CONTINUE
 
         metadata = self._playerctl(
@@ -249,7 +258,7 @@ class MprisPopup(AppWindow):
         self.player_label.set_text(f"{self.player} - {status.lower()}")
         self.play_button.set_label("󰏤" if status == "Playing" else "󰐊")
         self._set_art(art_url)
-        self._refresh_volume()
+        self._refresh_progress()
         return GLib.SOURCE_CONTINUE
 
     def _set_art(self, art_url):
@@ -269,36 +278,56 @@ class MprisPopup(AppWindow):
         self.art.set_visible(True)
         self.art_placeholder.set_visible(False)
 
-    def _refresh_volume(self):
-        try:
-            result = subprocess.run(
-                ["wpctl", "get-volume", "@DEFAULT_AUDIO_SINK@"],
-                capture_output=True,
-                text=True,
-                timeout=1,
-            )
-            match = re.search(r"Volume:\s*([0-9.]+)", result.stdout)
-            value = float(match.group(1)) * 100 if match else None
-        except (subprocess.TimeoutExpired, ValueError):
-            value = None
-
-        if value is None:
-            self.volume_row.set_visible(False)
-            return
-
-        self.syncing_volume = True
-        self.volume_scale.set_value(min(value, 100))
-        self.syncing_volume = False
-        self.volume_row.set_visible(True)
-
-    def _set_volume(self, scale):
-        if self.syncing_volume or not self.player:
-            return
-        subprocess.Popen(
-            ["wpctl", "set-volume", "@DEFAULT_AUDIO_SINK@", f"{scale.get_value():.0f}%"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
+    def _refresh_progress(self):
+        position_text = self._playerctl("--player", self.player, "position")
+        length_text = self._playerctl(
+            "--player", self.player, "metadata", "--format", "{{mpris:length}}"
         )
+        try:
+            position = float(position_text)
+        except (TypeError, ValueError):
+            position = 0.0
+        try:
+            length = int(length_text) / 1_000_000
+            if length <= 0:
+                raise ValueError
+        except (TypeError, ValueError):
+            self.progress_row.set_visible(False)
+            return
+
+        self.syncing_progress = True
+        self.progress_scale.set_range(0, length)
+        self.progress_scale.set_value(min(position, length))
+        self.position_label.set_text(self._format_time(position))
+        self.duration_label.set_text(self._format_time(length))
+        self.syncing_progress = False
+        self.progress_row.set_visible(True)
+
+    def _seek_to(self, scale, _scroll, value):
+        if self.syncing_progress or not self.player:
+            return True
+        if self.seek_timeout:
+            GLib.source_remove(self.seek_timeout)
+        self.seek_timeout = GLib.timeout_add(150, lambda: self._do_seek(value))
+        return True
+
+    def _do_seek(self, seconds):
+        self.seek_timeout = None
+        if self.player:
+            subprocess.Popen(
+                ["playerctl", "--player", self.player, "position", f"{seconds:.0f}"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
+        return GLib.SOURCE_REMOVE
+
+    def _format_time(self, seconds):
+        seconds = max(0, int(seconds))
+        hours, rem = divmod(seconds, 3600)
+        minutes, secs = divmod(rem, 60)
+        if hours:
+            return f"{hours}:{minutes:02d}:{secs:02d}"
+        return f"{minutes}:{secs:02d}"
 
     def _run_action(self, action):
         if not self.player:
@@ -315,6 +344,9 @@ class MprisPopup(AppWindow):
         return GLib.SOURCE_REMOVE
 
     def _on_destroy(self, _window):
+        if self.seek_timeout:
+            GLib.source_remove(self.seek_timeout)
+            self.seek_timeout = None
         if self.refresh_timer:
             GLib.source_remove(self.refresh_timer)
             self.refresh_timer = None
