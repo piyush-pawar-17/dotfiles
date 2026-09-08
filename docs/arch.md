@@ -52,7 +52,7 @@ yay -S --needed \
   xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
 
 yay -S --needed catppuccin-gtk-theme-mocha ghostty google-chrome orbit-wifi \
-  papirus-folders-catppuccin-git vicinae-bin waybar-ycal
+  papirus-folders-catppuccin-git vicinae-bin waybar-ycal wlogout
 ```
 
 Build the local SwayNC variant that reduces the empty-state icon and uses the

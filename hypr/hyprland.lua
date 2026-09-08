@@ -302,6 +302,7 @@ hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("orbit toggle --tab wifi top-right"))
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(launcher))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t"))
 hl.bind(secondMod .. " + O", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(secondMod .. " + Escape", hl.dsp.exec_cmd("wlogout --buttons-per-row 5"))
 hl.bind(secondMod .. " + Space", hl.dsp.exec_cmd(runner))
 
 hl.bind(secondMod .. " + Q", hl.dsp.window.close())
