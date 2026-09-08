@@ -130,6 +130,7 @@ tooltip label {
 }
 
 #tray,
+#custom-mpris,
 #pulseaudio,
 #custom-brightness,
 #custom-connectivity,
@@ -147,6 +148,7 @@ tooltip label {
 }
 
 #pulseaudio:hover,
+#custom-mpris:hover,
 #custom-brightness:hover,
 #custom-connectivity:hover,
 #custom-notification:hover,
@@ -163,6 +165,21 @@ tooltip label {
 
 #pulseaudio {
     color: #f38ba8;
+}
+
+#custom-mpris {
+    color: #89b4fa;
+}
+
+#custom-mpris.paused {
+    color: #a6adc8;
+}
+
+#custom-mpris.hidden {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
 }
 
 #custom-brightness {

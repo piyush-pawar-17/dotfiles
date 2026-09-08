@@ -36,7 +36,7 @@ hl.monitor({
 })
 
 -- Start cursor (and initial focus) on the BenQ on login
-hl.config({ cursor = { default_monitor = "HDMI-A-1" } })
+hl.config({ cursor = { default_monitor = "HDMI-A-1", no_warps = true } })
 
 -- Workspace 1 lives on the BenQ (only applies while it's attached)
 hl.workspace_rule({
@@ -306,10 +306,7 @@ hl.bind(secondMod .. " + Escape", hl.dsp.exec_cmd("wlogout --buttons-per-row 5")
 hl.bind(secondMod .. " + Space", hl.dsp.exec_cmd(runner))
 
 hl.bind(secondMod .. " + Q", hl.dsp.window.close())
-hl.bind(
-	secondMod .. " + M",
-	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
-)
+hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("python3 ~/.config/waybar/myui-popup-toggle.py mpris --keybind"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 
 -- Move focus with mainMod + arrow keys
@@ -456,7 +453,7 @@ hl.window_rule({
 
 hl.window_rule({
 	name = "float-myui-popup-before-map",
-	match = { title = "^(Volume|Brightness) Control$" },
+	match = { title = "^(Volume|Brightness|Media) Control$" },
 
 	border_size = 0,
 	float = true,
@@ -465,7 +462,7 @@ hl.window_rule({
 
 myuiNoAnimRule = hl.window_rule({
 	name = "disable-myui-popup-animation",
-	match = { title = "^(Volume|Brightness) Control$" },
+	match = { title = "^(Volume|Brightness|Media) Control$" },
 
 	no_anim = true,
 })
@@ -473,7 +470,7 @@ myuiNoAnimRule:set_enabled(false)
 
 hl.window_rule({
 	name = "hide-myui-popup-before-placement",
-	match = { title = "^(Volume|Brightness) Control$" },
+	match = { title = "^(Volume|Brightness|Media) Control$" },
 
 	move = "monitor_w-400 -1000",
 })

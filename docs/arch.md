@@ -68,7 +68,10 @@ systemctl --user daemon-reload
 systemctl --user restart swaync
 ```
 
-Install the MyUI sources used by the Waybar volume and brightness popups:
+Install the MyUI sources used by the Waybar volume and brightness popups. The
+MPRIS popup (`waybar/mpris_popup.py`) and its popup manager
+(`waybar/myui_popup_manager.py`) ship in this repository and are deployed by
+Stow to `~/.config/waybar`, where the MyUI build picks them up automatically:
 
 ```sh
 git clone https://github.com/givani30/myui-popups.git ~/.local/share/myui-popups
@@ -235,6 +238,34 @@ stow .
 orbit reload-config
 orbit reload-theme
 ```
+
+## Configure the Media Status Module
+
+The `custom/mpris` Waybar module shows the currently playing track as
+`title - artist`, refreshing every second. Its tooltip lists the title, artist,
+and player. The module is hidden while nothing is playing.
+
+Click the module to open the MPRIS popup with album art, track metadata,
+playback controls, and a volume slider. The buttons darken on hover, and the
+popup closes when focus moves elsewhere or when the module is clicked again.
+
+- Left click: open or close the MPRIS popup
+- Right click: previous track
+- Scroll up/down: next/previous track
+- Popup buttons: previous, play/pause, next, and close
+- Popup slider: system volume via `wpctl`
+
+The popup is owned by the `myui-popups.service` user service, which Hyprland
+starts on login. Restart it after editing the popup or manager scripts:
+
+```sh
+systemctl --user restart myui-popups.service
+```
+
+`playerctl` provides the track metadata and playback control; `wpctl`
+(PipeWire) drives the volume slider. The Hyprland `cursor.no_warps` setting
+keeps the pointer in place when the popup opens, so the panel appears directly
+beneath the module without the cursor jumping to it.
 
 ## Configure Waybar Calendar
 

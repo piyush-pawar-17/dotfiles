@@ -23,7 +23,7 @@
         "interval": "once"
     },
     "modules-center": ["custom/ycal"],
-    "modules-right": ["pulseaudio", "custom/brightness", "custom/connectivity", "battery", "cpu", "memory", "tray", "custom/notification"],
+    "modules-right": ["custom/mpris", "pulseaudio", "custom/brightness", "custom/connectivity", "battery", "cpu", "memory", "tray", "custom/notification"],
     "custom/workspace-1": {
         "exec": "python3 ~/.config/waybar/workspace.py 1",
         "return-type": "json",
@@ -112,6 +112,17 @@
             "headphone": "",
             "default": ["", "", ""]
         }
+    },
+    "custom/mpris": {
+        "exec": "python3 ~/.config/waybar/mpris.py",
+        "return-type": "json",
+        "interval": 1,
+        "on-click": "python3 ~/.config/waybar/myui-popup-toggle.py mpris",
+        "on-click-right": "playerctl previous",
+        "on-scroll-up": "playerctl next",
+        "on-scroll-down": "playerctl previous",
+        "tooltip": true,
+        "escape": true
     },
     "custom/brightness": {
         "exec": "brightnessctl -m | cut -d, -f4",
