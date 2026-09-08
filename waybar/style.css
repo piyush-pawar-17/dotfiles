@@ -199,10 +199,6 @@ tooltip label {
     margin-right: 8px;
 }
 
-#custom-notification.notification {
-    color: #f9e2af;
-}
-
 #cpu,
 #memory {
     color: #f38ba8;

@@ -55,8 +55,9 @@ yay -S --needed catppuccin-gtk-theme-mocha ghostty google-chrome orbit-wifi \
   papirus-folders-catppuccin-git vicinae-bin waybar-ycal wlogout
 ```
 
-Build the local SwayNC variant that reduces the empty-state icon and uses the
-pointer cursor on interactive controls:
+Build the local SwayNC variant that reduces the empty-state icon, uses the
+pointer cursor on interactive controls, caps notification bodies at two lines,
+and ignores client-supplied italic markup:
 
 ```sh
 sudo pacman -S --needed meson ninja vala blueprint-compiler sassc scdoc
@@ -67,6 +68,9 @@ ln -sfn ~/code/dotfiles/systemd/user/swaync.service.d/local-build.conf \
 systemctl --user daemon-reload
 systemctl --user restart swaync
 ```
+
+The checked-in SwayNC configuration keeps the control center open after using
+the top **Clear** button (`"hide-on-clear": false`).
 
 Install the MyUI sources used by the Waybar volume and brightness popups. The
 MPRIS popup (`waybar/mpris_popup.py`) and its popup manager

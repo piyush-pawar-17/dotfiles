@@ -1,0 +1,32 @@
+diff --git a/src/notification/notification.vala b/src/notification/notification.vala
+index 637762a..0000000 100644
+--- a/src/notification/notification.vala
++++ b/src/notification/notification.vala
+@@ -81,8 +81,8 @@ namespace SwayNotificationCenter {
+         public uint timeout_critical_delay { get; construct; }
+ 
+         public int transition_time { get; construct; }
+ 
+-        public int number_of_body_lines { get; construct; default = 10; }
++        public int number_of_body_lines { get; construct; default = 2; }
+ 
+         public bool has_inline_reply { get; private set; default = false; }
+ 
+@@ -124,7 +124,7 @@ namespace SwayNotificationCenter {
+                     timeout_delay: timeout,
+                     timeout_low_delay: timeout_low,
+                     timeout_critical_delay: timeout_critical,
+-                    number_of_body_lines: 5
++                    number_of_body_lines: 2
+             );
+             this.param = param;
+             build_noti ();
+@@ -390,6 +390,8 @@ namespace SwayNotificationCenter {
+ 
+                 this.body.set_text (buf);
+                 if (attr != null) {
++                    // Ignore client-supplied italics while preserving other Pango markup.
++                    attr.filter ((attribute) => attribute.klass.type == Pango.AttrType.STYLE);
+                     this.body.set_attributes (attr);
+                 }
+             } catch (Error e) {
