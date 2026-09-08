@@ -199,6 +199,36 @@ machine:
 The configured keybindings expect Ghostty, Thunar, Google Chrome, Rofi,
 Hyprshot, PipeWire, Brightnessctl, and Playerctl to be installed.
 
+## Configure Middle-Click Autoscroll
+
+Windows-style middle-click autoscrolling is provided by the
+[hypr-autoscroll](https://github.com/estebanhiram/hypr-autoscroll) plugin:
+press the middle button and move the pointer away from the activation point to
+scroll, with speed and direction following the pointer distance. A short
+middle click still behaves normally, and any click or wheel input ends the
+scroll.
+
+The hyprpm dependency check also requires `cmake`, so install it first:
+
+```sh
+yay -S cmake
+```
+
+Install and enable the plugin, then reload the configuration:
+
+```sh
+hyprpm add https://github.com/estebanhiram/hypr-autoscroll
+hyprpm enable hypr-autoscroll
+hyprctl reload
+```
+
+The plugin must be rebuilt after Hyprland updates because plugins are ABI
+sensitive. Run `hyprpm update` and reload again.
+
+Behavior is configured in `hypr/hyprland.lua` under `plugin.hypr_autoscroll`.
+The middle button starts autoscroll directly; press `SUPER + A` to toggle
+between autoscroll and normal middle-button behavior.
+
 ## Configure Waybar Status Modules
 
 The custom Wi-Fi and Bluetooth modules remain available while their radios are

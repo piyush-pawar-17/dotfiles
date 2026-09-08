@@ -38,6 +38,22 @@ hl.monitor({
 -- Start cursor (and initial focus) on the BenQ on login
 hl.config({ cursor = { default_monitor = "HDMI-A-1", no_warps = true } })
 
+-- Windows-style middle-click autoscroll (hypr-autoscroll plugin)
+hl.config({
+	plugin = {
+		hypr_autoscroll = {
+			enabled = true,
+			direct_activation = true,
+			dead_zone = 12.0,
+			sensitivity = 4.0,
+			acceleration = 1.075,
+			max_speed = 1500.0,
+			horizontal = true,
+			vertical = true,
+		},
+	},
+})
+
 -- Workspace 1 lives on the BenQ (only applies while it's attached)
 hl.workspace_rule({
 	workspace = "1",
@@ -307,6 +323,13 @@ hl.bind(secondMod .. " + Space", hl.dsp.exec_cmd(runner))
 
 hl.bind(secondMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("python3 ~/.config/waybar/myui-popup-toggle.py mpris --keybind"))
+hl.bind(mainMod .. " + A", function()
+	if hl.plugin and hl.plugin.hypr_autoscroll then
+		hl.plugin.hypr_autoscroll.middle_mode("toggle")
+	end
+end, {
+	description = "Toggle middle-button autoscroll",
+})
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 
 -- Move focus with mainMod + arrow keys
