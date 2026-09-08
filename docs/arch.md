@@ -32,8 +32,8 @@ Return to the dotfiles repository after the build completes.
 Install the terminal tooling and development dependencies:
 
 ```sh
-sudo pacman -S --needed \
-  bat eza fd fzf git-delta go nodejs npm ripgrep stow tmux unzip \
+yay -S --needed \
+  bat eza fastfetch fd fzf git-delta go nodejs npm ripgrep stow tmux unzip \
   wl-clipboard xclip
 
 npm install -g hunkdiff prettier
@@ -47,7 +47,8 @@ Install the desktop packages used by the Hyprland and Waybar configuration:
 yay -S --needed \
   bibata-cursor-theme bluez bluez-utils brightnessctl ddcutil hyprland hyprlock hyprpaper hyprpolkitagent \
   libadwaita networkmanager python-gobject \
-  gtk4 hyprshot papirus-icon-theme playerctl pipewire qt6ct swaync thunar waybar wireplumber \
+  gtk4 hyprshot papirus-icon-theme papers playerctl pipewire qt6ct swaync thunar vlc vlc-plugins-all \
+  waybar wireplumber \
   xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
 
 yay -S --needed catppuccin-gtk-theme-mocha ghostty google-chrome orbit-wifi \
@@ -113,8 +114,15 @@ stow -n .
 stow .
 ```
 
-Stow links the shell, terminal, editor, Hyprland, Waybar, and fontconfig
-configuration. Re-run `stow .` after pulling future changes.
+Stow links the shell, terminal, editor, Hyprland, Waybar, fontconfig, and
+Thunar configuration. Re-run `stow .` after pulling future changes.
+
+Restart Thunar after linking so it loads the tracked layout:
+
+```sh
+thunar -q
+thunar
+```
 
 Copy the Git configuration separately because it belongs at the home-directory
 root rather than under `~/.config`:

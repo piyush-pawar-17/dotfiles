@@ -70,7 +70,9 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("waybar")
 	hl.exec_cmd("vicinae server --replace")
 	hl.exec_cmd("/home/piyush/.local/bin/swaync")
-	hl.exec_cmd("systemctl --user start myui-popups.service")
+	hl.exec_cmd(
+		"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE && systemctl --user start myui-popups.service"
+	)
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("hyprctl setcursor Bibata-Modern-Ice 30")
 end)
@@ -295,10 +297,11 @@ local secondMod = "SUPER + SHIFT"
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("orbit toggle --tab bluetooth top-right"))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("orbit toggle --tab wifi top-right"))
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(launcher))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("swaync-client -t"))
-hl.bind(mainMod .. " + SHIFT + L", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(secondMod .. " + O", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(secondMod .. " + Space", hl.dsp.exec_cmd(runner))
 
 hl.bind(secondMod .. " + Q", hl.dsp.window.close())
