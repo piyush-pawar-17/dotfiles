@@ -38,21 +38,8 @@ hl.monitor({
 -- Start cursor (and initial focus) on the BenQ on login
 hl.config({ cursor = { default_monitor = "HDMI-A-1", no_warps = true } })
 
--- Windows-style middle-click autoscroll (hypr-autoscroll plugin)
-hl.config({
-	plugin = {
-		hypr_autoscroll = {
-			enabled = true,
-			direct_activation = true,
-			dead_zone = 12.0,
-			sensitivity = 4.0,
-			acceleration = 1.075,
-			max_speed = 1500.0,
-			horizontal = true,
-			vertical = true,
-		},
-	},
-})
+-- Middle-click autoscroll (hypr-autoscroll) uses upstream defaults, so no
+-- plugin block is needed; hyprpm reload in AUTOSTART loads it at login.
 
 -- Workspace 1 lives on the BenQ (only applies while it's attached)
 hl.workspace_rule({
@@ -87,8 +74,9 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("vicinae server --replace")
 	hl.exec_cmd("/home/piyush/.local/bin/swaync")
 	hl.exec_cmd(
-		"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE && systemctl --user start myui-popups.service"
+		"dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP HYPRLAND_INSTANCE_SIGNATURE && systemctl --user import-environment WAYLAND_DISPLAY DISPLAY XDG_CURRENT_DESKTOP && systemctl --user restart myui-popups.service"
 	)
+	hl.exec_cmd("hyprpm reload")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("hyprctl setcursor Bibata-Modern-Ice 30")
 end)
@@ -101,6 +89,7 @@ end)
 
 hl.env("AQ_DRM_DEVICES", "/dev/dri/card1:/dev/dri/card0")
 hl.env("XCURSOR_SIZE", "30")
+hl.env("XCURSOR_THEME", "Bibata-Modern-Ice")
 hl.env("HYPRCURSOR_SIZE", "30")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
@@ -126,7 +115,7 @@ end
 
 -- hl.permission("/usr/(bin|local/bin)/grim", "screencopy", "allow")
 -- hl.permission("/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", "screencopy", "allow")
--- hl.permission("/usr/(bin|local/bin)/hyprpm", "plugin", "allow")
+hl.permission("/usr/(bin|sbin|local/bin)/hyprpm", "plugin", "allow")
 
 -----------------------
 ---- LOOK AND FEEL ----
