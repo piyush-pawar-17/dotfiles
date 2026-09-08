@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import subprocess
 import sys
+import time
 from pathlib import Path
 from urllib.parse import unquote, urlparse
 
@@ -120,6 +121,8 @@ class MprisPopup(AppWindow):
         self.player = None
         self.syncing_progress = False
         self.seek_timeout = None
+        self._suppress_focus_close_until = 0.0
+        self._track_signature = None
         self._apply_css()
         self._build_ui()
         self._refresh()
@@ -253,6 +256,10 @@ class MprisPopup(AppWindow):
             "{{artist}}\t{{title}}\t{{mpris:artUrl}}",
         )
         artist, title, art_url = (metadata.split("\t") + ["", "", ""])[:3]
+        signature = (self.player, title, artist)
+        if signature != self._track_signature:
+            self._track_signature = signature
+            self._suppress_focus_close_until = time.monotonic() + 2
         self.title_label.set_text(title or self.player)
         self.artist_label.set_text(artist or "Unknown artist")
         self.player_label.set_text(f"{self.player} - {status.lower()}")
@@ -332,12 +339,19 @@ class MprisPopup(AppWindow):
     def _run_action(self, action):
         if not self.player:
             return
+        if action in ("next", "previous"):
+            self._suppress_focus_close_until = time.monotonic() + 3
         subprocess.Popen(
             ["playerctl", "--player", self.player, action],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
         )
         GLib.timeout_add(100, self._refresh_once)
+
+    def on_focus_leave(self, controller):
+        if time.monotonic() < self._suppress_focus_close_until:
+            return
+        super().on_focus_leave(controller)
 
     def _refresh_once(self):
         self._refresh()
