@@ -7,6 +7,7 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			"hrsh7th/cmp-nvim-lsp",
+			"b0o/schemastore.nvim",
 		},
 		config = function()
 			-- This function gets run when an LSP attaches to a particular buffer.
@@ -21,7 +22,7 @@ return {
 					-- When you move your cursor, the highlights will be cleared (the second autocommand).
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-					if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+					if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
 						local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
 
 						vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
@@ -66,7 +67,6 @@ return {
 						"[W]orkspace [S]ymbols"
 					)
 					lsp_map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-					lsp_map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 					lsp_map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 					lsp_map("<leader>k", vim.diagnostic.open_float, "Open Diagnostics")
 					lsp_map("K", function()
@@ -85,7 +85,25 @@ return {
 				eslint = {},
 				biome = {},
 				html = {},
-				jsonls = {},
+				jsonls = {
+					settings = {
+						json = {
+							schemas = require("schemastore").json.schemas(),
+							validate = { enable = true },
+						},
+					},
+				},
+				yamlls = {
+					settings = {
+						yaml = {
+							schemaStore = {
+								enable = false,
+								url = "",
+							},
+							schemas = require("schemastore").yaml.schemas(),
+						},
+					},
+				},
 				marksman = {},
 				mdx_analyzer = {},
 				tailwindcss = {},
@@ -115,19 +133,13 @@ return {
 
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-			---@diagnostic disable-next-line: missing-fields
-			require("mason-lspconfig").setup({
-				handlers = {
-					function(server_name)
-						local server = servers[server_name] or {}
-						-- This handles overriding only values explicitly passed
-						-- by the server configuration above. Useful when disabling
-						-- certain features of an LSP (for example, turning off formatting for tsserver)
-						server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-						require("lspconfig")[server_name].setup(server)
-					end,
-				},
-			})
+			for server_name, server in pairs(servers) do
+				server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+				vim.lsp.config(server_name, server)
+			end
+
+			require("mason-lspconfig").setup({ automatic_enable = false })
+			vim.lsp.enable(vim.tbl_keys(servers))
 
 			vim.diagnostic.config({
 				signs = {
@@ -195,6 +207,23 @@ return {
 				},
 			})
 			vim.diagnostic.config({ virtual_text = false })
+		end,
+	},
+	{
+		"rachartier/tiny-code-action.nvim",
+		dependencies = {
+			-- optional picker via telescope
+			{ "nvim-telescope/telescope.nvim" },
+		},
+		event = "LspAttach",
+		opts = {},
+		config = function()
+			local tiny_code_action = require("tiny-code-action")
+			tiny_code_action.setup({})
+
+			vim.keymap.set({ "n", "x" }, "<leader>ca", function()
+				tiny_code_action.code_action({})
+			end, { noremap = true, silent = true })
 		end,
 	},
 }

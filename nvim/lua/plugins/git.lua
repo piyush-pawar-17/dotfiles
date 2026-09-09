@@ -93,8 +93,10 @@ return {
 
 	{
 		"akinsho/git-conflict.nvim",
-		version = "*",
 		config = function()
+			-- git-conflict.nvim still reads the deprecated alias during module initialization.
+			vim.highlight = vim.hl
+
 			vim.api.nvim_set_hl(0, "GitConflictCurrent", {
 				bg = "#556D9E",
 			})

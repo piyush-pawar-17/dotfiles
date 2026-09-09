@@ -1,39 +1,4 @@
 return {
-	{
-		"MunifTanjim/prettier.nvim",
-		config = function()
-			local prettier = require("prettier")
-
-			prettier.setup({
-				bin = "prettier",
-				filetypes = {
-					"css",
-					"html",
-					"javascript",
-					"javascriptreact",
-					"json",
-					"markdown",
-					"scss",
-					"typescript",
-					"typescriptreact",
-				},
-				cli_options = {
-					arrow_parens = "always",
-					bracket_spacing = true,
-					embedded_language_formatting = "auto",
-					html_whitespace_sensitivity = "css",
-					jsx_single_quote = false,
-					prose_wrap = "preserve",
-					quote_props = "as-needed",
-					semi = true,
-					single_quote = true,
-					tab_width = 4,
-					use_tabs = false,
-					trailing_comma = "none",
-				},
-			})
-		end,
-	},
 	{ -- Autoformat
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
