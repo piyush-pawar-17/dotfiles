@@ -112,7 +112,7 @@ cd ~/code/dotfiles
 ## Link Dotfiles with Stow
 
 The repository `.stowrc` targets `~/.config` and excludes non-configuration
-directories such as `backgrounds/`, `docs/`, `windows/`, `mac/`, and `systemd/`. Preview the
+directories such as `assets/`, `docs/`, `windows/`, `mac/`, and `systemd/`. Preview the
 links first, resolve any conflicts with existing files, then create the
 symlinks:
 

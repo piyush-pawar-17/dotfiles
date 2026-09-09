@@ -8,6 +8,12 @@ picture {
   opacity: 0.7;
 }
 
+picture.profile-picture {
+  opacity: 1;
+  border: 1px solid #585b70;
+  border-radius: 8px;
+}
+
 frame.background {
   background-color: rgba(30, 30, 46, 0.92);
   border: 1px solid #45475a;
