@@ -1,0 +1,22 @@
+skip_selection = false
+
+[background]
+path = "/usr/share/backgrounds/lofi-cat.png"
+fit = "Cover"
+
+[GTK]
+application_prefer_dark_theme = true
+cursor_blink = true
+font_name = "GeistMono Nerd Font 12"
+
+[commands]
+reboot = ["loginctl", "reboot"]
+poweroff = ["loginctl", "poweroff"]
+
+[appearance]
+greeting_msg = "Welcome back"
+
+[widget.clock]
+format = "%A, %d %B %Y"
+resolution = "60s"
+label_width = 300

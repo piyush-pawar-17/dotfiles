@@ -1,0 +1,133 @@
+window {
+  background-color: #11111b;
+  color: #cdd6f4;
+  font-size: 12px;
+}
+
+picture {
+  opacity: 0.7;
+}
+
+frame.background {
+  background-color: rgba(30, 30, 46, 0.92);
+  border: 1px solid #45475a;
+  border-radius: 18px;
+  box-shadow: 0 14px 32px rgba(17, 17, 27, 0.58);
+}
+
+frame.background grid {
+  margin: 0;
+}
+
+frame.background label,
+frame.clock label {
+  color: #cdd6f4;
+}
+
+frame.clock {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  font-size: 16px;
+}
+
+entry,
+passwordentry,
+combobox button {
+  min-height: 26px;
+  background-color: #313244;
+  background-image: none;
+  border: 1px solid #585b70;
+  border-radius: 8px;
+  box-shadow: none;
+  color: #cdd6f4;
+  padding: 0 10px;
+}
+
+entry:focus,
+passwordentry:focus,
+combobox button:focus {
+  border-color: #cba6f7;
+  box-shadow: 0 0 0 1px #cba6f7;
+}
+
+button {
+  min-height: 28px;
+  border-radius: 8px;
+  background-color: #45475a;
+  background-image: none;
+  border: 1px solid #585b70;
+  box-shadow: none;
+  color: #cdd6f4;
+  padding: 0 12px;
+}
+
+button:hover {
+  background-color: #585b70;
+}
+
+button.suggested-action {
+  min-width: 80px;
+  background-color: #cba6f7;
+  background-image: none;
+  border-color: #f5c2e7;
+  color: #000000;
+  font-weight: 700;
+}
+
+button.suggested-action label {
+  color: #000000;
+}
+
+button.icon-button {
+  min-width: 22px;
+  min-height: 22px;
+  background: transparent;
+  background-image: none;
+  border: none;
+  border-radius: 8px;
+  color: #a6adc8;
+  padding: 0;
+}
+
+button.icon-button:hover {
+  background: transparent;
+  color: #cba6f7;
+}
+
+button.edit-button {
+  min-width: 22px;
+  min-height: 22px;
+  background-color: #45475a;
+  background-image: none;
+  border: 1px solid #585b70;
+  border-radius: 8px;
+  color: #bac2de;
+  padding: 0;
+}
+
+button.edit-button:hover {
+  background-color: #585b70;
+  color: #cba6f7;
+}
+
+button.edit-button image {
+  -gtk-icon-size: 10px;
+}
+
+passwordentry image {
+  -gtk-icon-size: 14px;
+}
+
+entry selection,
+passwordentry selection {
+  background-color: #cba6f7;
+  color: #1e1e2e;
+}
+
+infobar {
+  background-color: #181825;
+  border: 1px solid #45475a;
+  border-radius: 10px;
+  color: #cdd6f4;
+}
