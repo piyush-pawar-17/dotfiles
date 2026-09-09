@@ -27,7 +27,6 @@ install -m 0644 "$root_dir/greetd/hyprland.lua" /etc/greetd/hyprland.lua
 install -m 0644 "$root_dir/greetd/regreet.toml" /etc/greetd/regreet.toml
 install -m 0644 "$root_dir/greetd/regreet.css" /etc/greetd/regreet.css
 install -m 0644 "$root_dir/assets/lofi-cat.png" /usr/share/backgrounds/lofi-cat.png
-install -m 0644 "$root_dir/assets/profile-picture.jpg" /usr/share/backgrounds/profile-picture.jpg
 
 # ReGreet uses this cache to select the regular user and Hyprland initially.
 install -d -m 0755 -o greeter -g greeter /var/lib/regreet
