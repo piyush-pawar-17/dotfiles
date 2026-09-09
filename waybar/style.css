@@ -134,6 +134,7 @@ tooltip label {
 #pulseaudio,
 #custom-brightness,
 #custom-connectivity,
+#custom-recording,
 #custom-notification,
 #cpu,
 #memory,
@@ -151,6 +152,7 @@ tooltip label {
 #custom-mpris:hover,
 #custom-brightness:hover,
 #custom-connectivity:hover,
+#custom-recording:hover,
 #custom-notification:hover,
 #battery:hover,
 #cpu:hover,
@@ -197,6 +199,21 @@ tooltip label {
 #custom-notification {
     color: #cba6f7;
     margin-right: 8px;
+}
+
+#custom-recording {
+    color: #f38ba8;
+}
+
+#custom-recording.recording {
+    animation: blink 1s steps(2) infinite alternate;
+}
+
+#custom-recording.hidden {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
 }
 
 #cpu,

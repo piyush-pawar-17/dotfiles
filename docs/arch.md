@@ -47,8 +47,8 @@ Install the desktop packages used by the Hyprland and Waybar configuration:
 yay -S --needed \
   bibata-cursor-theme bluez bluez-utils brightnessctl ddcutil hyprland hyprlock hyprpaper hyprpolkitagent \
   libadwaita networkmanager python-gobject \
-  gtk4 hyprshot papirus-icon-theme papers playerctl pipewire qt6ct swaync thunar vlc vlc-plugins-all \
-  waybar wireplumber \
+  gtk4 hyprshot papirus-icon-theme papers playerctl pipewire qt6ct slurp swaync thunar vlc vlc-plugins-all \
+  waybar wf-recorder wireplumber \
   xdg-desktop-portal-gtk xdg-desktop-portal-hyprland
 
 yay -S --needed catppuccin-gtk-theme-mocha ghostty google-chrome orbit-wifi \

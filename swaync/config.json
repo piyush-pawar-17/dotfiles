@@ -24,7 +24,7 @@
     "hide-on-clear": false,
     "hide-on-action": true,
     "text-empty": "All caught up",
-    "widgets": ["title", "dnd", "notifications", "buttons-grid"],
+    "widgets": ["title", "dnd", "notifications", "buttons-grid#record-start", "buttons-grid#record-stop"],
     "widget-config": {
         "title": {
             "text": "Notifications",
@@ -34,16 +34,25 @@
         "dnd": {
             "text": "Do Not Disturb"
         },
-        "buttons-grid": {
+        "buttons-grid#record-start": {
             "buttons-per-row": 2,
             "actions": [
                 {
-                    "label": "󰐥 Shutdown",
-                    "command": "systemctl poweroff"
+                    "label": "Full screen",
+                    "command": "sh ~/.config/swaync/record-toggle.sh full"
                 },
                 {
-                    "label": "󰌾 Lock",
-                    "command": "hyprlock"
+                    "label": "Record area",
+                    "command": "sh ~/.config/swaync/record-toggle.sh area"
+                }
+            ]
+        },
+        "buttons-grid#record-stop": {
+            "buttons-per-row": 1,
+            "actions": [
+                {
+                    "label": "Stop recording",
+                    "command": "sh ~/.config/swaync/record-toggle.sh stop"
                 }
             ]
         },

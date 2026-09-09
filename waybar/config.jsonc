@@ -23,7 +23,7 @@
         "interval": "once"
     },
     "modules-center": ["custom/ycal"],
-    "modules-right": ["custom/mpris", "pulseaudio", "custom/brightness", "custom/connectivity", "battery", "cpu", "memory", "tray", "custom/notification"],
+    "modules-right": ["custom/mpris", "pulseaudio", "custom/brightness", "custom/connectivity", "battery", "cpu", "memory", "custom/recording", "tray", "custom/notification"],
     "custom/workspace-1": {
         "exec": "python3 ~/.config/waybar/workspace.py 1",
         "return-type": "json",
@@ -103,6 +103,12 @@
         "on-click": "swaync-client -t -sw",
         "on-click-right": "swaync-client -d -sw",
         "escape": true
+    },
+    "custom/recording": {
+        "exec": "sh ~/.config/waybar/recording-status.sh",
+        "return-type": "json",
+        "interval": 1,
+        "on-click": "sh ~/.config/swaync/record-toggle.sh area"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",

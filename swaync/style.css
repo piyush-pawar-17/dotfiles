@@ -296,21 +296,45 @@
 }
 
 .widget-buttons-grid flowboxchild:first-child > button {
-    background: #f38ba8;
+    background: #a6e3a1;
     color: #1e1e2e;
 }
 
 .widget-buttons-grid flowboxchild:first-child > button:hover {
-    background: #eba0ac;
+    background: #94e2d5;
 }
 
 .widget-buttons-grid flowboxchild:nth-child(2) > button {
-    background: #f9e2af;
+    background: #a6e3a1;
     color: #1e1e2e;
 }
 
 .widget-buttons-grid flowboxchild:nth-child(2) > button:hover {
-    background: #f5e0dc;
+    background: #94e2d5;
+}
+
+.widget-buttons-grid.record-stop flowboxchild > button {
+    background: #f38ba8;
+}
+
+.widget-buttons-grid.record-stop flowboxchild > button:hover {
+    background: #eba0ac;
+}
+
+.widget-buttons-grid.record-start {
+    margin-bottom: 0;
+}
+
+.widget-buttons-grid.record-start flowboxchild > button {
+    margin-bottom: 0;
+}
+
+.widget-buttons-grid.record-stop {
+    margin-top: 0;
+}
+
+.widget-buttons-grid.record-stop flowboxchild > button {
+    margin-top: 0;
 }
 
 .close-button {
