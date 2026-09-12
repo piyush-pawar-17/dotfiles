@@ -25,8 +25,18 @@ local function project_dir()
 	return vim.fs.root(cwd, { ".git" }) or cwd
 end
 
+local function current_dir()
+	local cwd = vim.fn.getcwd()
+	return vim.uv.fs_realpath(cwd) or cwd
+end
+
 local function notify_error(message)
 	vim.notify("OpenCode: " .. message, vim.log.levels.ERROR)
+end
+
+local function command_error(result)
+	local stderr = result.stderr or ""
+	return vim.trim(stderr ~= "" and stderr or result.stdout or "")
 end
 
 local function api(project, method, path, body, callback, on_error)
@@ -50,7 +60,7 @@ local function api(project, method, path, body, callback, on_error)
 	vim.system(args, { cwd = project, text = true }, function(result)
 		vim.schedule(function()
 			if result.code ~= 0 then
-				local message = vim.trim(result.stderr ~= "" and result.stderr or result.stdout)
+				local message = command_error(result)
 				fail(message ~= "" and message or "API request failed")
 				return
 			end
@@ -83,7 +93,7 @@ local function tmux_available()
 	return vim.env.TMUX and vim.fn.executable("tmux") == 1
 end
 
-local function open_in_tmux(session, project)
+local function open_in_tmux(session, directory)
 	if not tmux_available() then
 		notify_error("tmux is required to open the external OpenCode window")
 		return
@@ -93,16 +103,18 @@ local function open_in_tmux(session, project)
 		"tmux",
 		"new-window",
 		"-d",
+		"-c",
+		directory,
 		"-n",
 		"opencode",
 		"opencode",
 		"--session",
 		session,
-		project,
+		directory,
 	}, { text = true }, function(result)
 		vim.schedule(function()
 			if result.code ~= 0 then
-				local message = vim.trim(result.stderr ~= "" and result.stderr or result.stdout)
+				local message = command_error(result)
 				notify_error(message ~= "" and message or "could not create the tmux window")
 				return
 			end
@@ -112,7 +124,7 @@ local function open_in_tmux(session, project)
 	end)
 end
 
-local function find_tmux_pane(session, project, callback)
+local function find_tmux_pane(session, directory, callback)
 	if not tmux_available() then
 		notify_error("tmux is required to stage text in the external OpenCode window")
 		return
@@ -123,7 +135,7 @@ local function find_tmux_pane(session, project, callback)
 		"list-panes",
 		"-a",
 		"-F",
-		"#{pane_id}\t#{window_index}\t#{pane_current_command}\t#{pane_start_command}",
+		"#{pane_id}\t#{pane_current_path}\t#{window_index}\t#{pane_current_command}\t#{pane_start_command}",
 	}, { text = true }, function(result)
 		vim.schedule(function()
 			if result.code ~= 0 then
@@ -133,10 +145,11 @@ local function find_tmux_pane(session, project, callback)
 
 			local opencode_panes = {}
 			for line in vim.gsplit(result.stdout, "\n", { plain = true, trimempty = true }) do
-				local pane, window, current_command, start_command = line:match("^([^\t]+)\t([^\t]+)\t([^\t]*)\t(.*)$")
+				local pane, pane_path, window, current_command, start_command =
+					line:match("^([^\t]+)\t([^\t]+)\t([^\t]+)\t([^\t]*)\t(.*)$")
 				local pane_session = start_command:match("%-%-session%s+(ses[%w_-]+)")
 				local expected = session and start_command:find(session, 1, true)
-				if pane and (current_command:match("^opencode") or expected) then
+				if pane and pane_path == directory and (current_command:match("^opencode") or expected) then
 					pane_session = pane_session or (expected and session or nil)
 					table.insert(opencode_panes, { pane = pane, window = window, session = pane_session })
 				end
@@ -150,7 +163,7 @@ local function find_tmux_pane(session, project, callback)
 			if #opencode_panes > 1 then
 				local remaining = #opencode_panes
 				for _, item in ipairs(opencode_panes) do
-					session_title(project, item.session, function(title)
+					session_title(directory, item.session, function(title)
 						item.title = title
 						remaining = remaining - 1
 						if remaining ~= 0 then
@@ -172,7 +185,7 @@ local function find_tmux_pane(session, project, callback)
 				return
 			end
 
-			notify_error("no OpenCode tmux pane was found; use <leader>on to open one")
+			notify_error("no OpenCode tmux pane was found for " .. directory .. "; use <leader>on to open one")
 		end)
 	end)
 end
@@ -215,59 +228,15 @@ local function range(visual)
 	local first, last = cursor, cursor
 
 	if visual then
-		first = vim.fn.getpos("'<")[2]
-		last = vim.fn.getpos("'>")[2]
-		if first == 0 or last == 0 then
-			first, last = cursor, cursor
+		first = vim.fn.getpos("v")[2]
+		last = cursor
+		if first == 0 then
+			first = vim.fn.getpos("'<")[2]
+			last = vim.fn.getpos("'>")[2]
 		end
 	end
 
 	return buffer, math.min(first, last), math.max(first, last)
-end
-
-local function context(visual)
-	local buffer, first, last = range(visual)
-	local path = vim.api.nvim_buf_get_name(buffer)
-	local description = path ~= ""
-		and ("Current editor context: %s, lines %d-%d."):format(path, first, last)
-		or ("Current editor context: unnamed buffer, lines %d-%d."):format(first, last)
-
-	local files = path ~= "" and { { uri = vim.uri_from_fname(path) } } or nil
-	return description, files
-end
-
-local function send(prompt, visual)
-	local project = project_dir()
-	local description, files = context(visual)
-	local body = {
-		text = prompt .. "\n\n" .. description,
-	}
-	if files then
-		body.files = files
-	end
-
-	ensure_session(project, function(session)
-		api(project, "post", "/api/session/" .. session .. "/prompt", body, function()
-			vim.notify("Sent to OpenCode session " .. session)
-		end)
-	end)
-end
-
---- Ask OpenCode about the current cursor position or visual selection.
----@param visual boolean
-function M.ask(visual)
-	vim.ui.input({ prompt = "Ask OpenCode: " }, function(prompt)
-		if prompt and prompt ~= "" then
-			send(prompt, visual)
-		end
-	end)
-end
-
---- Send a ready-made prompt with the current cursor position or visual selection.
----@param prompt string
----@param visual boolean
-function M.prompt(prompt, visual)
-	send(prompt, visual)
 end
 
 --- Insert the current file location into the external OpenCode tmux pane.
@@ -284,11 +253,11 @@ function M.reference(visual)
 	local relative = vim.fs.relpath(project, path) or path
 	local location = first == last and ("%s:%d"):format(relative, first) or ("%s:%d-%d"):format(relative, first, last)
 	location = "@" .. location
-	find_tmux_pane(sessions[project], project, function(pane)
+	find_tmux_pane(sessions[project], current_dir(), function(pane)
 		vim.system({ "tmux", "send-keys", "-t", pane, "-l", location }, { text = true }, function(result)
 			vim.schedule(function()
 				if result.code ~= 0 then
-					local message = vim.trim(result.stderr ~= "" and result.stderr or result.stdout)
+					local message = command_error(result)
 					notify_error(message ~= "" and message or "could not insert text into the OpenCode pane")
 					return
 				end
@@ -299,59 +268,23 @@ function M.reference(visual)
 end)
 end
 
---- Select a common prompt to send with the current editor context.
----@param visual boolean
-function M.select(visual)
-	local prompts = {
-		{ label = "Ask…" },
-		{ label = "Explain", prompt = "Explain this context." },
-		{ label = "Review", prompt = "Review this context for correctness and readability." },
-		{ label = "Fix", prompt = "Fix the issues in this context." },
-		{ label = "Implement", prompt = "Implement the requested change in this context." },
-		{ label = "Optimize", prompt = "Optimize this context for performance and readability." },
-		{ label = "Test", prompt = "Add tests for this context." },
-	}
-
-	vim.ui.select(prompts, {
-		prompt = "OpenCode",
-		format_item = function(item)
-			return item.label
-		end,
-	}, function(item)
-		if not item then
-			return
-		end
-		if item.prompt then
-			send(item.prompt, visual)
-		else
-			M.ask(visual)
-		end
-	end)
-end
-
 --- Create a fresh project session in a detached tmux window.
 function M.new_session()
 	local project = project_dir()
 	sessions[project] = nil
 	save_sessions()
 	ensure_session(project, function(session)
-		open_in_tmux(session, project)
+		open_in_tmux(session, current_dir())
 	end)
 end
 
 local map = require("utils.keymap").map
-local function visual_mode()
-	return vim.tbl_contains({ "v", "V", "\22" }, vim.fn.mode())
-end
 
-map({ "n", "x" }, "<C-c><C-w>", function()
-	M.ask(visual_mode())
-end, { desc = "Ask OpenCode" })
-map({ "n", "x" }, "<leader>os", function()
-	M.select(visual_mode())
-end, { desc = "Execute OpenCode action…" })
-map({ "n", "x" }, "<C-c><C-c>", function()
-	M.reference(visual_mode())
+map("n", "<C-c><C-c>", function()
+	M.reference(false)
+end, { desc = "Insert file location in OpenCode" })
+map("x", "<C-c><C-c>", function()
+	M.reference(true)
 end, { desc = "Insert file location in OpenCode" })
 map("n", "<leader>on", M.new_session, { desc = "New OpenCode session" })
 
