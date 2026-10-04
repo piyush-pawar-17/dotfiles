@@ -56,6 +56,7 @@ sudo apt install wslu # Only when running Ubuntu in WSL
 npm install -g hunkdiff # Better git diffs
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 curl -fsSL https://opencode.ai/install | bash
+curl -fsSL https://claude.ai/install.sh | bash
 mkdir -p ~/.local/bin
 ln -s $(which fdfind) ~/.local/bin/fd # For Snacks.nvim search
 ```

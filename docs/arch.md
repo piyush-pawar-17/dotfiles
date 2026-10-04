@@ -39,6 +39,7 @@ yay -S --needed \
 npm install -g hunkdiff prettier
 curl -fsSL https://get.pnpm.io/install.sh | sh -
 curl -fsSL https://opencode.ai/install | bash
+curl -fsSL https://claude.ai/install.sh | bash
 ```
 
 Install the desktop packages used by the Hyprland and Waybar configuration:
