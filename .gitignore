@@ -1,3 +1,4 @@
 tmux/plugins/
 zsh/.zcompdump
 __pycache__/
+*.bak.*

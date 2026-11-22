@@ -1,8 +1,11 @@
 {
-	"workspace": {
-		"library": ["/usr/share/hypr/stubs"]
-	},
-	"diagnostics": {
-		"globals": ["hl"]
-	}
+  "workspace": {
+    "library": [
+      "/usr/share/hypr/stubs"
+    ],
+    "checkThirdParty": false
+  },
+  "diagnostics": {
+    "globals": ["hl", "o"]
+  }
 }

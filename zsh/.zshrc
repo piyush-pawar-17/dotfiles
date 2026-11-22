@@ -70,10 +70,14 @@ fpath+=${ZDOTDIR:-~}/.zsh_functions
 export PATH="$PATH:/opt/nvim/"
 export PATH="$PATH:$HOME/.local/bin/"
 export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$(go env GOPATH)/bin"
+(( $+commands[go] )) && export PATH="$PATH:$(go env GOPATH)/bin"
 export VISUAL=nvim
 export EDITOR=nvim
-export BROWSER=wslview
+if (( $+commands[wslview] )); then
+  export BROWSER=wslview
+else
+  export BROWSER=xdg-open
+fi
 export COLORTERM=truecolor
 
 export NVM_DIR="$HOME/.config/nvm"
@@ -101,3 +105,6 @@ esac
 
 # opencode
 export PATH=/home/piyush/.opencode/bin:$PATH
+
+# mise
+(( $+commands[mise] )) && eval "$(mise activate zsh)"

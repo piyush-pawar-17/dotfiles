@@ -5,6 +5,3 @@
 --ignore=windows
 --ignore=mac
 --ignore=docs
---ignore=systemd
---ignore=patches
---ignore=assets
