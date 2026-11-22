@@ -131,8 +131,8 @@ and the Zsh plugins.
 `hypr/` holds Omarchy's user Hyprland files. `hyprland.lua` loads Omarchy's
 defaults, then the personal overrides in the other files:
 
-- `monitors.lua`: monitor layout, the cursor's start monitor, and the workspace
-  1 rule. Replace `eDP-1` and `HDMI-A-1` with the output names reported by
+- `monitors.lua`: monitor layout and the cursor's start monitor.
+  Replace `eDP-1` and `HDMI-A-1` with the output names reported by
   `hyprctl monitors`, and adjust the positions and scale for the machine.
 - `input.lua`: keyboard layout, key repeat, click-to-focus, and touchpad
   scrolling and gestures
@@ -149,6 +149,30 @@ After editing, check for errors:
 hyprctl reload
 hyprctl configerrors
 ```
+
+## Configure the Bar Workspace Widget
+
+`omarchy/plugins/piyush.workspaces` is a copy of Omarchy's workspace bar widget
+that shows the workspace in Catppuccin Mocha red on the focused monitor's bar
+only, so it is clear which monitor has focus. It lists only workspaces with
+apps open, plus the one each monitor is showing. Link it into Omarchy's plugin
+directory:
+
+```sh
+mkdir -p ~/.config/omarchy/plugins
+ln -s ~/code/dotfiles/omarchy/plugins/piyush.workspaces \
+  ~/.config/omarchy/plugins/piyush.workspaces
+```
+
+In `~/.config/omarchy/shell.json`, replace `"id": "omarchy.workspaces"` with
+`"id": "piyush.workspaces"` in the bar layout, then restart the shell:
+
+```sh
+omarchy restart shell
+```
+
+The shell does not reload this widget when its file is saved, so restart the
+shell after every edit.
 
 ## Configure Middle-Click Autoscroll
 

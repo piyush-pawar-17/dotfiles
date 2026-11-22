@@ -18,6 +18,8 @@ configuration is linked into `~/.config`.
 - `ghostty/`, `alacritty/`: Terminal configuration
 - `bat/`, `fastfetch/`, `hunk/`: CLI tool settings
 - `hypr/`: Omarchy Hyprland overrides (monitors, input, bindings, look and feel)
+- `omarchy/plugins/`: Omarchy shell plugins, such as the bar workspace widget
+  that highlights the focused monitor
 - `windows/`: GlazeWM and Zebar configuration
 - `mac/`: AeroSpace configuration
 

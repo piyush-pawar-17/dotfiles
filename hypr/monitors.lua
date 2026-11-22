@@ -1,6 +1,7 @@
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 -- List current monitors and supported resolutions with: hyprctl monitors all
--- Monitor settings copied from ~/code/github/dotfiles/hypr/hyprland.lua
+-- Omarchy gives each monitor its own workspaces 1-10, so don't pin workspace
+-- numbers to a monitor here.
 
 hl.monitor({
 	output = "",
@@ -24,14 +25,7 @@ hl.monitor({
 })
 
 -- Start cursor (and initial focus) on the BenQ on login
-hl.config({ cursor = { default_monitor = "HDMI-A-1", no_warps = true } })
-
--- Workspace 1 lives on the BenQ (only applies while it's attached)
-hl.workspace_rule({
-	workspace = "1",
-	monitor = "HDMI-A-1",
-	default = true,
-})
+hl.config({ cursor = { default_monitor = "HDMI-A-1" } })
 
 -- GDK scale is GDK_SCALE, the factor GTK draws its own UI at. GTK only honors
 -- whole numbers, so use the nearest integer to the monitor scale.
