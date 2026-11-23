@@ -53,3 +53,13 @@
 --     column_width = 0.97,
 --   },
 -- })
+
+-- Focused window border matches the bar's focused-workspace colour (Catppuccin Mocha red)
+hl.config({
+  general = {
+    col = { active_border = "rgba(f38ba8bb)" },
+  },
+  group = {
+    col = { border_active = "rgba(f38ba8bb)" },
+  },
+})

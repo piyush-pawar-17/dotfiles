@@ -3,21 +3,11 @@ return {
 	{ "tpope/vim-surround" },
 	{ "folke/twilight.nvim", opts = {} },
 	{ "eandrju/cellular-automaton.nvim" },
-	{ "mbbill/undotree" },
 	{ "kevinhwang91/nvim-bqf", event = "VeryLazy", opts = {} },
-	{ "JoosepAlviste/nvim-ts-context-commentstring", opts = { enable_autocmd = false } },
 	{ "j-hui/fidget.nvim", opts = {} },
 
-	{
-		"numToStr/Comment.nvim",
-		lazy = false,
-		config = function()
-			---@diagnostic disable-next-line: missing-fields
-			require("Comment").setup({
-				pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
-			})
-		end,
-	},
+	-- Treesitter-aware commentstring (e.g. JSX in TSX) for Neovim's built-in `gc`/`gcc`
+	{ "folke/ts-comments.nvim", event = "VeryLazy", opts = {} },
 
 	-- Highlight todo, notes, etc in comments
 	{

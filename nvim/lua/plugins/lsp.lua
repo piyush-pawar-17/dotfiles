@@ -103,7 +103,6 @@ return {
 				marksman = {},
 				mdx_analyzer = {},
 				tailwindcss = {},
-				prettierd = {},
 				lua_ls = {
 					settings = {
 						Lua = {

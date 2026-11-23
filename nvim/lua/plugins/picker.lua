@@ -29,13 +29,16 @@ end
 
 local function harpoon_marks()
 	local items = {}
-	for idx, mark in ipairs(require("harpoon").get_mark_config().marks) do
-		if mark.filename and mark.filename ~= "" then
+	local list = require("harpoon"):list()
+	for idx = 1, list:length() do
+		local mark = list:get(idx) -- the list can have holes after removals
+		if mark and mark.value ~= "" then
+			local ctx = mark.context or {}
 			items[#items + 1] = {
 				idx = idx,
-				text = mark.filename,
-				file = mark.filename,
-				pos = { math.max(mark.row or 1, 1), mark.col or 0 },
+				text = mark.value,
+				file = mark.value,
+				pos = { math.max(ctx.row or 1, 1), ctx.col or 0 },
 			}
 		end
 	end

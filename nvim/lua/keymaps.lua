@@ -38,5 +38,15 @@ map("n", "<M-.>", ":vertical resize +5<CR>", { desc = "Resize Vertical Split Up"
 -- Buffers
 map("n", "<leader>l", ":b#<CR>", { desc = "[L]ast Buffer", noremap = false, silent = true })
 
+-- Block comments (built-in `gc` only does line comments)
+local block_comment = require("utils.block_comment")
+map({ "n", "x" }, "gb", block_comment.operator, { expr = true, desc = "Toggle block comment" })
+map("n", "gbc", function()
+	return block_comment.operator() .. "_"
+end, { expr = true, desc = "Toggle block comment on line" })
+
 -- Undotree
-map("n", "<leader>u", vim.cmd.UndotreeToggle)
+map("n", "<leader>u", function()
+	vim.cmd.packadd("nvim.undotree")
+	require("undotree").open()
+end, { desc = "Toggle [U]ndotree" })
