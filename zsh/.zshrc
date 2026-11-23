@@ -91,16 +91,11 @@ export NVM_DIR="$HOME/.config/nvm"
 source <(fzf --zsh)
 
 # pnpm
-export PNPM_HOME="/home/piyush/.local/share/pnpm"
+export PNPM_HOME='/home/piyush/.local/share/pnpm'
 case ":$PATH:" in
   *":$PNPM_HOME/bin:"*) ;;
   *) export PATH="$PNPM_HOME/bin:$PATH" ;;
 esac
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
 # pnpm end
 
 # opencode

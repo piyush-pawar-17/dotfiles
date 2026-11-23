@@ -6,7 +6,7 @@ return {
 			{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			"hrsh7th/cmp-nvim-lsp",
+			"saghen/blink.cmp",
 			"b0o/schemastore.nvim",
 		},
 		config = function()
@@ -51,21 +51,17 @@ return {
 						map("n", keys, func, { buffer = event.buf, silent = true, desc = "LSP: " .. desc })
 					end
 
-					lsp_map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+					lsp_map("gd", Snacks.picker.lsp_definitions, "[G]oto [D]efinition")
 					lsp_map("gr", ":Glance references<CR>", "[G]oto [R]eferences")
 					lsp_map("<leader>gt", ":Glance type_definitions<CR>", "[G]oto [T]ype Definitions")
 					lsp_map("gi", ":Glance implementations<CR>", "[G]oto [I]mplementation")
 					--  Useful when you're not sure what type a variable is and you want to see
 					--  the definition of its *type*, not where it was *defined*.
-					lsp_map("<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+					lsp_map("<leader>D", Snacks.picker.lsp_type_definitions, "Type [D]efinition")
 					lsp_map("<leader>fs", function()
-						require("telescope.builtin").lsp_document_symbols(require("telescope.themes").get_dropdown())
+						Snacks.picker.lsp_symbols({ layout = "dropdown" })
 					end, "[F]ind [S]ymbols")
-					lsp_map(
-						"<leader>ws",
-						require("telescope.builtin").lsp_dynamic_workspace_symbols,
-						"[W]orkspace [S]ymbols"
-					)
+					lsp_map("<leader>ws", Snacks.picker.lsp_workspace_symbols, "[W]orkspace [S]ymbols")
 					lsp_map("<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 					lsp_map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 					lsp_map("<leader>k", vim.diagnostic.open_float, "Open Diagnostics")
@@ -76,7 +72,7 @@ return {
 			})
 
 			local capabilities = vim.lsp.protocol.make_client_capabilities()
-			capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+			capabilities = require("blink.cmp").get_lsp_capabilities(capabilities)
 
 			local servers = {
 				ts_ls = {},
@@ -211,15 +207,11 @@ return {
 	},
 	{
 		"rachartier/tiny-code-action.nvim",
-		dependencies = {
-			-- optional picker via telescope
-			{ "nvim-telescope/telescope.nvim" },
-		},
+		dependencies = { "folke/snacks.nvim" },
 		event = "LspAttach",
-		opts = {},
 		config = function()
 			local tiny_code_action = require("tiny-code-action")
-			tiny_code_action.setup({})
+			tiny_code_action.setup({ picker = "snacks" })
 
 			vim.keymap.set({ "n", "x" }, "<leader>ca", function()
 				tiny_code_action.code_action({})

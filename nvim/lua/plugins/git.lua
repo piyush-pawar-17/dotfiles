@@ -33,13 +33,6 @@ return {
 				git_map("n", "<leader>tb", gs.toggle_current_line_blame, { desc = "[T]oggle [b]lame" })
 				git_map("n", "<leader>hp", gs.preview_hunk, { desc = "[H]unk [P]review" })
 
-				-- Telescope
-				git_map("n", "<leader>gb", function()
-					require("telescope.builtin").git_branches(require("telescope.themes").get_dropdown({
-						previewer = false,
-					}))
-				end, { desc = "[G]it [b]ranches" })
-
 				-- Text object
 				git_map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "[I]n [h]unk" })
 			end,
@@ -51,7 +44,7 @@ return {
 		dependencies = {
 			"nvim-lua/plenary.nvim", -- required
 			"sindrets/diffview.nvim",
-			"nvim-telescope/telescope.nvim",
+			"folke/snacks.nvim",
 		},
 		config = function()
 			local neogit = require("neogit")
@@ -60,6 +53,7 @@ return {
 			neogit.setup({
 				kind = "tab",
 				auto_close_console = false,
+				integrations = { telescope = false, snacks = true },
 				mappings = {
 					finder = {
 						["<c-j>"] = "Next",

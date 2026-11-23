@@ -21,8 +21,8 @@ return {
 			},
 			{
 				"<leader>xt",
-				"<cmd>Trouble telescope toggle focus=true<CR>",
-				desc = "Telescope List (Trouble)",
+				"<cmd>Trouble snacks toggle focus=true<CR>",
+				desc = "Snacks Picker List (Trouble)",
 			},
 			{
 				"<leader>xs",

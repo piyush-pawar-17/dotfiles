@@ -10,7 +10,6 @@ return {
 
 			map("n", "<leader>a", mark.add_file, { desc = "[A]dd file to harpoon" })
 			map("n", "<C-e>", ui.toggle_quick_menu, { desc = "Harpoon quick toggle" })
-			map("n", "<leader>hm", ":Telescope harpoon marks<CR>", { desc = "[H]arpoon [m]arks" })
 
 			map("n", "<leader>1", function()
 				ui.nav_file(1)

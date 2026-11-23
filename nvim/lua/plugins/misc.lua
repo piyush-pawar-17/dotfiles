@@ -31,7 +31,6 @@ return {
 
 			map("n", "]t", todo_comments.jump_next, { desc = "Next todo comment" })
 			map("n", "[t", todo_comments.jump_prev, { desc = "Previous todo comment" })
-			map("n", "<leader>tl", ":TodoTelescope<CR>", { desc = "Toggle todo list" })
 
 			todo_comments.setup()
 		end,
