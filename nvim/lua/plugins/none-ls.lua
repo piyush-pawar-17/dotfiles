@@ -27,6 +27,7 @@ return {
 				go = { "goimports", "gofumpt", "golines" },
 				sql = { "pg_format" },
 				markdown = { "prettier", "prettierd", stop_after_first = true },
+				dockerfile = { "dockerfmt" },
 			},
 			formatters = {
 				pg_format = {
@@ -44,5 +45,27 @@ return {
 				},
 			},
 		},
+	},
+	{ -- Linting
+		"mfussenegger/nvim-lint",
+		event = { "BufReadPost", "BufWritePost", "InsertLeave" },
+		config = function()
+			local lint = require("lint")
+			lint.linters_by_ft = {
+				dockerfile = { "hadolint" },
+			}
+
+			vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "InsertLeave" }, {
+				group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
+				callback = function()
+					if vim.bo.modifiable then
+						lint.try_lint()
+					end
+				end,
+			})
+
+			-- Lint the buffer that triggered lazy-loading
+			lint.try_lint()
+		end,
 	},
 }

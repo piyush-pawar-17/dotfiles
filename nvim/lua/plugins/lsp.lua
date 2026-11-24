@@ -115,6 +115,7 @@ return {
 				bashls = {},
 				clangd = {},
 				dockerls = {},
+				docker_compose_language_service = {},
 				gopls = {},
 				sqls = {},
 			}
@@ -124,6 +125,8 @@ return {
 			local ensure_installed = vim.tbl_keys(servers or {})
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
+				"hadolint", -- Dockerfile linter
+				"dockerfmt", -- Dockerfile formatter
 			})
 
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })

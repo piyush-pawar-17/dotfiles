@@ -6,6 +6,14 @@ vim.opt.termguicolors = true
 vim.cmd("syntax on")
 vim.cmd("filetype plugin indent on")
 
+-- Compose files get their own filetype so docker_compose_language_service attaches
+vim.filetype.add({
+	pattern = {
+		["docker%-compose[%w%.%-]*%.ya?ml"] = "yaml.docker-compose",
+		["compose[%w%.%-]*%.ya?ml"] = "yaml.docker-compose",
+	},
+})
+
 -- Disable swap files
 vim.opt.swapfile = false
 

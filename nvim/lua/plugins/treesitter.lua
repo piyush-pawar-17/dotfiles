@@ -35,7 +35,8 @@ return {
 			vim.api.nvim_create_autocmd("FileType", {
 				callback = function()
 					local ft = vim.bo.filetype
-					if vim.treesitter.language.add(ft) and vim.treesitter.query.get(ft, "highlights") then
+					local lang = vim.treesitter.language.get_lang(ft) or ft
+					if vim.treesitter.language.add(lang) and vim.treesitter.query.get(lang, "highlights") then
 						vim.treesitter.start()
 					else
 						vim.bo.syntax = vim.bo.filetype
