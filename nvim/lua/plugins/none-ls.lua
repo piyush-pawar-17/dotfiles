@@ -28,6 +28,7 @@ return {
 				sql = { "pg_format" },
 				markdown = { "prettier", "prettierd", stop_after_first = true },
 				dockerfile = { "dockerfmt" },
+				nginx = { "nginxfmt" },
 			},
 			formatters = {
 				pg_format = {

@@ -117,16 +117,23 @@ return {
 				dockerls = {},
 				docker_compose_language_service = {},
 				gopls = {},
+				nginx_language_server = {},
 				sqls = {},
 			}
 
 			require("mason").setup()
 
-			local ensure_installed = vim.tbl_keys(servers or {})
+			-- nginx-language-server needs Python <3.14, so Mason can't install it on
+			-- this system. Install it with: uv tool install --python 3.13 nginx-language-server
+			local not_from_mason = { nginx_language_server = true }
+			local ensure_installed = vim.tbl_filter(function(name)
+				return not not_from_mason[name]
+			end, vim.tbl_keys(servers or {}))
 			vim.list_extend(ensure_installed, {
 				"stylua", -- Used to format Lua code
 				"hadolint", -- Dockerfile linter
 				"dockerfmt", -- Dockerfile formatter
+				"nginx-config-formatter", -- nginx formatter (nginxfmt)
 			})
 
 			require("mason-tool-installer").setup({ ensure_installed = ensure_installed })

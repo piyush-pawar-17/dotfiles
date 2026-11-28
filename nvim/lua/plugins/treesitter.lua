@@ -21,6 +21,7 @@ return {
 				"luadoc",
 				"markdown",
 				"markdown_inline",
+				"nginx",
 				"query",
 				"scss",
 				"sql",
